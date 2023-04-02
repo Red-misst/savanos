@@ -1,0 +1,36 @@
+$purple-color: #5900ffb9;
+$cream-color: #f8f8f8;
+$shadow-1: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+.btn_primary{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;   
+    background-color: $purple-color;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    border: rgba(0, 0, 0, 0.2) 1px solid;
+}
+.btn_primary:hover{
+    background-color: #5900ffd5;
+}
+.btn_outlined{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;   
+    color: $purple-color;
+    background-color: $cream-color;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    border: rgba(0, 0, 0, 0.2) 1px solid;
+}
+.btn_outlined:hover{
+    background-color:  #5900ffd5;
+    color:#fff ;
+}
