@@ -1,0 +1,56 @@
+.login {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+
+  &_header {
+    max-width: 300px;
+    .back_svg {
+      font-size: large;
+      margin-right: 8px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 100%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      &:hover {
+        border-color: $purple-color;
+        svg {
+          fill: $purple-color;
+        }
+      }
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+    span {
+      font-weight: 600;
+      font-size: 14px;
+      a {
+        color: $purple-color;
+        cursor: pointer;
+        padding-bottom: 5px;
+        &:hover {
+          border-bottom: 1px solid $purple-color;
+        }
+      }
+    }
+  }
+  &_form{
+  
+    margin-top: 1rem;
+    h1{
+        font-size: 50px;
+        margin: 0;
+    }
+    p{
+        color: $text-grey;
+    }
+    form{
+        margin-top: 1.5rem;
+    }
+  }
+}

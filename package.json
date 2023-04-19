@@ -9,12 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next-auth/mongodb-adapter": "^1.1.1",
     "@react-native-async-storage/async-storage": "^1.18.1",
     "@redux-devtools/extension": "^3.2.5",
     "@reduxjs/toolkit": "^1.9.3",
-    "mongodb": "^5.1.0",
+    "bootstrap": "^5.2.3",
+    "formik": "^2.2.9",
+    "mongodb": "^5.2.0",
     "mongoose": "^7.0.3",
     "next": "13.2.4",
+    "next-auth": "^4.22.0",
     "next-redux-wrapper": "^8.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -24,7 +28,8 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
-    "sass": "^1.60.0"
+    "sass": "^1.60.0",
+    "yup": "^1.1.1"
   },
   "devDependencies": {
     "scheduler": "^0.23.0"

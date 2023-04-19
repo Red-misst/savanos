@@ -1,5 +1,13 @@
 $purple-color: #5900ffb9;
-$cream-color: #f8f8f8;
+$cream-color: #f8f8f8f5;
+$form-cream-color: #dfd9d9;
+$form-stroke: #6666669a;
+$form-fill: #6666669a;
+$light-cream-color: #eee;
+$white-color: #fff;
+$creamy-white-color: #ccc;
+$text-grey: #666;
+
 $shadow-1: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 .btn_primary{
     display: flex;
@@ -7,17 +15,19 @@ $shadow-1: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     justify-content: center;
     gap: 5px;   
     background-color: $purple-color;
-    color: #fff;
+    color: $white-color;
     font-weight: 600;
     cursor: pointer;
     border-radius: 5px;
     width: 100%;
     border: rgba(0, 0, 0, 0.2) 1px solid;
+    height: 40px;
 }
 .btn_primary:hover{
     background-color: #5900ffd5;
 }
 .btn_outlined{
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,5 +42,19 @@ $shadow-1: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .btn_outlined:hover{
     background-color:  #5900ffd5;
-    color:#fff ;
+    color:$white-color ;
+}
+
+.footer_h3{
+    margin-top: 0;
+    color: $text-grey;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.sticky_header{
+    position: sticky;
+    top: 0;
+   
+
 }

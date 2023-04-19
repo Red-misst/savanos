@@ -1,45 +1,52 @@
 import styles from "./styles.module.scss";
 import Link from "next/link";
-export default function UserMenu({ loggedIn }) {
+import { signOut, signIn } from "next-auth/react";
+export default function UserMenu({ session }) {
   return (
     <div className={styles.menu}>
       <h4>Welcome to MyDuka!</h4>
-      {loggedIn ? (
+      {session ? (
         <div className={styles.flex}>
           <img
-            src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmVhbCUyMHBlcnNvbnxlbnwwfHwwfHw%3D&w=1000&q=80"
+            src={session.user.image}
             alt="Profile"
             className={styles.menu_img}
           />
           <div className={styles.col}>
             <span>Welcome back</span>
-            <h3>John Kamau</h3>
-            <span>Sign out</span>
+            <h3>{session.user.name}</h3>
           </div>
         </div>
       ) : (
         <div className={styles.flex}>
-          <button className={styles.btn_primary}>Register</button>
-          <button className={styles.btn_outlined}>Login</button>
+          
+            <button className={styles.btn_primary}>Sign Up</button>
+            <button className={styles.btn_outlined} onClick={()=> signIn()}>Sign In</button>
+          
         </div>
       )}
-      <ul>
-        <li>
-          <Link href="/cart">Account</Link>
-        </li>
-        <li>
-          <Link href="/profile/cart">Cart</Link>
-        </li>
-        <li>
-          <Link href="/profile/wishlist">Wishlist</Link>
-        </li>
-        <li>
-          <Link href="/profile/orders">My Orders</Link>
-        </li>
-        <li>
-          <Link href="/profile/customer-care">Customer center</Link>
-        </li>
-      </ul>
+      {session && (
+        <ul>
+          <li>
+            <Link className="text-decoration-none" href="/cart">Account</Link>
+          </li>
+          <li>
+            <Link className="text-decoration-none" href="/profile/cart">Cart</Link>
+          </li>
+          <li>
+            <Link className="text-decoration-none" href="/profile/wishlist">Wishlist</Link>
+          </li>
+          <li>
+            <Link className="text-decoration-none" href="/profile/orders">My Orders</Link>
+          </li>
+          <li>
+            <Link className="text-decoration-none" href="/profile/customer-care">Customer center</Link>
+          </li>
+          <li>
+            <button className={styles.btn_primary} onClick={()=> signOut()}>Sign out</button>
+          </li>
+        </ul>
+      )}
     </div>
   );
 }

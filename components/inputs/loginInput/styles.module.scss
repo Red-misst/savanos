@@ -1,0 +1,37 @@
+.input{
+    position: relative;
+    max-width: 500px;
+    background-color:$form-cream-color ;
+    margin: 10px 0;
+    height: 55px;
+    border-radius: 55px;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    align-items: center;
+    margin-bottom: 1rem;
+    svg{
+        margin: 10px;
+        width: 25px;
+        height: 25px;
+        stroke: $form-stroke;
+        fill:$form-fill;
+    }
+    input{
+        background-color: #333;
+        padding:0 10px;
+        background: none !important;
+        border: none;
+        outline: none;
+        line-height: 1;
+        font-weight: 600;
+        font-size: 1.1rem;
+        color:#333 ;
+        &::placeholder{
+            color: #aaa;
+            font-weight: 400;
+        }
+    }
+}
+.error{
+    background-color: red;
+}

@@ -1,0 +1,37 @@
+import NextAuth from "next-auth";
+import GitHub from "next-auth/providers/github";
+import Twitter from "next-auth/providers/twitter"
+import Facebook from "next-auth/providers/facebook";
+import Google from "next-auth/providers/google";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import clientPromise from "./lib/mongodb";
+
+export default NextAuth({
+  adapter: MongoDBAdapter(clientPromise),
+  providers: [
+    Twitter({
+      clientId: process.env.TWITTER_ID,
+      clientSecret: process.env.TWITTER_SECRET,
+    }),
+    Google({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+    }),
+    Facebook({
+      clientId: process.env.FACEBOOK_ID,
+      clientSecret: process.env.FACEBOOK_SECRET,
+    }),
+    
+    GitHub({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET
+    }),
+  ],
+  pages:{
+    // signIn: "signin",
+  },
+  session:{
+    strategy: "jwt",
+  },
+  secret: process.env.JWT_SECRET,
+});

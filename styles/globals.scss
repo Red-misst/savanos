@@ -2,16 +2,18 @@
   margin: 0;
   box-sizing: border-box;
   padding: 0;
-
   &::before,
   &::after {
     box-sizing: border-box;
   }
 }
 body {
-  font-family: sans-serif;
+  font-family: 'Poppins', sans-serif !important;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+}
+body::-webkit-scrollbar{
+  display: none;
 }
 button,
 input,
