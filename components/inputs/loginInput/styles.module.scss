@@ -1,37 +1,74 @@
-.input{
-    position: relative;
-    max-width: 500px;
-    background-color:$form-cream-color ;
-    margin: 10px 0;
-    height: 55px;
-    border-radius: 55px;
-    display: grid;
-    grid-template-columns: 15% 85%;
-    align-items: center;
-    margin-bottom: 1rem;
-    svg{
-        margin: 10px;
-        width: 25px;
-        height: 25px;
-        stroke: $form-stroke;
-        fill:$form-fill;
+.input {
+  position: relative;
+  max-width: 500px;
+  background-color: $form-cream-color;
+  margin: 10px 0;
+  height: 55px;
+  border-radius: 55px;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  align-items: center;
+  margin-bottom: 1rem;
+  svg {
+    margin: 10px;
+    width: 25px;
+    height: 25px;
+    stroke: $form-stroke;
+    fill: $form-fill;
+  }
+  input {
+    background-color: #333;
+    padding: 0 10px;
+    background: none !important;
+    border: none;
+    outline: none;
+    line-height: 1;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+    &::placeholder {
+      color: #aaa;
+      font-weight: 400;
     }
-    input{
-        background-color: #333;
-        padding:0 10px;
-        background: none !important;
-        border: none;
-        outline: none;
-        line-height: 1;
-        font-weight: 600;
-        font-size: 1.1rem;
-        color:#333 ;
-        &::placeholder{
-            color: #aaa;
-            font-weight: 400;
-        }
-    }
+  }
 }
-.error{
-    background-color: red;
+.error {
+  background-color: $error-color-light !important;
+  margin-top: 5rem !important;
+  input {
+    color: $white-color !important;
+    &::placeholder {
+      color: $white-color !important;
+    }
+  }
+  svg {
+    stroke: $white-color !important;
+    fill: $white-color !important;
+  }
+}
+
+.error_popup{
+  padding: 10px;
+    position: absolute;
+    top: -70px;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    background-color: $error-color;
+    display: grid;
+    place-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    color: $cream-color;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 1;
+   span {
+    position: absolute;
+    bottom: -9px;
+    left: 1rem;
+    border-top: 10px solid $error-color;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+  }
 }

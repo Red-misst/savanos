@@ -3,6 +3,16 @@
   min-height: 100vh;
   overflow: hidden;
 
+  a,
+  &_redirect {
+    color: $purple-color;
+    cursor: pointer;
+    padding-bottom: 5px;
+    &:hover {
+      border-bottom: 1px solid $purple-color;
+    }
+  }
+
   &_header {
     max-width: 300px;
     .back_svg {
@@ -29,28 +39,86 @@
     span {
       font-weight: 600;
       font-size: 14px;
-      a {
-        color: $purple-color;
+    }
+  }
+  &_form {
+    margin-top: 1rem;
+    h1 {
+      font-size: 50px;
+      margin: 0;
+    }
+    p {
+      color: $text-grey;
+    }
+    form {
+      margin-top: 1.5rem;
+    }
+    //----------------------------------------------------------
+    .forgot {
+      color: #666;
+      padding-top: 1rem;
+      font-size: 14px;
+      width: fit-content;
+      height: 40px;
+    }
+  }
+  &_socials {
+    margin-top: 1rem;
+    .or {
+      position: relative;
+      color: #666;
+      padding-left: 8rem;
+      &:before,
+      &:after {
+        content: "";
+        width: 100px;
+        height: 1px;
+        background: #66666648;
+        position: absolute;
+        top: 50%;
+      }
+      &:before {
+        left: 270px;
+      }
+      &:after {
+        left: 1px;
+      }
+    }
+    &_wrap {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding-left: 3rem;
+      img {
+        width: 20px;
         cursor: pointer;
-        padding-bottom: 5px;
-        &:hover {
-          border-bottom: 1px solid $purple-color;
-        }
       }
     }
   }
-  &_form{
-  
-    margin-top: 1rem;
-    h1{
-        font-size: 50px;
-        margin: 0;
-    }
-    p{
-        color: $text-grey;
-    }
-    form{
-        margin-top: 1.5rem;
+}
+.social_btn {
+  border: none;
+  outline: none;
+  width: 290px;
+  height: 50px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 5%;
+  gap: 10px;
+  background: transparent;
+  border: 1px solid #66666683;
+  cursor: pointer;
+  &:hover {
+    border: 1px solid $purple-color;
+  }
+}
+
+@media (max-width: 768px) {
+  .login {
+    &_cont {
+      display: block;
     }
   }
 }
