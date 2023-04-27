@@ -38,7 +38,7 @@ handler.post(async (req, res) => {
     sendEmail(email, url, "", "Activate your account.", activateEmailTemplate);
     await db.disconnectDb();
     res.json({
-      message: "Register success! Please activate your email to start.",
+      message: "Success! Please activate your email to start.",
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

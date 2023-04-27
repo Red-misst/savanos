@@ -40,7 +40,7 @@ export const sendEmail = (to, url, txt, subject, template) => {
     from: SENDER_EMAIL_ADDRESS,
     to: to,
     subject: subject,
-    html: activateEmailTemplate(to, url),
+    html: template(to, url),
   };
   smtpTransport.sendMail(mailOptions, (err, infos) => {
     if (err) return err;
