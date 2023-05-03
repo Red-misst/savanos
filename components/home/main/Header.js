@@ -6,13 +6,13 @@ export default function Header() {
     <div className={styles.header}>
       <ul>
         <li>
-          <Link href="">Store</Link>
+          <Link className="text-decoration-none" href="">Store</Link>
         </li>
         <li>
-          <Link href="">Electronics</Link>
+          <Link className="text-decoration-none" href="">Electronics</Link>
         </li>
         <li>
-          <Link href="">Watches</Link>
+          <Link className="text-decoration-none" href="">Watches</Link>
         </li>
       </ul>
     </div>

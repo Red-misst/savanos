@@ -22,7 +22,7 @@ export default function Top() {
         <Link className="text-decoration-none my-auto" href="/">
           <div>
             <span>
-              <h2 className="fs-2 text-dark">saVanna</h2>
+              <h2  className="fs-2" ><Link href="/" className="text-decoration-none text-dark">saVanna</Link></h2>
             </span>
           </div>
         </Link>
