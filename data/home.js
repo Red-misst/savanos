@@ -282,69 +282,77 @@ export const userSwiperArray = [
 
 export const flashDealsArray = [
   {
+    name: "Product1",
     image:
-      "https://img.ltwebstatic.com/images3_pi/2022/09/15/1663220709c947ca4ad9aefd9c1f4baf5915653468_thumbnail_600x.webp",
+    "https://img.ltwebstatic.com/images3_pi/2022/09/15/1663220709c947ca4ad9aefd9c1f4baf5915653468_thumbnail_600x.webp",
     price: "91",
     discount: "11",
     link: "",
     sold: "30",
-  },
-  {
+    },
+    {
+    name: "Product2",
     image:
-      "https://img.ltwebstatic.com/images3_pi/2022/09/20/1663668243e6d8f250648c2f34988320c046cba68f_thumbnail_405x552.webp",
+    "https://img.ltwebstatic.com/images3_pi/2022/09/20/1663668243e6d8f250648c2f34988320c046cba68f_thumbnail_405x552.webp",
     price: "73",
     discount: "25",
     link: "",
     sold: "61",
-  },
-  {
+    },
+    {
+    name: "Product3",
     image:
-      "https://img.ltwebstatic.com/images3_pi/2022/03/25/164818761997d2ccb1de50aed18da9d77502717405_thumbnail_405x552.webp",
+    "https://img.ltwebstatic.com/images3_pi/2022/03/25/164818761997d2ccb1de50aed18da9d77502717405_thumbnail_405x552.webp",
     price: "254",
     discount: "36",
     link: "",
     sold: "12",
-  },
-  {
+    },
+    {
+    name: "Product4",
     image:
-      "https://img.ltwebstatic.com/images3_pi/2022/05/13/165244123600952e503ccab89dd363c9b71f9094f8_thumbnail_405x552.webp",
+    "https://img.ltwebstatic.com/images3_pi/2022/05/13/165244123600952e503ccab89dd363c9b71f9094f8_thumbnail_405x552.webp",
     price: "1687",
     discount: "20",
     link: "",
     sold: "96",
-  },
-  {
+    },
+    {
+    name: "Product5",
     image:
-      "https://img.ltwebstatic.com/images3_pi/2022/06/17/16554568735029a68267cacc48382e23027667093f_thumbnail_405x552.webp",
+    "https://img.ltwebstatic.com/images3_pi/2022/06/17/16554568735029a68267cacc48382e23027667093f_thumbnail_405x552.webp",
     price: "126",
     discount: "8",
     link: "",
     sold: "12",
-  },
-  {
+    },
+    {
+    name: "Product6",
     image:
-      "https://img.ltwebstatic.com/images3_pi/2022/08/17/16607290552013caeedd00666350d71774fcd6e95f_thumbnail_405x552.webp",
+    "https://img.ltwebstatic.com/images3_pi/2022/08/17/16607290552013caeedd00666350d71774fcd6e95f_thumbnail_405x552.webp",
     price: "65",
     discount: "7",
     link: "",
     sold: "82",
-  },
-  {
+    },
+    {
+    name: "Product7",
     image:
-      "https://img.ltwebstatic.com/images3_pi/2022/09/02/166210785062f36a63bcecd00693783c4b6cd0c2a2_thumbnail_600x.webp",
+    "https://img.ltwebstatic.com/images3_pi/2022/09/02/166210785062f36a63bcecd00693783c4b6cd0c2a2_thumbnail_600x.webp",
     price: "41",
     discount: "9",
     link: "",
     sold: "52",
-  },
-  {
+    },
+    {
+    name: "Product8",
     image:
-      "https://img.ltwebstatic.com/images3_pi/2022/09/01/1662028598b9164c30a8410fc9d71b81fc63748d4e_thumbnail_405x552.webp",
+    "https://img.ltwebstatic.com/images3_pi/2022/09/01/1662028598b9164c30a8410fc9d71b81fc63748d4e_thumbnail_405x552.webp",
     price: "288",
     discount: "35",
     link: "",
     sold: "49",
-  },
+    },
 ];
 export const women_dresses = [
   {
@@ -490,76 +498,66 @@ export const women_swiper = [
 
 export const gamingSwiper = [
   {
-    name: "",
+    name: "Wiii",
     image: "https://ae01.alicdn.com/kf/H67f1ee99443a46d2a46b0ab346aae2b6Y.jpg",
-    price: "",
-  },
-  {
-    name: "",
+    price: "12,000",
+    },
+    {
+    name: "Gaming Pc",
     image:
-      "https://ae01.alicdn.com/kf/H46f7fcad7ab84793a0e69acfc856285d5/desktops-computer-quad-core-gaming-laptops-6GB-Grafiken-computer-desktop-computer-gamer-PC.jpg_Q90.jpg_.webp",
-    price: "",
-  },
-  {
-    name: "",
+    "https://ae01.alicdn.com/kf/H46f7fcad7ab84793a0e69acfc856285d5/desktops-computer-quad-core-gaming-laptops-6GB-Grafiken-computer-desktop-computer-gamer-PC.jpg_Q90.jpg_.webp",
+    price: "100,000",
+    },
+    {
+    name: "Wireless Headphones",
     image: "https://ae01.alicdn.com/kf/H3658559222f34898b0d65c78c4eae42fh.jpg",
-    price: "",
-  },
-  {
-    name: "",
+    price: "121",
+    },
+    {
+    name: "Bluetooth Speaker",
     image: "https://ae01.alicdn.com/kf/H6e2ca40dfd9c4701b0005c9925a5008ff.jpg",
-    price: "",
-  },
-  {
-    name: "",
+    price: "200",
+    },
+    {
+    name: "Smartwatch",
     image: "https://ae01.alicdn.com/kf/S510e42af09264c90bc9f4ea9ca535411u.jpg",
-    price: "",
-  },
-  {
-    name: "",
+    price: "500",
+    },
+    {
+    name: "Wireless Mouse",
     image: "https://ae01.alicdn.com/kf/S87eda4e95251435ca81023273f73d8dd1.jpg",
-    price: "",
-  },
-  {
-    name: "",
-    image: "https://ae01.alicdn.com/kf/S510e42af09264c90bc9f4ea9ca535411u.jpg",
-    price: "",
-  },
-  {
-    name: "",
-    image: "https://ae01.alicdn.com/kf/S87eda4e95251435ca81023273f73d8dd1.jpg",
-    price: "",
-  },
+    price: "50",
+    },
 ];
 export const homeImprovSwiper = [
   {
-    name: "",
+    name: "table",
     image: "https://ae01.alicdn.com/kf/H973c7fd8079f4820b28f7e5b8d7e4bb6s.jpg",
-    price: "",
-  },
-  {
-    name: "",
+    price: "1000",
+    },
+    {
+    name: "love couch",
     image: "https://ae01.alicdn.com/kf/S70e0b1be525948e3ae8ca0dbb5672c06Q.jpg",
-    price: "",
-  },
-  {
-    name: "",
+    price: "100000",
+    },
+    {
+    name: "home om",
     image: "https://ae03.alicdn.com/kf/S0e018b6c00ae409781e815c79d44b57bL.jpg",
-    price: "",
-  },
-  {
-    name: "",
+    price: "10000",
+    },
+    {
+    name: "armchair",
     image: "https://ae03.alicdn.com/kf/H3c3a10b673554dc3a2957801aac40174z.jpg",
-    price: "",
-  },
-  {
-    name: "",
+    price: "5000",
+    },
+    {
+    name: "bed",
     image: "https://ae03.alicdn.com/kf/Se9ebef1491684e9bbde7f7f97e9fcf78k.jpg",
-    price: "",
-  },
-  {
-    name: "",
+    price: "20000",
+    },
+    {
+    name: "bookshelf",
     image: "https://ae03.alicdn.com/kf/S882fd95abb7b40ac860d4a9fab1df995Y.jpg",
-    price: "",
-  },
+    price: "3000",
+    },
 ];

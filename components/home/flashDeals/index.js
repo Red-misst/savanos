@@ -21,31 +21,14 @@ export default function FlashDeals() {
           FLASH SALE
           <MdFlashOn />
         </h1>
-       <Countdown date={new Date(2023, 4, 4)} />
+       <Countdown date={new Date(2023, 8, 5)} />
       </div>
-      <Swiper
-        slidesPerView={1}
+      <Swiper 
+         slidesPerView={"auto"}
         spaceBetween={10}
         navigation={true}
         modules={[Navigation]}
         className="flashDeals__swiper"
-        breakpoints={{
-          450: {
-            slidesPerView: 2,
-          },
-          630: {
-            slidesPerView: 3,
-          },
-          920: {
-            slidesPerView: 4,
-          },
-          1232: {
-            slidesPerView: 5,
-          },
-          1520: {
-            slidesPerView: 6,
-          },
-        }}
       >
         <div className={styles.flashDeals__list}>
           {flashDealsArray.map((product, i) => (

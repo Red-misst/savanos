@@ -13,17 +13,25 @@ export default function FlashCard({ product }) {
           <span>-{product.discount}%</span>
         </div>
       </div>
+      <div className={styles.card__name}>
+        <span>
+          {product.name.length > 23 
+            ? `${product.name.slice(0, 23) + "..."}`
+            : product.name
+            }
+        </span>
+      </div>
       <div className={styles.card__price}>
         <span>
-          KSh {(product.price - product.price / product.discount).toFixed(2)}$
+          KSh {Math.round(product.price * ((100 - product.discount)/100))}
         </span>
         <span>
           -KSh 
-          {(
+          {Math.round(
             product.price -
-            (product.price - product.price / product.discount)
-          ).toFixed(2)}
-          $
+            (product.price *((100 - product.discount)/100))
+          )}
+  
         </span>
       </div>
       <div className={styles.card__bar}>

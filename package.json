@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@mui/material": "^5.12.3",
     "@next-auth/mongodb-adapter": "^1.1.1",
     "@popperjs/core": "^2.11.6",
     "@react-native-async-storage/async-storage": "^1.18.1",
@@ -32,8 +35,10 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
+    "react-image-magnify": "^2.7.4",
     "react-redux": "^8.0.5",
     "react-responsive": "^9.0.2",
+    "react-share": "^4.4.1",
     "react-spinners": "^0.13.8",
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",

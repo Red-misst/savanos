@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import ProductSwiper from "./ProductSwiper";
 import styles from "./styles.module.scss";
+import { TiShoppingCart } from "react-icons/ti";
 
 export default function ProductCard({ product }) {
   const [active, setActive] = useState(0);
@@ -50,14 +51,14 @@ export default function ProductCard({ product }) {
         )}
         <div className={styles.product__infos}>
           <h1>
-            {product.name.length > 45
-              ? `${product.name.substring(0, 45)}...`
+            {product.name.length > 25
+              ? `${product.name.substring(0, 25)}...`
               : product.name}
           </h1>
           <span>
             {prices.length === 1
-              ? `USD${prices[0]}$`
-              : `USD${prices[0]}-${prices[prices.length - 1]}$`}
+              ? `KSh ${prices[0]}`
+              : `KSh ${prices[0]} - KSh ${prices[prices.length - 1]}`}
           </span>
           <div className={styles.product__colors}>
             {styless &&
@@ -82,6 +83,12 @@ export default function ProductCard({ product }) {
                   ></span>
                 )
               )}
+          </div>
+          <div >
+            <button className={` mt-2 ${styles.btn_primary}`}>
+            <TiShoppingCart className="fs-2"/>
+            Add to Cart
+            </button>
           </div>
         </div>
       </div>

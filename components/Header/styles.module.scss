@@ -3,13 +3,6 @@
   box-shadow: $shadow-1;
 }
 
-// AD--------------------------------------------------------------------------------
-.ad {
-  height: 54px;
-  background-image: url("../../public/images/ad.jpg");
-  background-size: cover;
-  background-position: 50% 50%;
-}
 //TOP--------------------------------------
 .top {
   align-self: flex-start;
@@ -33,10 +26,10 @@
       gap: 4px;
       color: $text-grey;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
       svg {
-        width: 23px !important;
-        height: 25px !important;
+        width: 18px !important;
+        height: 22px !important;
       }
 
       .flex {
@@ -84,6 +77,12 @@
   }
   .search_2 {
     display: none !important;
+    .categories{
+      fill: $purple-color;
+      font-size: 35px;
+      margin-right: 10px;
+    }
+  
   }
 }
 
@@ -134,7 +133,7 @@
   span {
     position: absolute;
     top: -5px;
-    right: 10px;
+    right: 6px;
     width: 20px;
     height: 20px;
     background-color: $purple-color;
@@ -212,9 +211,6 @@
 
 //Reactive side--------------------------------------------------------------------------------
 @media (max-width: 768px) {
-  .ad {
-    display: none;
-  }
   .top {
     &_container {
       padding: 0 0.5rem;

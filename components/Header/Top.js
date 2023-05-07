@@ -5,6 +5,7 @@ import Link from "next/link";
 import Search from "./Search";
 import { useSelector } from "react-redux";
 import { AiOutlineHeart } from "react-icons/ai";
+import { BiCategoryAlt } from "react-icons/bi";
 import {
   RiAccountCircleLine,
   RiArrowDropDownFill,
@@ -22,7 +23,11 @@ export default function Top() {
         <Link className="text-decoration-none my-auto" href="/">
           <div>
             <span>
-              <h2  className="fs-2" ><Link href="/" className="text-decoration-none text-dark">saVanna</Link></h2>
+              <h2 className="fs-2">
+                <Link href="/" className="text-decoration-none text-dark">
+                  saVanna
+                </Link>
+              </h2>
             </span>
           </div>
         </Link>
@@ -65,14 +70,20 @@ export default function Top() {
           >
             {session ? (
               <li className={styles.top_li}>
-                <div className={`d-flex justify-content-between ${styles.flex}`}> 
+                <div
+                  className={`d-flex justify-content-between ${styles.flex}`}
+                >
                   <img
-                  className="my-auto"
+                    className="my-auto"
                     src={session.user.image}
                     alt="Profile_pic"
                   />
-                  <span className="my-auto ">{session.user.name} </span>
-                  <RiArrowDropDownFill/>
+                  <span>
+                    {session.user.name.length > 5
+                      ? `${session.user.name.substring(0, 5)}..`
+                      : session.user.name}
+                  </span>
+                  <RiArrowDropDownFill />
                 </div>
               </li>
             ) : (
@@ -80,17 +91,18 @@ export default function Top() {
                 <div className={styles.flex}>
                   <RiAccountCircleLine />
                   <span>Account</span>
-                  <RiArrowDropDownFill/>
+                  <RiArrowDropDownFill />
                 </div>
               </li>
             )}
-            {showMenu && <UserMenu session ={session} />}
+            {showMenu && <UserMenu session={session} />}
           </li>
         </ul>
       </div>
       <div
         className={`col-12 d-flex justify-content-space-btn align-items-center  ${styles.search_2}`}
       >
+        <BiCategoryAlt className={styles.categories} />
         <Search />
       </div>
     </div>

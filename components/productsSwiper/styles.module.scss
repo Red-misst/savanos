@@ -1,23 +1,30 @@
 .wrapper {
   margin-top: 1rem;
   .header {
-    height: 50px;
+    height: auto;
     background: $yellow-color;
-    color: #fff;
-    font-size: 25px;
+    font-size: 23px;
     padding: 1rem 10px;
+    color: $white-color;
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     font-weight: 600;
     margin-bottom: 5px;
+    svg{
+      &:hover{
+        cursor: pointer;
+        fill: $purple-color;
+      }
+    }
   }
   .product {
     &__img {
-      height: 350px;
+      height: 380px;
       img {
+        margin:0 auto;
         height: 100%;
-        width: 100%;
-        object-fit: cover;
+        width: auto;
+       object-fit: fill;
       }
     }
     &__infos {
@@ -26,12 +33,13 @@
       align-items: flex-start;
       padding: 2px;
       h1 {
-        font-size: 13px;
-        font-weight: normal;
+        font-size: 16px;
+        font-weight: 600;
         color: #222;
       }
       span {
-        color: $red-color;
+        color: $purple-color;
+        font-weight: 500;
       }
     }
   }

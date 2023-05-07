@@ -28,10 +28,10 @@ export default function UserMenu({ session }) {
       {session && (
         <ul>
           <li>
-            <Link className="text-decoration-none" href="/cart">Account</Link>
+            <Link className="text-decoration-none" href="/profile">Account</Link>
           </li>
           <li>
-            <Link className="text-decoration-none" href="/profile/cart">Cart</Link>
+            <Link className="text-decoration-none" href="/cart">Cart</Link>
           </li>
           <li>
             <Link className="text-decoration-none" href="/profile/wishlist">Wishlist</Link>

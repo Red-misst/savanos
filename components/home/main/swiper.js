@@ -32,7 +32,7 @@ export default function MainSwiper() {
       >
         {[...Array(10).keys()].map((i) => (
           <SwiperSlide>
-            <img className="img-fluid" src={`../../../images/swiper/${i + 1}.jpg`} alt="Swiper-img" />
+            <img src={`../../../images/swiper/${i + 1}.jpg`} alt="Swiper-img" />
           </SwiperSlide>
         ))}
       </Swiper>

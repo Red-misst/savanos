@@ -70,6 +70,14 @@
       }
     }
   }
+  &__name{
+     width:100%;
+     display: flex;
+     justify-content:start-end;
+      font-weight: 600!important;
+      color: #222;
+ 
+  }
   &__price {
     display: flex;
     align-items: center;

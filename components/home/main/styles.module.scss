@@ -6,31 +6,13 @@
     "menu header header"
     "menu swiper user"
     "menu offers user";
-  @media (max-width: 1232px) {
-    grid-template-columns: 1fr 3fr;
-  }
   @media (max-width: 990px) {
-    grid-template-columns: 80px 3fr;
-  }
-  @media (max-width: 768px) {
     grid-template-areas:
       "menu"
       "swiper"
       "offers";
     grid-template-columns: 1fr;
-    .menu {
-      width: 100% !important;
-      height: 120px !important;
-      &__list {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap ;
-        justify-content: space-between !important;
-        li {
-          transform: translateY(-10px);
-        }
-      }
-    }
+  
   }
   .menu {
     grid-area: menu;
@@ -38,21 +20,9 @@
     background: #fff;
     border-radius: 10px;
     box-shadow: $shadow-1;
+    font-size: 13px;
     @media (max-width: 990px) {
-      width: 80px;
-      svg {
-        transform: scale(1.5);
-      }
-      &__list {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        ul {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-      }
+    display: none!important;
     }
     &__header {
       width: 100%;
@@ -113,7 +83,7 @@
     height: 40px;
     display: flex;
     align-items: center;
-    @media (max-width: 768px) {
+    @media (max-width: 990px) {
       display: none !important;
     }
     ul {
@@ -136,6 +106,7 @@
     background: #fff;
     border-radius: 10px;
     box-shadow: $shadow-1;
+   
   }
   .offers {
     position: relative;
@@ -157,7 +128,7 @@
     background: #fff;
     border-radius: 10px;
     box-shadow: $shadow-1;
-    @media (max-width: 1232px) {
+    @media (max-width: 990px) {
       display: none;
     }
 

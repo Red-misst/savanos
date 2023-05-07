@@ -1,23 +1,41 @@
 .product {
   position: relative;
-  width: 290px;
-  height: 500px;
+  padding: 0;
+  width: 18vw;
+  margin: 0;
+  &__container {
+    width: 100%;
+    padding: 8px;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: $white-color;
+    box-shadow: $shadow-2;
+    border-radius: 8px;
+    overflow: hidden;
+    &:hover {
+      box-shadow: $shadow-1;
+    }
+  }
   &__infos {
     width: 100%;
     margin-top: 1px;
     h1 {
-      font-size: 13px;
-      font-weight: normal;
+      font-size: 15px;
+      font-weight: 800;
       color: #222;
     }
     span {
-      color: $red-color;
+      color: $purple-color;
       font-weight: 600;
     }
   }
   &__colors {
     position: relative;
     display: flex;
+    left: 10px;
     align-items: center;
     gap: 10px;
     margin-top: 5px;
@@ -46,27 +64,39 @@
   }
   &__discount {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: 4px;
+    right: 3px;
     z-index: 1;
-    background: $yellow-color;
-    color: #333;
-    width: 50px;
-    height: 50px;
+    background: $dark-purple-color;
+    color: #fff;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     display: grid;
     place-items: center;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
   }
 }
 .swiper {
   position: relative;
   cursor: pointer;
-  background: #fff;
+  background: $white-color;
   img {
-    height: 390px;
     display: block;
     border-radius: 10px;
+  }
+}
+
+/* Medium view */
+@media screen and (max-width: 768px) {
+  .product {
+    width: 44vw;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1020px) {
+  .product {
+    width: 30vw;
   }
 }

@@ -16,8 +16,9 @@ export default function Offers() {
   return (
     <div className={styles.offers}>
      
+     
       <Swiper
-        slidesPerView={3}
+        slidesPerView={"auto"}
         spaceBetween={1}
         pagination={{
           clickable: true,

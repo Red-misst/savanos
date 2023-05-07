@@ -16,8 +16,8 @@ export default function App({
   return (
     <>
       <Head>
-        <title>My Duka</title>
-        <meta name="description" content="My Duka online shopping" />
+        <title>saVanna</title>
+        <meta name="description" content="saVanna online shopping" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
