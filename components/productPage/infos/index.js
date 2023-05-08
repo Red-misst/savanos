@@ -11,7 +11,7 @@ import SimillarSwiper from "./SimillarSwiper";
 import axios from "axios";
 import Link from "next/link";
 // import DialogModal from "@/components/dialogModal";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector , useDispatch } from "react-redux";
 import { addToCart, updateCart } from "@/store/cartSlice";
 import { hideDialog, showDialog } from "@/store/DialogSlice";
 import { signIn, useSession } from "next-auth/react";
@@ -24,7 +24,7 @@ export default function Infos({ product, setActiveImg }) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { cart } = useSelector((state) => ({ ...state }));
-  console.log(cart);
+  console.log(cart)
 
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export default function Infos({ product, setActiveImg }) {
       let _uid = `${data._id}_${product.style}_${router.query.size}`;
       console.log(_uid);
       console.log(cart)
-      let exist = cart.cartItems.find((p) => p._uid == _uid);
+      let exist = cart.cartItems.find((p) => p._uid === _uid);
       if (exist) {
         let newCart = cart.cartItems.map((p) => {
           if (p._uid == exist._uid) {

@@ -10,7 +10,7 @@ export default function Cart() {
     <Link href="/cart">
       <div className={styles.cart}>
         <TiShoppingCart className={styles.icon} />
-        <span>{cart.length}</span>
+        <span>{cart.cartItems.length}</span>
       </div>
     </Link>
   );

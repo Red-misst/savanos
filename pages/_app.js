@@ -1,7 +1,7 @@
 import "@/styles/globals.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "react-redux";
-import store from "@/store/store";
+import store from "@/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import Head from "next/head";
