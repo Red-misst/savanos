@@ -2,11 +2,10 @@ import styles from "./styles.module.scss";
 import { useState } from "react";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import "yup-phone";
-import ShippingInput from "../../inputs/shippingInput";
+import ShippingInput from "@/components/inputs/shippingInput";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 // import { countries } from "../../../data/countries";
-// import SingularSelect from "../../selects/SingularSelect";
+// import SingularSelect from "@/components/selects/SingularSelect";
 import {
   changeActiveAddress,
   deleteAddress,
@@ -168,16 +167,16 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
                 />
               </div>
               <div className={styles.col}>
-                <ShippingInput
-                  name="state"
-                  placeholder="*State/Province"
-                  onChange={handleChange}
-                />
-                <ShippingInput
-                  name="city"
-                  placeholder="*City"
-                  onChange={handleChange}
-                />
+              <ShippingInput
+                name="area"
+                placeholder="*Area"
+                onChange={handleChange}
+              />
+              <ShippingInput
+                name="residential"
+                placeholder="*Residential"
+                onChange={handleChange}
+              />
               </div>
               <ShippingInput
                 name="phoneNumber"
@@ -195,8 +194,8 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
                 onChange={handleChange}
               />
               <ShippingInput
-                name="roomNumber"
-                placeholder="*Room Number"
+                name="houseNumber"
+                placeholder="*House Number"
                 onChange={handleChange}
               />
               <button type="submit">Save Address</button>
