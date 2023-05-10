@@ -5,8 +5,8 @@ import * as Yup from "yup";
 import "yup-phone";
 import ShippingInput from "../../inputs/shippingInput";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { countries } from "../../../data/countries";
-import SingularSelect from "../../selects/SingularSelect";
+// import { countries } from "../../../data/countries";
+// import SingularSelect from "../../selects/SingularSelect";
 import {
   changeActiveAddress,
   deleteAddress,
@@ -22,27 +22,15 @@ const initialValues = {
   firstName: "",
   lastName: "",
   phoneNumber: "",
-  state: "",
-  city: "",
-  zipCode: "",
-  address1: "",
-  address2: "",
-  country: "",
+  area: "",
+  residential: "",
+  houseNumber: "",
 };
 export default function Shipping({ user, addresses, setAddresses, profile }) {
   const [shipping, setShipping] = useState(initialValues);
   const [visible, setVisible] = useState(user?.address.length ? false : true);
-  const {
-    firstName,
-    lastName,
-    phoneNumber,
-    state,
-    city,
-    zipCode,
-    address1,
-    address2,
-    country,
-  } = shipping;
+  const { firstName, lastName, phoneNumber, area, residential, houseNumber } =
+    shipping;
   const validate = Yup.object({
     firstName: Yup.string()
       .required("First name is required.")
@@ -54,29 +42,20 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
       .max(20, "Last name must be less than 20 characters long."),
     phoneNumber: Yup.string()
       .required("Phone number is required.")
-      .phone()
-      .min(3, "Phone number must be atleast 3 characters long.")
-      .max(30, "Phone number must be less than 20 characters long."),
-    state: Yup.string()
-      .required("State name is required.")
-      .min(2, "State name should contain 2-60 characters..")
-      .max(60, "State name should contain 2-60 characters."),
-    city: Yup.string()
-      .required("City name is required.")
-      .min(2, "City name should contain 2-60 characters.")
-      .max(60, "City name should contain 2-60 characters."),
-    zipCode: Yup.string()
-      .required("ZipCode/Postal is required.")
-      .min(2, "ZipCode/Postal should contain 2-30 characters..")
-      .max(30, "ZipCode/Postal should contain 2-30 characters."),
-    address1: Yup.string()
-      .required("Address Line 1 is required.")
-      .min(5, "Address Line 1 should contain 5-100 characters.")
-      .max(100, "Address Line 1 should contain 5-100 characters."),
-    address2: Yup.string()
-      .min(5, "Address Line 2 should contain 5-100 characters.")
-      .max(100, "Address Line 2 should contain 5-100 characters."),
-    country: Yup.string().required("Country name is required."),
+      .min(10, "Phone number must be atleast 10 characters long.")
+      .max(15, "Phone number must be less than 15 characters long."),
+    area: Yup.string()
+      .required("Area name is required.")
+      .min(2, "Area name should contain 2-60 characters..")
+      .max(60, "Area name should contain 2-60 characters."),
+    residential: Yup.string()
+      .required("Residential is required.")
+      .min(2, "Residential should contain 2-60 characters.")
+      .max(60, "Residential should contain 2-60 characters."),
+    roomNumber: Yup.string()
+      .required("room/house is required.")
+      .min(2, "room/house should contain 2-30 characters..")
+      .max(30, "room/house should contain 2-30 characters."),
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -131,14 +110,8 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
               </div>
               <div className={styles.address__col}>
                 <span>
-                  <FaMapMarkerAlt />
-                  {address.address1}
+                  {address.area},{address.residential},{address.roomNumber}
                 </span>
-                <span>{address.address2}</span>
-                <span>
-                  {address.city},{address.state},{address.country}
-                </span>
-                <span>{address.zipCode}</span>
               </div>
               <span
                 className={styles.active__text}
@@ -170,12 +143,9 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
             firstName,
             lastName,
             phoneNumber,
-            state,
-            city,
-            zipCode,
-            address1,
-            address2,
-            country,
+           area,
+           residential,
+            houseNumber,
           }}
           validationSchema={validate}
           onSubmit={() => {
@@ -184,13 +154,7 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
         >
           {(formik) => (
             <Form>
-              <SingularSelect
-                name="country"
-                value={country}
-                placeholder="*Country"
-                handleChange={handleChange}
-                data={countries}
-              />
+          
               <div className={styles.col}>
                 <ShippingInput
                   name="firstName"
@@ -221,18 +185,18 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
                 onChange={handleChange}
               />
               <ShippingInput
-                name="zipCode"
-                placeholder="*Post/Zip code"
+                name="area"
+                placeholder="*Area"
                 onChange={handleChange}
               />
               <ShippingInput
-                name="address1"
-                placeholder="Address 1"
+                name="residential"
+                placeholder="*Residential"
                 onChange={handleChange}
               />
               <ShippingInput
-                name="address2"
-                placeholder="Address 2"
+                name="roomNumber"
+                placeholder="*Room Number"
                 onChange={handleChange}
               />
               <button type="submit">Save Address</button>

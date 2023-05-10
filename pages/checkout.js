@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import styles from "../styles/checkout.module.scss";
+import styles from "@/styles/checkout.module.scss";
 import { getSession } from "next-auth/react";
-import User from "../models/User";
-import Cart from "../models/Cart";
-import db from "../utils/db";
-import Header from "../components/cart/header";
-import Shipping from "../components/checkout/shipping";
-import Products from "../components/checkout/products";
-import Payment from "../components/checkout/payment";
+import User from "@/models/User";
+import Cart from "@/models/Cart";
+import db from "@/utils/db";
+import Header from "@/components/cart/header";
+import Shipping from "@/components/checkout/shipping";
+import Products from "@/components/checkout/products";
+import Payment from "@/components/checkout/payment";
 import Summary from "../components/checkout/summary";
 export default function checkout({ cart, user }) {
   const [addresses, setAddresses] = useState(user?.address || []);
@@ -32,10 +32,10 @@ export default function checkout({ cart, user }) {
             addresses={addresses}
             setAddresses={setAddresses}
           />
-          <Products cart={cart} />
+          {/* <Products cart={cart} /> */}
         </div>
         <div className={styles.checkout__side}>
-          <Payment
+          {/* <Payment
             paymentMethod={paymentMethod}
             setPaymentMethod={setPaymentMethod}
           />
@@ -46,7 +46,7 @@ export default function checkout({ cart, user }) {
             cart={cart}
             paymentMethod={paymentMethod}
             selectedAddress={selectedAddress}
-          />
+          /> */}
         </div>
       </div>
     </>

@@ -46,7 +46,9 @@
     "redux-thunk": "^2.4.2",
     "sass": "^1.60.0",
     "swiper": "^9.2.4",
-    "yup": "^1.1.1"
+    "yup": "^1.1.1",
+    "yup-phone": "^1.3.2",
+    "yup-phone-js": "^0.1.0"
   },
   "devDependencies": {
     "scheduler": "^0.23.0"

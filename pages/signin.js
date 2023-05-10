@@ -15,7 +15,7 @@ import {
   country,
 } from "next-auth/react";
 import CircledIconBtn from "@/components/buttons/circledIconBtn";
-import LoginInput from "@/components/inputs/loginInput";
+import LoginInput from "@/components/inputs copy/loginInput";
 import DotLoaderSpinner from "@/components/loaders/dotLoader";
 import axios from "axios";
 import Router from "next/router";
