@@ -1,9 +1,9 @@
 import nc from "next-connect";
-import User from "../../../models/User";
-import Coupon from "../../../models/Coupon";
-import Cart from "../../../models/Cart";
-import db from "../../../utils/db";
-import auth from "../../../middleware/auth";
+import User from "@/models/User";
+import Coupon from "@/models/Coupon";
+import Cart from "@/models/Cart";
+import db from "@/utils/db";
+import auth from "@/middleware/auth";
 const handler = nc().use(auth);
 
 handler.post(async (req, res) => {
