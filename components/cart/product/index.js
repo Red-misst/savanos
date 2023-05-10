@@ -71,18 +71,18 @@ export default function Product({ product, selected, setSelected }) {
           </div>
           <div className={styles.product__style}>
             <img src={product.color.image} alt="" />
-            {product.size && <span>{product.size}</span>}
-            {product.price && <span>{product.price.toFixed(2)}$</span>}
+            {product.size && <span className="text-secondary">{product.size} &nbsp;</span>}
+            {product.price && <span>KSh {product.price.toFixed(2)}</span>}
             <MdOutlineKeyboardArrowRight />
           </div>
           <div className={styles.product__priceQty}>
             <div className={styles.product__priceQty_price}>
               <span className={styles.price}>
-                USD{(product.price * product.qty).toFixed(2)}$
+                KSh {(product.price * product.qty).toFixed(2)}
               </span>
               {product.price !== product.priceBefore && (
                 <span className={styles.priceBefore}>
-                  USD{product.priceBefore}$
+                  KSh {product.priceBefore}
                 </span>
               )}
               {product.discount > 0 && (
@@ -107,7 +107,7 @@ export default function Product({ product, selected, setSelected }) {
           </div>
           <div className={styles.product__shipping}>
             {product.shipping
-              ? `+${product.shipping}$ Shipping fee`
+              ? `+ KSh ${product.shipping} Shipping fee`
               : "Free Shipping"}
           </div>
           {product.quantity < 1 && (

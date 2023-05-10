@@ -27,7 +27,7 @@ export default function cart() {
   const [total, setTotal] = useState(0);
   useEffect(() => {
     setShippingFee(
-      selected.reduce((a, c) => a + Number(c.shipping), 0).toFixed(2)
+      30
     );
     setSubtotal(selected.reduce((a, c) => a + c.price * c.qty, 0).toFixed(2));
     setTotal(
@@ -73,7 +73,7 @@ export default function cart() {
               selected={selected}
               saveCartToDbHandler={saveCartToDbHandler}
             />
-         {/*   <PaymentMethods /> */}
+         <PaymentMethods />
         </div>
         ) : (
           <Empty />
