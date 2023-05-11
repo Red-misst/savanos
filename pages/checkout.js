@@ -16,11 +16,13 @@ export default function checkout({ cart, user }) {
   const [selectedAddress, setSelectedAddress] = useState("");
   useEffect(() => {
     let check = addresses.find((ad) => ad.active == true);
+
     if (check) {
       setSelectedAddress(check);
     } else {
       setSelectedAddress("");
     }
+    console.log(addresses)
   }, [addresses]);
   return (
     <>
@@ -32,10 +34,10 @@ export default function checkout({ cart, user }) {
             addresses={addresses}
             setAddresses={setAddresses}
           />
-          {/* <Products cart={cart} /> */}
+     <Products cart={cart} /> 
         </div>
         <div className={styles.checkout__side}>
-          {/* <Payment
+           <Payment
             paymentMethod={paymentMethod}
             setPaymentMethod={setPaymentMethod}
           />
@@ -46,7 +48,7 @@ export default function checkout({ cart, user }) {
             cart={cart}
             paymentMethod={paymentMethod}
             selectedAddress={selectedAddress}
-          /> */}
+          /> 
         </div>
       </div>
     </>
@@ -55,8 +57,10 @@ export default function checkout({ cart, user }) {
 export async function getServerSideProps(context) {
   db.connectDb();
   const session = await getSession(context);
+  
   const user = await User.findById(session.user.id);
-  const cart = await Cart.findOne({ user: user._id });
+
+  const cart = await Cart.findOne({ user: user.id });
   db.disconnectDb();
   if (!cart) {
     return {

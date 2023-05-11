@@ -1,16 +1,17 @@
 import styles from "./styles.module.scss";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import ShippingInput from "@/components/inputs/shippingInput";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-// import { countries } from "../../../data/countries";
+
 // import SingularSelect from "@/components/selects/SingularSelect";
 import {
   changeActiveAddress,
   deleteAddress,
   saveAddress,
-} from "../../../requests/user";
+} from "@/requests/user";
 import { FaIdCard } from "react-icons/fa";
 import { GiPhone } from "react-icons/gi";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -25,7 +26,9 @@ const initialValues = {
   residential: "",
   houseNumber: "",
 };
+
 export default function Shipping({ user, addresses, setAddresses, profile }) {
+  const router = useRouter();
   const [shipping, setShipping] = useState(initialValues);
   const [visible, setVisible] = useState(user?.address.length ? false : true);
   const { firstName, lastName, phoneNumber, area, residential, houseNumber } =
@@ -59,18 +62,21 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setShipping({ ...shipping, [name]: value });
+    console.log();
   };
   const saveShippingHandler = async () => {
-    const res = await saveAddress(shipping);
-    setAddresses(res.addresses);
+   console.log(shipping)
+    const res = await saveAddress(shipping );
+    setAddresses(addresses =>[...addresses, shipping]);
   };
   const changeActiveHandler = async (id) => {
     const res = await changeActiveAddress(id);
-    setAddresses(res.addresses);
+    router.refresh();
   };
   const deleteHandler = async (id) => {
     const res = await deleteAddress(id);
-    setAddresses(res.addresses);
+    console.log(res)
+    setAddresses(addresses =>[...addresses, shipping]);
   };
   return (
     <div className={styles.shipping}>
@@ -142,13 +148,15 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
             firstName,
             lastName,
             phoneNumber,
-           area,
+            area,
            residential,
             houseNumber,
           }}
-          validationSchema={validate}
-          onSubmit={() => {
-            saveShippingHandler();
+          validator={()=>({validate})}
+          
+          onSubmit={shipping => {
+            console.log(shipping)
+            saveShippingHandler(shipping);
           }}
         >
           {(formik) => (
@@ -166,18 +174,7 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
                   onChange={handleChange}
                 />
               </div>
-              <div className={styles.col}>
-              <ShippingInput
-                name="area"
-                placeholder="*Area"
-                onChange={handleChange}
-              />
-              <ShippingInput
-                name="residential"
-                placeholder="*Residential"
-                onChange={handleChange}
-              />
-              </div>
+            
               <ShippingInput
                 name="phoneNumber"
                 placeholder="*Phone number"

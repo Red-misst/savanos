@@ -45,10 +45,7 @@ const userSchema = new mongoose.Schema(
         phoneNumber: {
           type: String,
         },
-        address1: {
-          type: String,
-        },
-        address2: {
+        area: {
           type: String,
         },
         residence: {

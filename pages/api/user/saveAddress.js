@@ -1,19 +1,21 @@
 import nc from "next-connect";
-import User from "../../../models/User";
-import db from "../../../utils/db";
-import auth from "../../../middleware/auth";
+import User from "@/models/User";
+import db from "@/utils/db";
+import auth from "@/middleware/auth";
 const handler = nc().use(auth);
 
 handler.post(async (req, res) => {
   try {
     db.connectDb();
-    const { address } = req.body;
+    const { shipping } = req.body;
+    console.log(shipping);
     const user = User.findById(req.user);
     await user.updateOne({
       $push: {
-        address: address,
+        address: shipping,
       },
     });
+
     db.disconnectDb();
     return res.json({ addresses: user.address });
   } catch (error) {

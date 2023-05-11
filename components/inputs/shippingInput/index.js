@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 export default function ShippingInput({ placeholder, ...props }) {
   const inputRef = useRef(null);
   const [field, meta] = useField(props);
-  console.log(field);
+
   const [move, setMove] = useState(false);
   useEffect(() => {
     if (field.value.length > 0) {
