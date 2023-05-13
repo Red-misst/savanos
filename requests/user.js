@@ -47,3 +47,4 @@ export const applyCoupon = async (coupon) => {
   });
   return data;
 };
+

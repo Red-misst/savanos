@@ -67,6 +67,7 @@
       z-index: 10;
     }
     &__col {
+      position: relative;
       display: flex;
       flex-direction: column;
       padding: 10px 0;
@@ -75,6 +76,21 @@
         display: flex;
         align-items: center;
         gap: 5px;
+        svg {
+          fill: #666;
+        }
+      }
+    }
+    &__col_2 {
+      margin: 0 auto;
+      display: flex;
+ 
+      padding: 10px 0;
+
+      span {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         svg {
           fill: #666;
         }
@@ -99,14 +115,14 @@
       right: 1rem;
       color: $success-color;
       font-size: 12px;
-      &:befor {
+      &:before {
         content: "";
-        width: 5px;
-        height: 5px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
         background: $success-color;
         position: absolute;
-        left: -10px;
+        left: -15px;
         top: 50%;
         transform: translateY(-50%);
       }

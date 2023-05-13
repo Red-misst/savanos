@@ -2,8 +2,8 @@ import { useState } from "react";
 import styles from "./styles.module.scss";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
-import ShippingInput from "../../inputs/shippingInput";
-import { applyCoupon } from "../../../requests/user";
+import ShippingInput from "@/components/inputs/shippingInput";
+import { applyCoupon } from "@/requests/user";
 import axios from "axios";
 import Router from "next/router";
 export default function Summary({
@@ -13,6 +13,7 @@ export default function Summary({
   cart,
   paymentMethod,
   selectedAddress,
+  orderId
 }) {
   const [coupon, setCoupon] = useState("");
   const [discount, setDiscount] = useState("");
@@ -25,11 +26,14 @@ export default function Summary({
     const res = await applyCoupon(coupon);
     if (res.message) {
       setError(res.message);
+      return;
     } else {
       setTotalAfterDiscount(res.totalAfterDiscount);
       setDiscount(res.discount);
       setError("");
+      return;
     }
+    return;
   };
   const placeOrderHandler = async () => {
     try {
@@ -40,18 +44,27 @@ export default function Summary({
         setOrder_Error("Please choose a shipping address.");
         return;
       }
-      const { data } = await axios.post("/api/order/create", {
+      const instance =axios.create();
+     
+      const { data } = await instance.post("/api/order/create", {
         products: cart.products,
         shippingAddress: selectedAddress,
         paymentMethod,
         total: totalAfterDiscount !== "" ? totalAfterDiscount : cart.cartTotal,
         totalBeforeDiscount: cart.cartTotal,
         couponApplied: coupon,
+ 
       });
-      Router.push(`/order/${data.order_id}`);
+     
+      handleResponse(data);
+      // Router.push(`/order/${data.order.id}`);
     } catch (error) {
       setOrder_Error(error.response.data.message);
     }
+  };
+  const handleResponse = (response) => {
+    console.log(response);
+    // Router.push(`/order/${data.order.id}`);
   };
   return (
     <div className={styles.summary}>
@@ -80,7 +93,7 @@ export default function Summary({
               </button>
               <div className={styles.infos}>
                 <span>
-                  Total : <b>{cart.cartTotal}$</b>{" "}
+                  Total : <b>KSh {cart.cartTotal}</b>{" "}
                 </span>
                 {discount > 0 && (
                   <span className={styles.coupon_span}>
@@ -90,7 +103,7 @@ export default function Summary({
                 {totalAfterDiscount < cart.cartTotal &&
                   totalAfterDiscount != "" && (
                     <span>
-                      New price : <b>{totalAfterDiscount}$</b>
+                      New price : <b>KSh {totalAfterDiscount}</b>
                     </span>
                   )}
               </div>

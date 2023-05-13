@@ -9,6 +9,7 @@ import Shipping from "@/components/checkout/shipping";
 import Products from "@/components/checkout/products";
 import Payment from "@/components/checkout/payment";
 import Summary from "@/components/checkout/summary";
+debugger;
 export default function checkout({ cart, user }) {
   const [addresses, setAddresses] = useState(user?.address || []);
   const [paymentMethod, setPaymentMethod] = useState("");

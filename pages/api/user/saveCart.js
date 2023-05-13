@@ -64,6 +64,7 @@ handler.post(async (req, res) => {
       }).save();
 
     }
+    return res.json({ message: "Cart saved successfully" });
     db.disconnectDb();
   } catch (error) {
     return res.status(500).json({ message: error.message });

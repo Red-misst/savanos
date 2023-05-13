@@ -48,10 +48,10 @@ const userSchema = new mongoose.Schema(
         area: {
           type: String,
         },
-        residence: {
+        residential: {
           type: String,
         },
-        roomNumber: {
+        houseNumber: {
           type: String,
         },
         active: {

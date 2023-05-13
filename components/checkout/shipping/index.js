@@ -15,9 +15,13 @@ import {
 import { FaIdCard } from "react-icons/fa";
 import { GiPhone } from "react-icons/gi";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { IoMdArrowDropupCircle } from "react-icons/io";
+import {
+  IoMdArrowDropupCircle,
+  IoIosRemoveCircleOutline,
+} from "react-icons/io";
 import { AiOutlinePlus } from "react-icons/ai";
-import { IoIosRemoveCircleOutline } from "react-icons/io";
+
+import { MdLocationPin, MdHomeWork } from "react-icons/md";
 const initialValues = {
   firstName: "",
   lastName: "",
@@ -54,35 +58,41 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
       .required("Residential is required.")
       .min(2, "Residential should contain 2-60 characters.")
       .max(60, "Residential should contain 2-60 characters."),
-    roomNumber: Yup.string()
+    houseNumber: Yup.string()
       .required("room/house is required.")
-      .min(2, "room/house should contain 2-30 characters..")
+      .min(1, "room/house should contain 1-30 characters..")
       .max(30, "room/house should contain 2-30 characters."),
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
     setShipping({ ...shipping, [name]: value });
-    console.log();
+    console.log(shipping);
+    return;
   };
   const saveShippingHandler = async () => {
-   console.log(shipping)
-    const res = await saveAddress(shipping );
-    setAddresses(addresses =>[...addresses, shipping]);
+    console.log(shipping);
+    const res = await saveAddress(shipping);
+    setAddresses((addresses) => [...addresses, shipping]);
+    return;
   };
   const changeActiveHandler = async (id) => {
     const res = await changeActiveAddress(id);
-    router.refresh();
+    setAddresses((addresses) => addresses.map((ad) => ({
+      ...ad,
+      active: ad._id == id ? true : false
+    })));
+    return;
   };
   const deleteHandler = async (id) => {
     const res = await deleteAddress(id);
-    console.log(res)
-    setAddresses(addresses =>[...addresses, shipping]);
+    setAddresses((addresses) => addresses.filter((ad) => ad._id !== id));
+    return;
   };
   return (
     <div className={styles.shipping}>
       {!profile && (
         <div className={styles.header}>
-          <h3>Shipping Informations</h3>
+          <h3>Shipping addresses</h3>
         </div>
       )}
       <div className={styles.addresses}>
@@ -112,11 +122,17 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
                   <GiPhone />
                   {address.phoneNumber}
                 </span>
-              </div>
-              <div className={styles.address__col}>
+
                 <span>
-                  {address.area},{address.residential},{address.roomNumber}
+                  <MdLocationPin />
+                  {address.area}
                 </span>
+                <span>
+                 
+                  <MdHomeWork />
+                  {address.residential}
+                </span>
+                <span>{address.roomNumber}</span>
               </div>
               <span
                 className={styles.active__text}
@@ -149,19 +165,18 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
             lastName,
             phoneNumber,
             area,
-           residential,
+            residential,
             houseNumber,
           }}
-          validator={()=>({validate})}
-          
-          onSubmit={shipping => {
-            console.log(shipping)
+          validator={() => ({  })}
+          validationSchema={validate}
+          onSubmit={(shipping) => {
+            console.log(shipping);
             saveShippingHandler(shipping);
           }}
         >
           {(formik) => (
             <Form>
-          
               <div className={styles.col}>
                 <ShippingInput
                   name="firstName"
@@ -174,7 +189,7 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
                   onChange={handleChange}
                 />
               </div>
-            
+
               <ShippingInput
                 name="phoneNumber"
                 placeholder="*Phone number"
@@ -192,7 +207,7 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
               />
               <ShippingInput
                 name="houseNumber"
-                placeholder="*House Number"
+                placeholder="*Room Number"
                 onChange={handleChange}
               />
               <button type="submit">Save Address</button>

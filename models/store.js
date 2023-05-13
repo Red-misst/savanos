@@ -20,14 +20,20 @@ const subSchema = new mongoose.Schema({
     lowercase: true,
     index: true,
   },
-  products: [{
-    type: ObjectId,
-    ref: "Product",
-    required: true,
-  }],
+  products: [
+    {
+      type: ObjectId,
+      ref: "Product",
+    },
+  ],
+  orders: [
+    {
+      type: ObjectId,
+      ref: "Order",
+    },
+  ],
 });
 
-const SubCategory =
-  mongoose.models.Store || mongoose.model("Store", subSchema);
+const SubCategory = mongoose.models.Store || mongoose.model("Store", subSchema);
 
 export default Store;
