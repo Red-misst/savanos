@@ -1,7 +1,7 @@
 import nc from "next-connect";
-import User from "../../../models/User";
-import db from "../../../utils/db";
-import auth from "../../../middleware/auth";
+import User from "@/models/User";
+import db from "@/utils/db";
+import auth from "@/middleware/auth";
 const handler = nc().use(auth);
 handler.put(async (req, res) => {
   try {
@@ -25,7 +25,7 @@ handler.put(async (req, res) => {
       },
     });
     db.disconnectDb();
-    res
+   return  res
       .status(200)
       .json({ message: "Product succesfully added to your wishlist." });
   } catch (error) {

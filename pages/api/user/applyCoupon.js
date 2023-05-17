@@ -21,13 +21,13 @@ handler.post(async (req, res) => {
 
     await Cart.findOneAndUpdate({ user: user._id }, { totalAfterDiscount });
 
-    res.json({
+    return res.json({
       totalAfterDiscount: totalAfterDiscount.toFixed(2),
       discount: checkCoupon.discount,
     });
 
     db.disconnectDb();
-    return res.json({ addresses: user.address });
+   
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

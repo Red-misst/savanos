@@ -31,7 +31,14 @@ const initialValues = {
   houseNumber: "",
 };
 
-export default function Shipping({ user, addresses, setAddresses, profile }) {
+export default function Shipping({
+  user,
+  addresses,
+  setAddresses,
+  profile,
+  loading,
+  setLoading,
+}) {
   const router = useRouter();
   const [shipping, setShipping] = useState(initialValues);
   const [visible, setVisible] = useState(user?.address.length ? false : true);
@@ -66,26 +73,37 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setShipping({ ...shipping, [name]: value });
-    console.log(shipping);
+ 
     return;
   };
   const saveShippingHandler = async () => {
-    console.log(shipping);
+    setLoading(true);
+   
     const res = await saveAddress(shipping);
     setAddresses((addresses) => [...addresses, shipping]);
+
+    setLoading(false);
     return;
   };
   const changeActiveHandler = async (id) => {
+    setLoading(true);
     const res = await changeActiveAddress(id);
-    setAddresses((addresses) => addresses.map((ad) => ({
-      ...ad,
-      active: ad._id == id ? true : false
-    })));
+    setAddresses((addresses) =>
+      addresses.map((ad) => ({
+        ...ad,
+        active: ad._id == id ? true : false,
+      }))
+    );
+
+    setLoading(false);
     return;
   };
   const deleteHandler = async (id) => {
+    setLoading(true);
     const res = await deleteAddress(id);
     setAddresses((addresses) => addresses.filter((ad) => ad._id !== id));
+
+    setLoading(false);
     return;
   };
   return (
@@ -128,7 +146,6 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
                   {address.area}
                 </span>
                 <span>
-                 
                   <MdHomeWork />
                   {address.residential}
                 </span>
@@ -168,7 +185,7 @@ export default function Shipping({ user, addresses, setAddresses, profile }) {
             residential,
             houseNumber,
           }}
-          validator={() => ({  })}
+          validator={() => ({})}
           validationSchema={validate}
           onSubmit={(shipping) => {
             console.log(shipping);

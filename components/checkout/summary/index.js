@@ -44,9 +44,9 @@ export default function Summary({
         setOrder_Error("Please choose a shipping address.");
         return;
       }
-      const instance =axios.create();
+   
      
-      const { data } = await instance.post("/api/order/create", {
+      const  data  = await axios.post("/api/order/create", {
         products: cart.products,
         shippingAddress: selectedAddress,
         paymentMethod,
@@ -55,17 +55,15 @@ export default function Summary({
         couponApplied: coupon,
  
       });
-     
-      handleResponse(data);
-      // Router.push(`/order/${data.order.id}`);
+    
+      console.log(data.data.orderId)
+      Router.push(`/order/${data.data.orderId}`);
     } catch (error) {
+      console.log(error)
       setOrder_Error(error.response.data.message);
     }
   };
-  const handleResponse = (response) => {
-    console.log(response);
-    // Router.push(`/order/${data.order.id}`);
-  };
+  
   return (
     <div className={styles.summary}>
       <div className={styles.header}>

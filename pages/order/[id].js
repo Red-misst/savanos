@@ -4,7 +4,7 @@ import Order from "@/models/Order";
 import User from "@/models/User";
 import { IoIosArrowForward } from "react-icons/io";
 import db from "@/utils/db";
-// import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+
 import { useReducer, useEffect } from "react";
 import axios from "axios";
 // import StripePayment from "@/components/stripePayment";
@@ -22,12 +22,16 @@ function reducer(state, action) {
       return { ...state, loading: false, success: false, error: false };
   }
 }
+
+
+
+
 export default function order({
   orderData,
-  paypal_client_id,
-  stripe_public_key,
+
 }) {
-  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+ 
+
   const [dispatch] = useReducer(reducer, {
     loading: true,
     error: "",
@@ -43,7 +47,7 @@ export default function order({
         type: "resetOptions",
         value: {
           "client-id": paypal_client_id,
-          currency: "USD",
+          currency: "KSH",
         },
       });
       paypalDispatch({
@@ -87,6 +91,7 @@ export default function order({
   return (
     <>
       <Header  />
+     
       <div className={styles.order}>
         <div className={styles.container}>
           <div className={styles.order__infos}>
@@ -140,10 +145,10 @@ export default function order({
                       <img src={product.color.image} alt="" /> / {product.size}
                     </div>
                     <div className={styles.product__infos_priceQty}>
-                      {product.price}$ x {product.qty}
+                     KSh {product.price} x {product.qty}
                     </div>
                     <div className={styles.product__infos_total}>
-                      {product.price * product.qty}$
+                     KSh {product.price * product.qty}
                     </div>
                   </div>
                 </div>
@@ -153,7 +158,7 @@ export default function order({
                   <>
                     <div className={styles.order__products_total_sub}>
                       <span>Subtotal</span>
-                      <span>{orderData.totalBeforeDiscount}$</span>
+                      <span>KSh {orderData.totalBeforeDiscount}</span>
                     </div>
                     <div className={styles.order__products_total_sub}>
                       <span>
@@ -161,34 +166,34 @@ export default function order({
                       </span>
                       <span>
                         -
-                        {(
+                       KSh {(
                           orderData.totalBeforeDiscount - orderData.total
                         ).toFixed(2)}
-                        $
+                        
                       </span>
                     </div>
                     <div className={styles.order__products_total_sub}>
                       <span>Tax price</span>
-                      <span>+{orderData.taxPrice}$</span>
+                      <span>+ KSh {orderData.taxPrice}</span>
                     </div>
                     <div
                       className={`${styles.order__products_total_sub} ${styles.bordertop}`}
                     >
                       <span>TOTAL TO PAY</span>
-                      <b>{orderData.total}$</b>
+                      <b>KSh {orderData.total}</b>
                     </div>
                   </>
                 ) : (
                   <>
                     <div className={styles.order__products_total_sub}>
                       <span>Tax price</span>
-                      <span>+{orderData.taxPrice}$</span>
+                      <span>+ KSh {orderData.taxPrice}</span>
                     </div>
                     <div
                       className={`${styles.order__products_total_sub} ${styles.bordertop}`}
                     >
                       <span>TOTAL TO PAY</span>
-                      <b>{orderData.total}$</b>
+                      <b>KSh {orderData.total}</b>
                     </div>
                   </>
                 )}
@@ -213,14 +218,14 @@ export default function order({
                   {orderData.shippingAddress.firstName}{" "}
                   {orderData.shippingAddress.lastName}
                 </span>
-                <span>{orderData.shippingAddress.address1}</span>
-                <span>{orderData.shippingAddress.address2}</span>
+                <span>{orderData.shippingAddress.area}</span>
+               
                 <span>
-                  {orderData.shippingAddress.state},
-                  {orderData.shippingAddress.city}
+                  {orderData.shippingAddress.residential}
+              
                 </span>
-                <span>{orderData.shippingAddress.zipCode}</span>
-                <span>{orderData.shippingAddress.country}</span>
+              <span>Room No. {orderData.shippingAddress.houseNumber}</span>
+            
               </div>
               <div className={styles.order__address_shipping}>
                 <h2>Billing Address</h2>
@@ -228,47 +233,52 @@ export default function order({
                   {orderData.shippingAddress.firstName}{" "}
                   {orderData.shippingAddress.lastName}
                 </span>
-                <span>{orderData.shippingAddress.address1}</span>
-                <span>{orderData.shippingAddress.address2}</span>
+                <span>{orderData.shippingAddress.area}</span>
+               
                 <span>
-                  {orderData.shippingAddress.state},
-                  {orderData.shippingAddress.city}
+                 {orderData.shippingAddress.residential}
+              
                 </span>
-                <span>{orderData.shippingAddress.zipCode}</span>
-                <span>{orderData.shippingAddress.country}</span>
+                <span>
+                Room No. {orderData.shippingAddress.houseNumber}</span>
               </div>
             </div>
-            {/* {!orderData.isPaid && (
+            {!orderData.isPaid && (
               <div className={styles.order__payment}>
                 {orderData.paymentMethod == "paypal" && (
                   <div>
                     {isPending ? (
                       <span>loading...</span>
                     ) : (
+                   
                       <PayPalButtons
                         createOrder={createOrderHanlder}
                         onApprove={onApproveHandler}
                         onError={onErroHandler}
                       ></PayPalButtons>
+                      
+                    
                     )}
                   </div>
                 )}
-                {orderData.paymentMethod == "credit_card" && (
+                {/* {orderData.paymentMethod == "credit_card" && (
                   <StripePayment
                     total={orderData.total}
                     order_id={orderData._id}
                     stripe_public_key={stripe_public_key}
                   />
-                )}
+                )} */}
                 {orderData.paymentMethod == "cash" && (
                   <div className={styles.cash}>cash</div>
                 )}
               </div>
-            )} */}
+            )} 
           </div>
         </div>
       </div>
-    </>
+    
+       </>
+    
   );
 }
 
@@ -286,8 +296,8 @@ export async function getServerSideProps(context) {
   return {
     props: {
       orderData: JSON.parse(JSON.stringify(order)),
-      paypal_client_id,
-      stripe_public_key,
+      // paypal_client_id,
+      // stripe_public_key,
     },
   };
 }

@@ -9,12 +9,14 @@ import Shipping from "@/components/checkout/shipping";
 import Products from "@/components/checkout/products";
 import Payment from "@/components/checkout/payment";
 import Summary from "@/components/checkout/summary";
-debugger;
+import DotLoaderSpinner from "@/components/loaders/dotLoader";
+
 export default function checkout({ cart, user }) {
   const [addresses, setAddresses] = useState(user?.address || []);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [totalAfterDiscount, setTotalAfterDiscount] = useState("");
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     let check = addresses.find((ad) => ad.active == true);
 
@@ -27,6 +29,7 @@ export default function checkout({ cart, user }) {
   }, [addresses]);
   return (
     <>
+      {loading && <DotLoaderSpinner loading={loading} />}
       <Header />
       <div className={`${styles.container} ${styles.checkout}`}>
         <div className={styles.checkout__side}>
@@ -34,6 +37,8 @@ export default function checkout({ cart, user }) {
             user={user}
             addresses={addresses}
             setAddresses={setAddresses}
+            loading = {loading}
+            setLoading = {setLoading}
           />
      <Products cart={cart} /> 
         </div>

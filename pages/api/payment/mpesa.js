@@ -4,6 +4,10 @@ import db from "@/utils/db";
 import auth from "@/middleware/auth";
 const handler = nc().use(auth);
 
+
+
+
+
 handler.post(async (req, res) => {
   try {
     db.connectDb();

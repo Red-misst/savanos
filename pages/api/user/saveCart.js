@@ -45,7 +45,7 @@ handler.post(async (req, res) => {
     let existing_cart = await Cart.findOne({ user: user });
 
     if (existing_cart) {
-    let updatedCart = await Cart.findByIdAndUpdate (
+      let updatedCart = await Cart.findByIdAndUpdate(
         existing_cart._id,
         {
           products,
@@ -54,17 +54,20 @@ handler.post(async (req, res) => {
         {
           new: true,
         }
-      )
-   
+      );
+      return res.json({ message: "Cart updated successfully" });
+     
     } else {
-     let newCart = await new Cart({
+      let newCart = await new Cart({
         products,
         cartTotal: cartTotal.toFixed(2),
         user: user._id,
       }).save();
-
+      return;
+      // return res.json({ message: "Cart saved successfully" });
     }
-    return res.json({ message: "Cart saved successfully" });
+
+    console.log(success);
     db.disconnectDb();
   } catch (error) {
     return res.status(500).json({ message: error.message });

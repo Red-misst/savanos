@@ -76,7 +76,7 @@ export default NextAuth({
 
 const SignInUser = async ({ password, user }) => {
   if (!user.password) {
-    throw new Error("Email not found! Tryb logging in with a different method.");
+    throw new Error("Email not found! Try logging in with a different method.");
   }
   const testPassword = await bcrypt.compare(password, user.password);
   if (!testPassword) {

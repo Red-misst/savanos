@@ -5,7 +5,6 @@ import db from "@/utils/db";
 import auth from "@/middleware/auth";
 const handler = nc().use(auth);
 
-debugger;
 handler.post(async (req, res) => {
   try {
     db.connectDb();
@@ -16,10 +15,12 @@ handler.post(async (req, res) => {
       total,
       totalBeforeDiscount,
       couponApplied,
+      
     } = req.body;
+   
     const user = await User.findById(req.user);
     const newOrder = await new Order({
-      user: user._id,
+      user : user._id,
       products,
       shippingAddress,
       paymentMethod,
@@ -28,16 +29,13 @@ handler.post(async (req, res) => {
       couponApplied,
     }).save();
 
+    res.json({ orderId: newOrder._id });
     db.disconnectDb();
-
-    return res.json(
-      newOrder._id
-    );
-   
   } catch (error) {
-    console.log(error);
+    console.log(error)
     return res.status(500).json({ message: error.message });
   }
+ 
 });
 
 export default handler;

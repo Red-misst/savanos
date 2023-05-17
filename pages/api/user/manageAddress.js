@@ -1,7 +1,7 @@
 import nc from "next-connect";
-import User from "../../../models/User";
-import db from "../../../utils/db";
-import auth from "../../../middleware/auth";
+import User from "@/models/User";
+import db from "@/utils/db";
+import auth from "@/middleware/auth";
 const handler = nc().use(auth);
 
 handler.put(async (req, res) => {
@@ -28,7 +28,7 @@ handler.put(async (req, res) => {
       { new: true }
     );
     db.disconnectDb();
-    return res.json({ addresses });
+    return;
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -46,7 +46,7 @@ handler.delete(async (req, res) => {
       { new: true }
     );
     db.disconnectDb();
-    res.json({ addresses: user.address.filter((a) => a._id != id) });
+    return res.json({ addresses: user.address.filter((a) => a._id != id) });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

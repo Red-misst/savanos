@@ -29,13 +29,13 @@ export default function Products({ cart }) {
                 : product.name}
             </div>
             <div className={styles.product__price}>
-              {(product.price * product.qty).toFixed(2)}$
+             KSh {(product.price * product.qty).toFixed(2)}
             </div>
           </div>
         ))}
       </div>
       <div className={styles.products__total}>
-        Subtotal : <b>{cart.cartTotal}$</b>
+        Subtotal : <b>KSh {cart.cartTotal}</b>
       </div>
     </div>
   );
