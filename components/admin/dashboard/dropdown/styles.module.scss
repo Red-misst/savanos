@@ -45,7 +45,7 @@
           fill: #fff;
         }
         &:hover {
-          background: $dark-blue-color;
+          background: $dark-purple-color;
           box-shadow: $shadow-1;
         }
       }
@@ -65,7 +65,7 @@
         display: grid;
         place-items: center;
         cursor: pointer;
-        background: $dark-blue-color;
+        background: $dark-purple-color;
         svg {
           width: 25px;
           height: 25px;
@@ -89,7 +89,7 @@
       height: 40px;
       cursor: pointer;
       &:hover {
-        background: $dark-blue-color;
+        background: $dark-purple-color;
       }
     }
   }

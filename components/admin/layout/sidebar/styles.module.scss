@@ -90,6 +90,7 @@
         }
       }
       a {
+        text-decoration: none;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -126,7 +127,7 @@
   nav {
     ul {
       li {
-        background: $dark-blue-color;
+        background: $dark-purple-color;
         border-radius: 50%;
         svg {
           fill: #fff;

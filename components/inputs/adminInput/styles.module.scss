@@ -34,14 +34,14 @@
 }
 .inputError {
   span {
-    background: $error-secondary-color !important;
+    background:$error-color-light !important;
   }
   input {
-    background: rgba(255, 0, 0, 0.031) !important;
-    border: px solid $error-secondary-color !important;
+    background: hsla(0, 33%, 13%, 0.031) !important;
+    border: 1px solid $error-color-light !important;
   }
   &__msg {
-    color: $error-secondary-color;
+    color: $error-color-light;
     font-size: 14px;
     margin-left: 105px;
     margin-top: -13px;

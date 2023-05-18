@@ -59,7 +59,7 @@ export default function Sidebar() {
         </div>
         <ul className={styles.sidebar__list}>
           <li className={route == undefined ? styles.active : ""}>
-            <Link href="/admin/dashboard">
+            <Link href="/admin/dashboard"  legacyBehavior >
               <a>
                 <MdSpaceDashboard />
                 <span className={styles.show}>Dashboard</span>
@@ -67,7 +67,7 @@ export default function Sidebar() {
             </Link>
           </li>
           <li className={route == "sales" ? styles.active : ""}>
-            <Link href="/admin/dashboard/sales">
+            <Link href="/admin/dashboard/sales" legacyBehavior >
               <a>
                 <FcSalesPerformance />
                 <span className={styles.show}>Sales</span>
@@ -75,7 +75,7 @@ export default function Sidebar() {
             </Link>
           </li>
           <li className={route == "orders" ? styles.active : ""}>
-            <Link href="/admin/dashboard/orders">
+            <Link href="/admin/dashboard/orders" legacyBehavior >
               <a>
                 <IoListCircleSharp />
                 <span className={styles.show}>Orders</span>
@@ -83,7 +83,7 @@ export default function Sidebar() {
             </Link>
           </li>
           <li className={route == "users" ? styles.active : ""}>
-            <Link href="/admin/dashboard/users">
+            <Link href="/admin/dashboard/users" legacyBehavior >
               <a>
                 <ImUsers />
                 <span className={styles.show}>Users</span>
@@ -91,7 +91,7 @@ export default function Sidebar() {
             </Link>
           </li>
           <li className={route == "messages" ? styles.active : ""}>
-            <Link href="/admin/dashboard/messages">
+            <Link href="/admin/dashboard/messages" legacyBehavior >
               <a>
                 <AiFillMessage />
                 <span className={styles.show}>Messages</span>
@@ -105,7 +105,7 @@ export default function Sidebar() {
           </div>
           <ul className={styles.sidebar__list}>
             <li className={route == "product/all" ? styles.active : ""}>
-              <Link href="/admin/dashboard/product/all">
+              <Link href="/admin/dashboard/product/all" legacyBehavior >
                 <a>
                   <FaThList />
                   <span className={styles.show}>All Products</span>
@@ -113,7 +113,7 @@ export default function Sidebar() {
               </Link>
             </li>
             <li className={route == "product/create" ? styles.active : ""}>
-              <Link href="/admin/dashboard/product/create">
+              <Link href="/admin/dashboard/product/create" legacyBehavior >
                 <a>
                   <BsPatchPlus />
                   <span className={styles.show}>Create Product</span>
@@ -128,7 +128,7 @@ export default function Sidebar() {
           </div>
           <ul className={styles.sidebar__list}>
             <li className={route == "categories" ? styles.active : ""}>
-              <Link href="/admin/dashboard/categories">
+              <Link href="/admin/dashboard/categories" legacyBehavior >
                 <a>
                   <MdOutlineCategory />
                   <span className={styles.show}>Categories</span>
@@ -136,7 +136,7 @@ export default function Sidebar() {
               </Link>
             </li>
             <li className={route == "subCategories" ? styles.active : ""}>
-              <Link href="/admin/dashboard/subCategories">
+              <Link href="/admin/dashboard/subCategories" legacyBehavior >
                 <a>
                   <div style={{ transform: "rotate(180deg)" }}>
                     <MdOutlineCategory />
@@ -153,7 +153,7 @@ export default function Sidebar() {
           </div>
           <ul className={styles.sidebar__list}>
             <li className={route == "coupons" ? styles.active : ""}>
-              <Link href="/admin/dashboard/coupons">
+              <Link href="/admin/dashboard/coupons" legacyBehavior >
                 <a>
                   <RiCoupon3Fill />
                   <span className={styles.show}>Coupons</span>
@@ -169,28 +169,28 @@ export default function Sidebar() {
             }`}
           >
             <li>
-              <Link href="">
+              <Link href="" legacyBehavior >
                 <a>
                   <RiSettingsLine />
                 </a>
               </Link>
             </li>
             <li>
-              <Link href="">
+              <Link href="" legacyBehavior >
                 <a>
                   <IoNotificationsSharp />
                 </a>
               </Link>
             </li>
             <li>
-              <Link href="">
+              <Link href="" legacyBehavior >
                 <a>
                   <AiFillMessage />
                 </a>
               </Link>
             </li>
             <li>
-              <Link href="">
+              <Link href="" legacyBehavior >
                 <a>
                   <RiLogoutCircleFill />
                 </a>

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { hideDialog } from "../../../store/DialogSlice";
-import DialogModal from "../../dialogModal";
+import { hideDialog } from "@/store/DialogSlice";
+import DialogModal from "@/components/dialogModal";
 import Sidebar from "./sidebar";
 import styles from "./styles.module.scss";
 

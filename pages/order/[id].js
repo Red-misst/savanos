@@ -4,7 +4,7 @@ import Order from "@/models/Order";
 import User from "@/models/User";
 import { IoIosArrowForward } from "react-icons/io";
 import db from "@/utils/db";
-
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useReducer, useEffect } from "react";
 import axios from "axios";
 // import StripePayment from "@/components/stripePayment";
@@ -28,9 +28,9 @@ function reducer(state, action) {
 
 export default function order({
   orderData,
-
+  paypal_client_id,
 }) {
- 
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
   const [dispatch] = useReducer(reducer, {
     loading: true,
