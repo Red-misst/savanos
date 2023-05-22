@@ -5,10 +5,13 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCart } from "@/store/cartSlice";
 import { useState, useEffect } from "react";
+import axios from "axios";
 export default function Product({ product, selected, setSelected }) {
+  
   const { cart } = useSelector((state) => ({ ...state }));
+
   const [active, setActive] = useState();
-  console.log(active);
+
   useEffect(() => {
     const check = selected.find((p) => p._uid == product._uid);
     setActive(check);
@@ -39,6 +42,9 @@ export default function Product({ product, selected, setSelected }) {
       setSelected([...selected, product]);
     }
   };
+
+ 
+
   return (
     <div className={`${styles.card} ${styles.product}`}>
       {product.quantity < 1 && <div className={styles.blur}></div>}
@@ -105,14 +111,10 @@ export default function Product({ product, selected, setSelected }) {
               </button>
             </div>
           </div>
-          <div className={styles.product__shipping}>
-            {product.shipping
-              ? `+ KSh ${product.shipping} Shipping fee`
-              : "Free Shipping"}
-          </div>
+      
           {product.quantity < 1 && (
             <div className={styles.notAvailable}>
-              This product is out of stock, Add it to your whishlist it may get
+              This product is out of stock, Add it to your wishlist it may get
               restocked.
             </div>
           )}
@@ -121,3 +123,4 @@ export default function Product({ product, selected, setSelected }) {
     </div>
   );
 }
+

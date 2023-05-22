@@ -2,38 +2,34 @@ import mongoose from "mongoose";
 
 const { ObjectId } = mongoose.Schema;
 
-const subSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minlength: [2, "must be atleast 2 charcters"],
-    maxlength: [32, "Should not be more than 32 characters"],
-  },
-  seller: {
-    type: ObjectId,
-    ref: "User",
-    required: true,
-  },
-  slug: {
-    type: String,
-    unique: true,
-    lowercase: true,
-    index: true,
-  },
-  products: [
-    {
-      type: ObjectId,
-      ref: "Product",
+const storeSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      minlength: [2, "must be atleast 2 charcters"],
+      maxlength: [32, "Should not be more than 32 characters"],
     },
-  ],
-  orders: [
-    {
+    seller: {
       type: ObjectId,
-      ref: "Order",
+      ref: "User",
+      required: true,
     },
-  ],
-});
+    email: {
+      type: String,
+      required: "Please enter your email address.",
+      trim: true,
+      unique: true,
+    },
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
 
-const SubCategory = mongoose.models.Store || mongoose.model("Store", subSchema);
+  },
+  { timestamps: true }
+);
+
+const Store = mongoose.models.Store || mongoose.model("Store", storeSchema);
 
 export default Store;

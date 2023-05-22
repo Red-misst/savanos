@@ -33,6 +33,10 @@ const cartSchema = new mongoose.Schema(
           color: String,
           image: String,
         },
+        store: {
+          type: ObjectId,
+          ref: "Store",
+        },
         price: Number,
       },
     ],

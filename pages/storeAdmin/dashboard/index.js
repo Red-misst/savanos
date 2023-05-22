@@ -2,7 +2,7 @@ import Layout from "@/components/admin/layout";
 import styles from "@/styles/dashboard.module.scss";
 import User from "@/models/User";
 import Order from "@/models/Order";
-import Product from "@/models/Product"; 
+import Product from "@/models/Product";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import Dropdown from "@/components/admin/dashboard/dropdown";
@@ -12,12 +12,13 @@ import { SlHandbag, SlEye } from "react-icons/sl";
 import { SiProducthunt } from "react-icons/si";
 import { GiTakeMyMoney } from "react-icons/gi";
 import Link from "next/link";
-export default function dashboard({ users, orders, products }) {
+import product from "@/pages/product/[slug]";
+export default function dashboard({ users, store, orders, products }) {
   const { data: session } = useSession();
   return (
     <div>
       <Head>
-        <title>saVana - Admin Dashboard</title>
+        <title>saVana - Seller Dashboard</title>
       </Head>
       <Layout>
         <div className={styles.header}>
@@ -64,11 +65,15 @@ export default function dashboard({ users, orders, products }) {
               <GiTakeMyMoney />
             </div>
             <div className={styles.card__infos}>
-              <h4>+ KSh{orders.reduce((a, val) => a + Math.round(val.total), 0)}</h4>
+              <h4>
+                + KSh{orders.reduce((a, val) => a + Math.round(val.total), 0)}
+              </h4>
               <h5>
-                 KSh {orders
+                KSh{" "}
+                {orders
                   .filter((o) => !o.isPaid)
-                  .reduce((a, val) => a + Math.round(val.total), 0)} Unpaid.
+                  .reduce((a, val) => a + Math.round(val.total), 0)}{" "}
+                Unpaid.
               </h5>
               <span>Total Earnings</span>
             </div>
@@ -124,14 +129,14 @@ export default function dashboard({ users, orders, products }) {
                     <td>
                       <Link href={`/order/${order._id}`}>
                         <SlEye />
-                      </Link>   
+                      </Link>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <div className={styles.users}>
+          {/* <div className={styles.users}>
             <div className={styles.heading}>
               <h2>Recent Users</h2>
               <Link href="/admin/dashboard/users">View All</Link>
@@ -153,7 +158,7 @@ export default function dashboard({ users, orders, products }) {
                 ))}
               </tbody>
             </table>
-          </div>
+          </div> */}
         </div>
       </Layout>
     </div>
@@ -161,14 +166,14 @@ export default function dashboard({ users, orders, products }) {
 }
 
 export async function getServerSideProps({ req }) {
-  const users = await User.find().lean();
-  const orders = await Order.find()
-    .populate({ path: "user", model: User })
-    .lean();
-  const products = await Product.find().lean();
+  const user = session?.user;
+  const store = await Store.findOne({ seller: user._id }).lean();
+  const orders = await Order.find(product ? { store: store._id } : {}).lean();
+  const products = await Product.find(product ? { store: store._id } : {}).lean();
   return {
     props: {
-      users: JSON.parse(JSON.stringify(users)),
+      user: JSON.parse(JSON.stringify(user)),
+      store: JSON.parse(JSON.stringify(store)),
       orders: JSON.parse(JSON.stringify(orders)),
       products: JSON.parse(JSON.stringify(products)),
     },

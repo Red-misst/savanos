@@ -41,7 +41,7 @@ export default function cart() {
     if (session) {
       setLoading(true);
       const res = saveCart(selected);
-      console.log(res);
+      // console.log(res);
     
       Router.push("/checkout");
       setLoading(false);
@@ -94,3 +94,4 @@ export default function cart() {
     </>
   );
 }
+

@@ -34,6 +34,10 @@ const orderSchema = new mongoose.Schema(
         price: {
           type: Number,
         },
+        store: {
+          type: ObjectId,
+          ref: "Store",
+        },
       },
     ],
     shippingAddress: {

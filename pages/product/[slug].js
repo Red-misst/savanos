@@ -4,6 +4,7 @@ import Product from "@/models/Product";
 import Category from "@/models/Category";
 import SubCategory from "@/models/SubCategory";
 import User from "@/models/User";
+import Store from "@/models/Store";
 import Head from "next/head";
 import Header from "@/components/Header";
 import Footer from "@/components/footer";
@@ -14,9 +15,10 @@ import Infos from "@/components/productPage/infos";
 import Reviews from "@/components/productPage/reviews";
 import ProductsSwiper from "@/components/productsSwiper";
 import { women_swiper } from "@/data/home";
-export default function product({ product, related }) {
+export default function product({ product, related, store }) {
   const [activeImg, setActiveImg] = useState("");
-  console.log("reviews", product.reviews);
+  console.log(product);
+ 
   return (
     <>
       <Head>
@@ -33,7 +35,7 @@ export default function product({ product, related }) {
           </div>
           <div className={styles.product__main}>
             <MainSwiper images={product.images} activeImg={activeImg} />
-            <Infos product={product} setActiveImg={setActiveImg} />
+            <Infos product={product} setActiveImg={setActiveImg} store={store} />
           </div>
           <Reviews product={product} />
 
@@ -51,16 +53,22 @@ export default function product({ product, related }) {
 
 export async function getServerSideProps(context) {
   const { query } = context;
+
   const slug = query.slug;
   const style = query.style;
   const size = query.size || 0;
   db.connectDb();
   //------------
+
+
   let product = await Product.findOne({ slug })
     .populate({ path: "category", model: Category })
     .populate({ path: "subCategories", model: SubCategory })
     .populate({ path: "reviews.reviewBy", model: User })
     .lean();
+
+    let store = await Store.findById(product.store).lean();
+    
   let subProduct = product.subProducts[style];
   let prices = subProduct.sizes
     .map((s) => {
@@ -80,10 +88,10 @@ export async function getServerSideProps(context) {
       return p.color;
     }),
     priceRange: subProduct.discount
-      ? `From ${(prices[0] - prices[0] / subProduct.discount).toFixed(2)} to ${(
+      ? `From KSh ${(prices[0] - prices[0] / subProduct.discount).toFixed(2)} to KSh ${(
           prices[prices.length - 1] -
           prices[prices.length - 1] / subProduct.discount
-        ).toFixed(2)}$`
+        ).toFixed(2)}`
       : `From ${prices[0]} to ${prices[prices.length - 1]}$`,
     price:
       subProduct.discount > 0
@@ -140,11 +148,12 @@ export async function getServerSideProps(context) {
     ).toFixed(1);
   }
   db.disconnectDb();
-  console.log("related", related);
+
   return {
     props: {
       product: JSON.parse(JSON.stringify(newProduct)),
       related: JSON.parse(JSON.stringify(related)),
+      store: JSON.parse(JSON.stringify(store)),
     },
   };
 }

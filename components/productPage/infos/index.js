@@ -8,6 +8,7 @@ import { BsHandbagFill, BsHeart } from "react-icons/bs";
 import Share from "./share";
 import Accordian from "./Accordian";
 import SimillarSwiper from "./SimillarSwiper";
+import StoreDetails from "./storeDetails";
 import axios from "axios";
 import Link from "next/link";
 // import DialogModal from "@/components/dialogModal";
@@ -15,7 +16,7 @@ import { useSelector , useDispatch } from "react-redux";
 import { addToCart, updateCart } from "@/store/cartSlice";
 import { hideDialog, showDialog } from "@/store/DialogSlice";
 import { signIn, useSession } from "next-auth/react";
-export default function Infos({ product, setActiveImg }) {
+export default function Infos({ product, setActiveImg, store }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const { data: session } = useSession();
@@ -24,7 +25,7 @@ export default function Infos({ product, setActiveImg }) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { cart } = useSelector((state) => ({ ...state }));
-  console.log(cart)
+  // console.log(cart)
 
 
   useEffect(() => {
@@ -60,8 +61,8 @@ export default function Infos({ product, setActiveImg }) {
     } else {
       
       let _uid = `${data._id}_${product.style}_${router.query.size}`;
-      console.log(_uid);
-      console.log(cart)
+      let store = data.store;
+ 
       let exist = cart.cartItems.find((p) => p._uid === _uid);
       if (exist) {
         let newCart = cart.cartItems.map((p) => {
@@ -71,13 +72,14 @@ export default function Infos({ product, setActiveImg }) {
           return p;
         });
         dispatch(updateCart(newCart));
-      } else {
+      } else { 
         dispatch(
           addToCart({
             ...data,
             qty,
             size: data.size,
             _uid,
+            store,
           })
         );
       }
@@ -146,11 +148,7 @@ export default function Infos({ product, setActiveImg }) {
             ""
           )}
         </div>
-        <span className={styles.infos__shipping}>
-          {product.shipping
-            ? `+ KSh ${product.shipping}$ Shipping fee`
-            : "Free Shipping"}
-        </span>
+      
         <span>
           {size
             ? product.quantity
@@ -221,7 +219,9 @@ export default function Infos({ product, setActiveImg }) {
         {success && <span className={styles.success}>{success}</span>}
         <Share />
         <Accordian details={[product.description, ...product.details]} />
+        <StoreDetails store={store} />
         <SimillarSwiper />
+        
       </div>
     </div>
   );

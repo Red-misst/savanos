@@ -25,7 +25,7 @@ handler.get(async (req, res) => {
       category: product.category,
       subCategories: product.subCategories,
       shipping: product.shipping,
-      // storeNumber:product.storeNumber,
+      store:product.store,
       images: product.subProducts[style].images,
       color: product.subProducts[style].color,
       size: product.subProducts[style].sizes[size].size,
