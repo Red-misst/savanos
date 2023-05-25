@@ -3,7 +3,7 @@ import Layout from "@/components/storeAdmin/layout";
 import db from "@/utils/db";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
-import ProductCard from "@/components/admin/products/productCard";
+import ProductCard from "@/components/storeAdmin/products/productCard";
 export default function all({ products }) {
   console.log(products);
   return (

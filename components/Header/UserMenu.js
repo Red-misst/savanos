@@ -19,31 +19,45 @@ export default function UserMenu({ session }) {
         </div>
       ) : (
         <div className={styles.flex}>
-          
-            <button className={styles.btn_primary}>Sign Up</button>
-            <button className={styles.btn_outlined} onClick={()=> signIn()}>Sign In</button>
-          
+          <button className={styles.btn_primary} onClick={() => signIn()}>
+            Sign Up/ Sign In
+          </button>
         </div>
       )}
       {session && (
         <ul>
           <li>
-            <Link className="text-decoration-none" href="/profile">Account</Link>
+            <Link className="text-decoration-none" href="/profile">
+              Account
+            </Link>
           </li>
           <li>
-            <Link className="text-decoration-none" href="/cart">Cart</Link>
+            <Link className="text-decoration-none" href="/cart">
+              Cart
+            </Link>
           </li>
           <li>
-            <Link className="text-decoration-none" href="/profile/wishlist">Wishlist</Link>
+            <Link className="text-decoration-none" href="/profile/wishlist">
+              Wishlist
+            </Link>
           </li>
           <li>
-            <Link className="text-decoration-none" href="/profile/orders">My Orders</Link>
+            <Link className="text-decoration-none" href="/profile/orders">
+              My Orders
+            </Link>
           </li>
           <li>
-            <Link className="text-decoration-none" href="/profile/customer-care">Customer center</Link>
+            <Link
+              className="text-decoration-none"
+              href="/profile/customer-care"
+            >
+              Customer center
+            </Link>
           </li>
           <li>
-            <button className={styles.btn_primary} onClick={()=> signOut()}>Sign out</button>
+            <button className={styles.btn_primary} onClick={() => signOut()}>
+              Sign out
+            </button>
           </li>
         </ul>
       )}

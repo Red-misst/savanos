@@ -315,19 +315,7 @@ export default function create({ parents, categories }) {
               product={product}
               setProduct={setProduct}
             />
-            {/*
-            <Images
-              name="imageDescInputFile"
-              header="Product Description Images"
-              text="Add images"
-              images={description_images}
-              setImages={setDescriptionImages}
-              setColorImage={setColorImage}
-            />
-           
-       
-          
-            */}
+
             <button
               className={`${styles.btn} ${styles.btn__primary} ${styles.submit_btn}`}
               type="submit"

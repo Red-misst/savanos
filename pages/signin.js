@@ -102,12 +102,17 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
     };
     const res = await signIn("credentials", options);
     setUser({ ...user, success: "", error: "" });
-    setLoading(false);
+
     if (res?.error) {
       setLoading(false);
       setUser({ ...user, login_error: res?.error });
+      setTimeout(() => {
+        setUser({ ...user, success: "" }); // Remove success message after a few seconds
+      }, 2000);
     } else {
+      setUser({ ...user, error: "", success: data.message });
       return Router.push("/");
+      setLoading(false);
     }
   };
   const signUpHandler = async () => {
@@ -115,13 +120,12 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
       setLoading(true);
       const { data } = await axios.post("/api/auth/signup", {
         name,
-
         email,
         password,
       });
 
       setUser({ ...user, error: "", success: data.message });
-      setLoading(false);
+
       setTimeout(async () => {
         let options = {
           redirect: false,
@@ -129,11 +133,16 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
           password: password,
         };
         const res = await signIn("credentials", options);
+        setLoading(false);
+        setUser({ ...user, success: "" });
         Router.push("/");
       }, 10);
     } catch (error) {
       setLoading(false);
       setUser({ ...user, success: "", error: error.response.data.message });
+      setTimeout(() => {
+        setUser({ ...user, success: "" }); // Remove success message after a few seconds
+      }, 2000);
     }
   };
   return (
@@ -178,7 +187,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                       <Form method="post" action="/api/auth/signin/email">
                         <input
                           type="hidden"
-                           name="csrfToken"
+                          name="csrfToken"
                           defaultValue={csrfToken}
                         />
                         <LoginInput
