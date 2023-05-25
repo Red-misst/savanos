@@ -21,7 +21,6 @@ export default function dashboard({ user, store, orders, products }) {
   const [storeProductsTotal, setStoreProductsTotal] = useState(0);
   const [unpaidStoreProductsTotal, setUnpaidStoreProductsTotal] = useState(0);
 
- 
   useEffect(() => {
     // Calculate the total of products from the specific store
     const calculateStoreProductsTotal = () => {
@@ -30,7 +29,7 @@ export default function dashboard({ user, store, orders, products }) {
           (product) => product.store === store._id
         );
         const orderProductsTotal = storeOrderProducts.reduce(
-          (subtotal, product) => subtotal + product.price * product.quantity,
+          (subtotal, product) => subtotal + product.price * product.qty,
           0
         );
         return total + orderProductsTotal;
@@ -46,7 +45,7 @@ export default function dashboard({ user, store, orders, products }) {
             (product) => product.store === store._id
           );
           const orderProductsTotal = storeOrderProducts.reduce(
-            (subtotal, product) => subtotal + product.price * product.quantity,
+            (subtotal, product) => subtotal + product.price * product.qty,
             0
           );
           return total + orderProductsTotal;
