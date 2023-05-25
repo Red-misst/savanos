@@ -130,7 +130,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
         };
         const res = await signIn("credentials", options);
         Router.push("/");
-      }, 800);
+      }, 10);
     } catch (error) {
       setLoading(false);
       setUser({ ...user, success: "", error: error.response.data.message });

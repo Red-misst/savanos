@@ -1,6 +1,6 @@
 import nc from "next-connect";
 import auth from "@/middleware/auth";
-import seller from "@/middleware/seller";
+
 import Category from "@/models/Category";
 import SubCategory from "@/models/SubCategory";
 import db from "@/utils/db";
@@ -9,7 +9,7 @@ const handler = nc().use(auth).use(seller);
 
 handler.post(async (req, res) => {
   try {
-    const { name, parent } = req.body;
+    const { name, parent } = req.body; 
     db.connectDb();
     const test = await SubCategory.findOne({ name });
     if (test) {
@@ -18,7 +18,7 @@ handler.post(async (req, res) => {
         .json({ message: "SubCategory already exist, Try a different name" });
     }
     await new SubCategory({ name, parent, slug: slugify(name) }).save();
-
+ 
     db.disconnectDb();
     res.json({
       message: `SubCategory ${name} has been created successfully.`,

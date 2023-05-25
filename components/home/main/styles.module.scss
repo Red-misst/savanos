@@ -12,7 +12,6 @@
       "swiper"
       "offers";
     grid-template-columns: 1fr;
-  
   }
   .menu {
     grid-area: menu;
@@ -22,7 +21,7 @@
     box-shadow: $shadow-1;
     font-size: 13px;
     @media (max-width: 990px) {
-    display: none!important;
+      display: none !important;
     }
     &__header {
       width: 100%;
@@ -46,11 +45,10 @@
       margin-top: 3px;
     }
     ul {
-      padding: 15px!important;
-      
+      padding: 15px !important;
+
       li {
-        
-         height: 32px;
+        height: 32px;
         display: flex;
         align-items: center;
         cursor: pointer;
@@ -59,13 +57,11 @@
         }
 
         a {
-         
           display: flex;
           align-items: center;
           gap: 10px;
           color: #424141;
           svg {
-            
             fill: #8c8484;
             stroke: #8c8484;
           }
@@ -87,7 +83,7 @@
       display: none !important;
     }
     ul {
-      padding-top:20px;
+      padding-top: 20px;
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -106,7 +102,6 @@
     background: #fff;
     border-radius: 10px;
     box-shadow: $shadow-1;
-   
   }
   .offers {
     position: relative;

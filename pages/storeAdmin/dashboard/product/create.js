@@ -27,7 +27,7 @@ import auth from "@/middleware/auth";
 const initialState = {
   name: "",
   description: "",
-  store:"",
+  store: "",
   brand: "",
   sku: "",
   discount: 0,
@@ -85,7 +85,7 @@ export default function create({ parents, categories }) {
           questions: [],
           details: [],
         });
-      } 
+      }
     };
     getParentData();
   }, [product.parent]);
@@ -166,7 +166,7 @@ export default function create({ parents, categories }) {
         images: uploaded_images,
         color: {
           image: style_img,
-          color: product.color.color, 
+          color: product.color.color,
         },
       });
       setLoading(false);
@@ -341,10 +341,9 @@ export default function create({ parents, categories }) {
   );
 }
 
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps(context) {
   db.connectDb();
-  const { user } = ctx;
-  console.log(user)
+
   const results = await Product.find().select("name subProducts").lean();
   const categories = await Category.find().lean();
   db.disconnectDb();
