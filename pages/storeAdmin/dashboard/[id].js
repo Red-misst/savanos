@@ -7,6 +7,7 @@ import Store from "@/models/Store";
 import Product from "@/models/Product";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import Dropdown from "@/components/storeAdmin/dashboard/dropdown";
 import Notifications from "@/components/storeAdmin/dashboard/notifications";
 import { TbUsers } from "react-icons/tb";
@@ -17,6 +18,48 @@ import Link from "next/link";
 import auth from "@/middleware/auth";
 
 export default function dashboard({ user, store, orders, products }) {
+  const [storeProductsTotal, setStoreProductsTotal] = useState(0);
+  const [unpaidStoreProductsTotal, setUnpaidStoreProductsTotal] = useState(0);
+
+ 
+  useEffect(() => {
+    // Calculate the total of products from the specific store
+    const calculateStoreProductsTotal = () => {
+      const total = orders.reduce((total, order) => {
+        const storeOrderProducts = order.products.filter(
+          (product) => product.store === store._id
+        );
+        const orderProductsTotal = storeOrderProducts.reduce(
+          (subtotal, product) => subtotal + product.price * product.quantity,
+          0
+        );
+        return total + orderProductsTotal;
+      }, 0);
+      setStoreProductsTotal(total);
+    };
+
+    // Calculate the unpaid total of products from the specific store
+    const calculateUnpaidStoreProductsTotal = () => {
+      const total = orders.reduce((total, order) => {
+        if (!order.isPaid) {
+          const storeOrderProducts = order.products.filter(
+            (product) => product.store === store._id
+          );
+          const orderProductsTotal = storeOrderProducts.reduce(
+            (subtotal, product) => subtotal + product.price * product.quantity,
+            0
+          );
+          return total + orderProductsTotal;
+        }
+        return total;
+      }, 0);
+      setUnpaidStoreProductsTotal(total);
+    };
+
+    calculateStoreProductsTotal();
+    calculateUnpaidStoreProductsTotal();
+  }, [orders, store._id]);
+
   return (
     <div>
       <Head>
@@ -58,16 +101,9 @@ export default function dashboard({ user, store, orders, products }) {
               <GiTakeMyMoney />
             </div>
             <div className={styles.card__infos}>
-              <h4>
-                + KSh{orders.reduce((a, val) => a + Math.round(val.total), 0)}
-              </h4>
-              <h5>
-                KSh{" "}
-                {orders
-                  .filter((o) => !o.isPaid)
-                  .reduce((a, val) => a + Math.round(val.total), 0)}{" "}
-                Unpaid.
-              </h5>
+              <h4>+ KSh{storeProductsTotal.toFixed(2)}</h4>
+              <h5>KSh {unpaidStoreProductsTotal.toFixed(2)} Unpaid.</h5>
+              <span>Total Earnings</span>
               <span>Total Earnings</span>
             </div>
           </div>

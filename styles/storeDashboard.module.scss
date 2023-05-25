@@ -101,13 +101,13 @@
 .data {
   position: relative;
   width: 100%;
-
+  padding: 0 20px;
   display: grid;
 
   .orders {
     position: relative;
-    font-size: auto;
-    display: grid; 
+    font-size: 14px;
+    display: grid;
     background: #fff;
     padding: 20px;
     table {
