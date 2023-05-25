@@ -101,12 +101,13 @@
 .data {
   position: relative;
   width: 100%;
-  padding: 0 20px;
+
   display: grid;
 
   .orders {
     position: relative;
-    display: grid;
+    font-size: auto;
+    display: grid; 
     background: #fff;
     padding: 20px;
     table {
@@ -206,7 +207,7 @@
     }
     .status {
       padding: 5px;
-      width: 100px;
+
       border-radius: 3px;
       color: #fff;
       font-size: 12px;
@@ -215,8 +216,6 @@
       text-align: center;
     }
   }
-
-  
 }
 .not_processed {
   background: #e3503e;

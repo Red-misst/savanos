@@ -110,8 +110,8 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
         setUser({ ...user, success: "" }); // Remove success message after a few seconds
       }, 2000);
     } else {
-      setUser({ ...user, error: "", success: data.message });
-      return Router.push("/");
+      setUser({ ...user, error: "", success: "Logged in succesfully" });
+      Router.push("/");
       setLoading(false);
     }
   };

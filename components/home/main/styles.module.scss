@@ -8,6 +8,7 @@
     "menu offers user";
   @media (max-width: 990px) {
     grid-template-areas:
+      "header"
       "menu"
       "swiper"
       "offers";
@@ -22,6 +23,11 @@
     font-size: 13px;
     @media (max-width: 990px) {
       display: none !important;
+      position: fixed;
+      top: 100px;
+      left: 20px;
+      z-index: 100;
+      width: 300px;
     }
     &__header {
       width: 100%;
@@ -29,13 +35,7 @@
       background: $cream-color;
       border-bottom: 1px solid $cream-color;
       box-shadow: $shadow-2;
-      @media (max-width: 990px) {
-        display: none !important;
-        svg,
-        b {
-          display: none;
-        }
-      }
+
       svg {
         height: 23px;
         width: 23px;
@@ -65,150 +65,142 @@
             fill: #8c8484;
             stroke: #8c8484;
           }
-          span {
-            @media (max-width: 990px) {
-              display: none;
-            }
-          }
         }
       }
-    }
-  }
-  .header {
-    grid-area: header;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    @media (max-width: 990px) {
-      display: none !important;
-    }
-    ul {
-      padding-top: 20px;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      li {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        font-size: 19px;
-        color: $purple-color !important;
-      }
-    }
-  }
-  .swiper {
-    grid-area: swiper;
-    height: 300px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: $shadow-1;
-  }
-  .offers {
-    position: relative;
-    grid-area: offers;
-    overflow: hidden;
-    height: 220px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: $shadow-1;
-    background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20190221/ourmid/pngtree-color-horn-polygon-pop-wind-image_16349.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  .user {
-    position: relative;
-    grid-area: user;
-    height: 530px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: $shadow-1;
-    @media (max-width: 990px) {
-      display: none;
-    }
-
-    &__container {
-      padding: 1rem;
-    }
-    &__infos {
-      position: absolute;
-      top: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      img {
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        border-radius: 50%;
-        box-shadow: $shadow-1;
-      }
-      h4 {
-        margin-top: 10px;
-        text-transform: capitalize;
-      }
-      &_btns {
-        margin-top: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        button {
-          width: 100px;
-          height: 35px;
-          border-radius: 10px;
-          cursor: pointer;
-          font-weight: 600;
-        }
-      }
-    }
-    &__links {
-      margin-top: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      li {
-        width: 50px;
-        height: 50px;
-        background: $cream-color;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        transition: 0.2s;
-        svg {
-          width: 30px;
-          height: 30px;
-          stroke: $purple-color;
-        }
-        &:hover {
-          background: $purple-color;
-          svg {
-            stroke: #fff;
-          }
-        }
-        &:nth-of-type(3),
-        &:nth-of-type(4) {
-          svg {
-            fill: $purple-color;
-          }
-          &:hover {
-            svg {
-              fill: #fff;
-            }
-          }
-        }
-      }
-    }
-    &__footer {
-      position: absolute;
-      bottom: 0;
-      transform: rotate(180deg);
     }
   }
 }
+.header {
+  grid-area: header;
+  height: 40px;
+  display: flex;
+  align-items: center;
+
+  ul {
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    li {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      font-size: 19px;
+      color: $purple-color !important;
+    }
+  }
+}
+.swiper {
+  grid-area: swiper;
+  height: 300px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: $shadow-1;
+}
+.offers {
+  position: relative;
+  grid-area: offers;
+  overflow: hidden;
+  height: 220px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: $shadow-1;
+  background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20190221/ourmid/pngtree-color-horn-polygon-pop-wind-image_16349.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.user {
+  position: relative;
+  grid-area: user;
+  height: 530px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: $shadow-1;
+  @media (max-width: 990px) {
+    display: none;
+  }
+
+  &__container {
+    padding: 1rem;
+  }
+  &__infos {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: $shadow-1;
+    }
+    h4 {
+      margin-top: 10px;
+      text-transform: capitalize;
+    }
+    &_btns {
+      margin-top: 1rem;
+      width: 150px;
+      button {
+        padding: 0 10px;
+        height: 35px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+    }
+  }
+  &__links {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    li {
+      width: 50px;
+      height: 50px;
+      background: $cream-color;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      transition: 0.2s;
+      svg {
+        width: 30px;
+        height: 30px;
+        stroke: $purple-color;
+      }
+      &:hover {
+        background: $purple-color;
+        svg {
+          stroke: #fff;
+        }
+      }
+      &:nth-of-type(3),
+      &:nth-of-type(4) {
+        svg {
+          fill: $purple-color;
+        }
+        &:hover {
+          svg {
+            fill: #fff;
+          }
+        }
+      }
+    }
+  }
+  &__footer {
+    position: absolute;
+    bottom: 0;
+    transform: rotate(180deg);
+  }
+}
+
 .new {
   position: absolute;
   top: -8px;
