@@ -10,6 +10,7 @@ handler.post(async (req, res) => {
   try {
     db.connectDb();
     const { cart } = req.body;
+    console.log(cart)
     let products = [];
     let user = await User.findById(req.user);
 
@@ -25,6 +26,7 @@ handler.post(async (req, res) => {
       };
       tempProduct.image = subProduct.images[0].url;
       tempProduct.qty = Number(cart[i].qty);
+      tempProduct.store= dbProduct.store;
       tempProduct.size = cart[i].size;
       let price = Number(
         subProduct.sizes.find((p) => p.size == cart[i].size).price
@@ -63,8 +65,8 @@ handler.post(async (req, res) => {
         cartTotal: cartTotal.toFixed(2),
         user: user._id,
       }).save();
-      return;
-      // return res.json({ message: "Cart saved successfully" });
+    
+      return res.json({ message: "Cart saved successfully" });
     }
 
     console.log(success);

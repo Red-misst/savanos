@@ -1,9 +1,9 @@
-import styles from "../../../../styles/products.module.scss";
-import Layout from "../../../../components/admin/layout";
-import db from "../../../../utils/db";
-import Product from "../../../../models/Product";
-import Category from "../../../../models/Category";
-import ProductCard from "../../../../components/admin/products/productCard";
+import styles from "@/styles/products.module.scss";
+import Layout from "@/components/storeAdmin/layout";
+import db from "@/utils/db";
+import Product from "@/models/Product";
+import Category from "@/models/Category";
+import ProductCard from "@/components/admin/products/productCard";
 export default function all({ products }) {
   console.log(products);
   return (

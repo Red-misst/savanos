@@ -27,6 +27,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({products}) {
   const { data: session } = useSession();
+
+
   const isMedium = useMediaQuery({ query: "(max-width:850px)" });
   const isMobile = useMediaQuery({ query: "(max-width:550px)" });
   return (

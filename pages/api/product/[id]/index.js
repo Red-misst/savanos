@@ -16,7 +16,7 @@ handler.get(async (req, res) => {
     db.disconnectDb();
     return res.json({
       _id: product._id,
-      style: Number(style),
+      style: Number(style), 
       name: product.name,
       description: product.description,
       slug: product.slug,

@@ -34,10 +34,9 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // storenumber: {
-    //   type: String,
-    //   required: true,
-    // },
+    store: {
+      type: String,
+    },
     description: {
       type: String,
       required: true,

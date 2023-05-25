@@ -1,5 +1,5 @@
 import styles from "@/styles/products.module.scss";
-import Layout from "@/components/admin/layout";
+import Layout from "@/components/storeAdmin/layout";
 import db from "@/utils/db";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
@@ -14,18 +14,20 @@ import AdminInput from "@/components/inputs/adminInput";
 import DialogModal from "@/components/dialogModal";
 import { useDispatch } from "react-redux";
 import { showDialog } from "@/store/DialogSlice";
-import Images from "@/components/admin/createProduct/images";
-import Colors from "@/components/admin/createProduct/colors";
-import Style from "@/components/admin/createProduct/style";
-import Sizes from "@/components/admin/createProduct/clickToAdd/Sizes";
-import Details from "@/components/admin/createProduct/clickToAdd/Details";
-import Questions from "@/components/admin/createProduct/clickToAdd/Questions";
+import Images from "@/components/storeAdmin/createProduct/images";
+import Colors from "@/components/storeAdmin/createProduct/colors";
+import Style from "@/components/storeAdmin/createProduct/style";
+import Sizes from "@/components/storeAdmin/createProduct/clickToAdd/Sizes";
+import Details from "@/components/storeAdmin/createProduct/clickToAdd/Details";
+import Questions from "@/components/storeAdmin/createProduct/clickToAdd/Questions";
 import { validateCreateProduct } from "@/utils/validation";
 import dataURItoBlob from "@/utils/dataURItoBlob";
 import { uploadImages } from "@/requests/upload";
+import auth from "@/middleware/auth";
 const initialState = {
   name: "",
   description: "",
+  store:"",
   brand: "",
   sku: "",
   discount: 0,
@@ -83,13 +85,13 @@ export default function create({ parents, categories }) {
           questions: [],
           details: [],
         });
-      }
+      } 
     };
     getParentData();
   }, [product.parent]);
   useEffect(() => {
     async function getSubs() {
-      const { data } = await axios.get("/api/admin/subCategory", {
+      const { data } = await axios.get("/api/storeAdmin/subCategory", {
         params: {
           category: product.category,
         },
@@ -159,12 +161,12 @@ export default function create({ parents, categories }) {
       style_img = cloudinary_style_img[0].url;
     }
     try {
-      const { data } = await axios.post("/api/admin/product", {
+      const { data } = await axios.post("/api/storeAdmin/product", {
         ...product,
         images: uploaded_images,
         color: {
           image: style_img,
-          color: product.color.color,
+          color: product.color.color, 
         },
       });
       setLoading(false);
@@ -341,6 +343,8 @@ export default function create({ parents, categories }) {
 
 export async function getServerSideProps(ctx) {
   db.connectDb();
+  const { user } = ctx;
+  console.log(user)
   const results = await Product.find().select("name subProducts").lean();
   const categories = await Category.find().lean();
   db.disconnectDb();
