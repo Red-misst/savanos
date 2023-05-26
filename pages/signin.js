@@ -148,7 +148,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
   return (
     <>
       {loading && <DotLoaderSpinner loading={loading} />}
-      <Header />
+      <Header loading={loading} setLoading={setLoading} />
       <div className="container-fluid">
         <div className="row">
           {signin && (

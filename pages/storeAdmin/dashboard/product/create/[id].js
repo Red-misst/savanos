@@ -129,7 +129,7 @@ export default function create({ parents, categories }) {
   });
   const createProduct = async () => {
     let test = validateCreateProduct(product, images);
-    if (test == "valid") {
+    if (test === "valid") {
       createProductHandler();
     } else {
       dispatch(
@@ -204,7 +204,7 @@ export default function create({ parents, categories }) {
         validator={() => ({})}
         validationSchema={validate}
         onSubmit={() => {
-          createProductHandler();
+          createProduct();
         }}
       >
         {(formik) => (
