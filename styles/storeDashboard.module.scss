@@ -106,6 +106,7 @@
 
   .orders {
     position: relative;
+    font-size: 14px;
     display: grid;
     background: #fff;
     padding: 20px;
@@ -206,7 +207,7 @@
     }
     .status {
       padding: 5px;
-      width: 100px;
+
       border-radius: 3px;
       color: #fff;
       font-size: 12px;
@@ -215,8 +216,6 @@
       text-align: center;
     }
   }
-
-  
 }
 .not_processed {
   background: #e3503e;

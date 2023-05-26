@@ -44,7 +44,7 @@ export default function ProductCard({ product }) {
                 <img src={p.images[0].url} alt="" />
               </div>
               <div className={styles.product__actions}>
-                <Link href={`/admin/dashboard/product/${product._id}`}>
+                <Link href={`/storeAdmin/dashboard/product/${product._id}`}>
                   <TbEdit />
                 </Link>
                 <Link href={`/product/${product.slug}?style=${i}`}>

@@ -7,7 +7,7 @@ import { BsHeart } from "react-icons/bs";
 import { AiOutlineMessage } from "react-icons/ai";
 import React, { useRef, useState } from "react";
 import { signOut, signIn } from "next-auth/react";
-// Import Swiper React components 
+// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -38,8 +38,9 @@ export default function User() {
               alt="profile_img"
             />
             <div className={styles.user__infos_btns}>
-            <button className={styles.btn_primary}>Sign Up</button>
-            <button className={styles.btn_outlined} onClick={()=> signIn()}>Sign In</button>
+              <button className={styles.btn_primary} onClick={() => signIn()}>
+                Sign Up/ Sign In
+              </button>
             </div>
           </div>
         )}

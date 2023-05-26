@@ -11,7 +11,7 @@
     right: -19.5px;
     top: 50px;
     height: 50px;
-    width: 20px;
+    width: 15px;
     background: #fafafa;
     cursor: pointer;
     border-top-right-radius: 10px;
@@ -69,13 +69,14 @@
     }
   }
   &__list {
+    padding-left: 0 !important;
     li {
       width: 50px;
       height: 50px;
       border-radius: 10px;
       display: flex;
       align-items: center;
-      padding-left: 13px;
+      padding-left: 10px;
       margin-bottom: 10px;
       cursor: pointer;
       &:hover {
@@ -125,7 +126,6 @@
     }
   }
   nav {
-    position: absolute;
     bottom: 0;
     ul {
       li {

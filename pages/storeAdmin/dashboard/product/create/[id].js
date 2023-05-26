@@ -3,6 +3,8 @@ import Layout from "@/components/storeAdmin/layout";
 import db from "@/utils/db";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
+import User from "@/models/User";
+import Store from "@/models/Store";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -11,7 +13,7 @@ import { Form, Formik } from "formik";
 import SingularSelect from "@/components/selects/SingularSelect";
 import MultipleSelect from "@/components/selects/MultipleSelect";
 import AdminInput from "@/components/inputs/adminInput";
-import DialogModal from "@/components/dialogModal";
+
 import { useDispatch } from "react-redux";
 import { showDialog } from "@/store/DialogSlice";
 import Images from "@/components/storeAdmin/createProduct/images";
@@ -23,11 +25,11 @@ import Questions from "@/components/storeAdmin/createProduct/clickToAdd/Question
 import { validateCreateProduct } from "@/utils/validation";
 import dataURItoBlob from "@/utils/dataURItoBlob";
 import { uploadImages } from "@/requests/upload";
-import auth from "@/middleware/auth";
+
 const initialState = {
   name: "",
   description: "",
-  store:"",
+  store: "",
   brand: "",
   sku: "",
   discount: 0,
@@ -72,23 +74,26 @@ export default function create({ parents, categories }) {
   console.log(product);
   useEffect(() => {
     const getParentData = async () => {
-      const { data } = await axios.get(`/api/product/${product.parent}`);
-      console.log(data);
-      if (data) {
-        setProduct({
-          ...product,
-          name: data.name,
-          description: data.description,
-          brand: data.brand,
-          category: data.category,
-          subCategories: data.subCategories,
-          questions: [],
-          details: [],
-        });
-      } 
+      if (product.parent) {
+        const { data } = await axios.get(`/api/product/${product.parent}`);
+        console.log(data);
+        if (data) {
+          setProduct({
+            ...product,
+            name: data.name,
+            description: data.description,
+            brand: data.brand,
+            category: data.category,
+            subCategories: data.subCategories,
+            questions: [],
+            details: [],
+          });
+        }
+      }
     };
     getParentData();
   }, [product.parent]);
+
   useEffect(() => {
     async function getSubs() {
       const { data } = await axios.get("/api/storeAdmin/subCategory", {
@@ -112,12 +117,12 @@ export default function create({ parents, categories }) {
       .max(300, "Product name must bewteen 10 and 300 characters."),
     brand: Yup.string().required("Please add a brand"),
     category: Yup.string().required("Please select a category."),
-    /*
-    subCategories: Yup.array().min(
-      1,
-      "Please select atleast one sub Category."
-    ),
-   */
+
+    // subCategories: Yup.array().min(
+    //   1,
+    //   "Please select atleast one sub Category."
+    // ),
+
     sku: Yup.string().required("Please add a sku/number"),
     color: Yup.string().required("Please add a color"),
     description: Yup.string().required("Please add a description"),
@@ -135,10 +140,11 @@ export default function create({ parents, categories }) {
       );
     }
   };
-  let uploaded_images = [];
-  let style_img = "";
+
   const createProductHandler = async () => {
     setLoading(true);
+    let uploaded_images = [];
+    let style_img = "";
     if (images) {
       let temp = images.map((img) => {
         return dataURItoBlob(img);
@@ -166,7 +172,7 @@ export default function create({ parents, categories }) {
         images: uploaded_images,
         color: {
           image: style_img,
-          color: product.color.color, 
+          color: product.color.color,
         },
       });
       setLoading(false);
@@ -195,9 +201,10 @@ export default function create({ parents, categories }) {
           imageInputFile: "",
           styleInout: "",
         }}
+        validator={() => ({})}
         validationSchema={validate}
         onSubmit={() => {
-          createProduct();
+          createProductHandler();
         }}
       >
         {(formik) => (
@@ -315,19 +322,7 @@ export default function create({ parents, categories }) {
               product={product}
               setProduct={setProduct}
             />
-            {/*
-            <Images
-              name="imageDescInputFile"
-              header="Product Description Images"
-              text="Add images"
-              images={description_images}
-              setImages={setDescriptionImages}
-              setColorImage={setColorImage}
-            />
-           
-       
-          
-            */}
+
             <button
               className={`${styles.btn} ${styles.btn__primary} ${styles.submit_btn}`}
               type="submit"
@@ -341,12 +336,17 @@ export default function create({ parents, categories }) {
   );
 }
 
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps(context) {
+  const { query } = context;
   db.connectDb();
-  const { user } = ctx;
-  console.log(user)
-  const results = await Product.find().select("name subProducts").lean();
+  const user = await User.findById(query.id).lean();
+  const store = await Store.findOne({ seller: query.id }).lean();
+
+  const results = await Product.find({ store: store._id })
+    .select("name subProducts")
+    .lean();
   const categories = await Category.find().lean();
+
   db.disconnectDb();
   return {
     props: {
