@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import styles from "./styles.module.scss";
-
-export default function Header({ loading, setLoading }) {
+export default function Header({ setLoading }) {
   const { data: session } = useSession();
 
   console.log(session);
@@ -26,19 +25,31 @@ export default function Header({ loading, setLoading }) {
           </li>
         ) : (
           <li>
-            <Link className="text-decoration-none" href="" onClick={handleLinkClick}>
+            <Link
+              className="text-decoration-none"
+              href=""
+              onClick={handleLinkClick}
+            >
               Store
             </Link>
           </li>
         )}
 
         <li>
-          <Link className="text-decoration-none" href="" onClick={handleLinkClick}>
+          <Link
+            className="text-decoration-none"
+            href=""
+            onClick={handleLinkClick}
+          >
             Electronics
           </Link>
         </li>
         <li>
-          <Link className="text-decoration-none" href="" onClick={handleLinkClick}>
+          <Link
+            className="text-decoration-none"
+            href=""
+            onClick={handleLinkClick}
+          >
             Watches
           </Link>
         </li>

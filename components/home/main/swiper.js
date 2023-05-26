@@ -1,18 +1,15 @@
-import styles from "./styles.module.scss";
-
-import { useRef, useState } from "react";
-// Import Swiper React components
+import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
-// import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
 
-export default function MainSwiper() {
+export default function MainSwiper({ setLoading }) {
+  const handleLinkClick = () => {
+    setLoading(true);
+  };
+
   return (
     <>
       <Swiper
@@ -33,6 +30,7 @@ export default function MainSwiper() {
         {[...Array(10).keys()].map((i) => (
           <SwiperSlide>
             <img src={`../../../images/swiper/${i + 1}.jpg`} alt="Swiper-img" />
+            <Link href="" onClick={handleLinkClick}></Link>
           </SwiperSlide>
         ))}
       </Swiper>

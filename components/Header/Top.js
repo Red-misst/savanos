@@ -13,7 +13,7 @@ import {
 import Cart from "./Cart";
 import { useSession } from "next-auth/react";
 
-export default function Top({ loading, setLoading }) {
+export default function Top({ setLoading }) {
   const { data: session } = useSession();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -42,7 +42,7 @@ export default function Top({ loading, setLoading }) {
         <ul className={`d-flex gap-3 ${styles.top_list}`}>
           <li className={styles.top_li}>
             <div className={styles.cart_1}>
-              <Cart loading={loading} setLoading={setLoading} />
+              <Cart  setLoading={setLoading} />
             </div>
           </li>
           <li className={styles.top_li}>
@@ -104,7 +104,7 @@ export default function Top({ loading, setLoading }) {
             {showMenu && (
               <UserMenu
                 session={session}
-                loading={loading}
+           
                 setLoading={setLoading}
               />
             )}

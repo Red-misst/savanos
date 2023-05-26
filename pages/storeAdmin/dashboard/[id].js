@@ -6,16 +6,14 @@ import Order from "@/models/Order";
 import Store from "@/models/Store";
 import Product from "@/models/Product";
 import Head from "next/head";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Dropdown from "@/components/storeAdmin/dashboard/dropdown";
 import Notifications from "@/components/storeAdmin/dashboard/notifications";
-import { TbUsers } from "react-icons/tb";
+
 import { SlHandbag, SlEye } from "react-icons/sl";
 import { SiProducthunt } from "react-icons/si";
 import { GiTakeMyMoney } from "react-icons/gi";
 import Link from "next/link";
-import auth from "@/middleware/auth";
 
 export default function dashboard({ user, store, orders, products }) {
   const [storeProductsTotal, setStoreProductsTotal] = useState(0);

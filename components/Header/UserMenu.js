@@ -2,7 +2,7 @@ import styles from "./styles.module.scss";
 import Link from "next/link";
 import { signOut, signIn } from "next-auth/react";
 
-export default function UserMenu({ session, loading, setLoading }) {
+export default function UserMenu({ session, setLoading }) {
   const handleLinkClick = () => {
     setLoading(true);
   };
@@ -87,7 +87,7 @@ export default function UserMenu({ session, loading, setLoading }) {
               <button
                 className={styles.btn_primary}
                 onClick={() => {
-                  signIn();
+                  signOut();
                   handleLinkClick();
                 }}
               >

@@ -3,9 +3,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import ProductSwiper from "./ProductSwiper";
 import styles from "./styles.module.scss";
-import { TiShoppingCart } from "react-icons/ti";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, setLoading }) {
   const [active, setActive] = useState(0);
   const [images, setImages] = useState(product.subProducts[active]?.images);
   const [prices, setPrices] = useState(
@@ -34,14 +33,23 @@ export default function ProductCard({ product }) {
         })
     );
   }, [active, product]);
+
+  const handleLinkClick = () => {
+    setLoading(true);
+  };
+
   return (
     <div className={styles.product}>
       <div className={styles.product__container}>
-        <a href={`/product/${product.slug}?style=${active}`} target="_blank">
+        <Link
+          href={`/product/${product.slug}?style=${active}`}
+          target="_blank"
+          onClick={handleLinkClick}
+        >
           <div>
             <ProductSwiper images={images} />
           </div>
-        </a>
+        </Link>
         {product.subProducts[active].discount ? (
           <div className={styles.product__discount}>
             -{product.subProducts[active].discount}%
@@ -83,12 +91,6 @@ export default function ProductCard({ product }) {
                   ></span>
                 )
               )}
-          </div>
-          <div >
-            <button className={` mt-2 ${styles.btn_primary}`}>
-            <TiShoppingCart className="fs-2"/>
-            Add to Cart
-            </button>
           </div>
         </div>
       </div>

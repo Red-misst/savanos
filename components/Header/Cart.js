@@ -3,7 +3,7 @@ import Link from "next/link";
 import { TiShoppingCart } from "react-icons/ti";
 import { useSelector } from "react-redux";
 
-export default function Cart({ loading, setLoading }) {
+export default function Cart({ setLoading }) {
   const { cart } = useSelector((state) => ({ ...state }));
 
   const handleLinkClick = () => {

@@ -261,6 +261,14 @@ export default function order({
                     )}
                   </div>
                 )}
+                {orderData.paymentMethod == "mpesa" && (
+                  <StripePayment
+                    total={orderData.total}
+                    order_id={orderData._id}
+                    stripe_public_key={stripe_public_key}
+                  />
+                )} 
+                
                 {/* {orderData.paymentMethod == "credit_card" && (
                   <StripePayment
                     total={orderData.total}

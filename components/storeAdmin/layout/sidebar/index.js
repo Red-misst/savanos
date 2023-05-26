@@ -67,7 +67,10 @@ export default function Sidebar() {
             </Link>
           </li>
           <li className={route == "sales" ? styles.active : ""}>
-            <Link href="/storeAdmin/dashboard/sales" legacyBehavior>
+            <Link
+              href={`/storeAdmin/dashboard/sales/${session?.user?.id} `}
+              legacyBehavior
+            >
               <a>
                 <FcSalesPerformance />
                 <span className={styles.show}>Sales</span>

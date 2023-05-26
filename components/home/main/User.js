@@ -5,19 +5,25 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { HiOutlineClipboardList } from "react-icons/hi";
 import { BsHeart } from "react-icons/bs";
 import { AiOutlineMessage } from "react-icons/ai";
-import React, { useRef, useState } from "react";
-import { signOut, signIn } from "next-auth/react";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
+import { signIn } from "next-auth/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-cards";
-// import required modules
 import { EffectCards, Navigation } from "swiper";
 import { userSwiperArray } from "../../../data/home";
-export default function User() {
+
+export default function User({ setLoading }) {
   const { data: session } = useSession();
+
+  const handleLinkClick = () => {
+    setLoading(true);
+  };
+
+  const handleButtonClick = () => {
+    setLoading(true);
+  };
+
   return (
     <div className={styles.user}>
       <img
@@ -38,7 +44,13 @@ export default function User() {
               alt="profile_img"
             />
             <div className={styles.user__infos_btns}>
-              <button className={styles.btn_primary} onClick={() => signIn()}>
+              <button
+                className={styles.btn_primary}
+                onClick={() => {
+                  handleButtonClick();
+                  signIn();
+                }}
+              >
                 Sign Up/ Sign In
               </button>
             </div>
@@ -47,28 +59,28 @@ export default function User() {
         <ul className={styles.user__links}>
           <li>
             <Link href="/profile" legacyBehavior>
-              <a>
+              <a onClick={handleLinkClick}>
                 <IoSettingsOutline />
               </a>
             </Link>
           </li>
           <li>
             <Link href="" legacyBehavior>
-              <a>
+              <a onClick={handleLinkClick}>
                 <HiOutlineClipboardList />
               </a>
             </Link>
           </li>
           <li>
             <Link href="" legacyBehavior>
-              <a>
+              <a onClick={handleLinkClick}>
                 <AiOutlineMessage />
               </a>
             </Link>
           </li>
           <li>
             <Link href="" legacyBehavior>
-              <a>
+              <a onClick={handleLinkClick}>
                 <BsHeart />
               </a>
             </Link>
@@ -94,7 +106,7 @@ export default function User() {
           >
             {userSwiperArray.map((item) => (
               <SwiperSlide>
-                <Link href="">
+                <Link href="" onClick={handleLinkClick}>
                   <img src={item.image} alt="" />
                 </Link>
               </SwiperSlide>

@@ -12,7 +12,6 @@ import {
   getProviders,
   getSession,
   signIn,
-  country,
 } from "next-auth/react";
 import CircledIconBtn from "@/components/buttons/circledIconBtn";
 import LoginInput from "@/components/inputs/loginInput";
@@ -112,7 +111,6 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
     } else {
       setUser({ ...user, error: "", success: "Logged in succesfully" });
       Router.push("/");
-      setLoading(false);
     }
   };
   const signUpHandler = async () => {
@@ -133,7 +131,6 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
           password: password,
         };
         const res = await signIn("credentials", options);
-        setLoading(false);
         setUser({ ...user, success: "" });
         Router.push("/");
       }, 10);
@@ -162,12 +159,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                   <div className={styles.back_svg}>
                     <BiLeftArrowAlt className="text-dark" />
                   </div>
-                  <span>
-                    Welcome back! &nbsp;
-                    <Link className="text-decoration-none" href="/">
-                      login as seller
-                    </Link>{" "}
-                  </span>
+                  <span>Welcome back, 😄</span>
                 </div>
                 <div className={styles.login_form}>
                   <h1>Sign in</h1>
@@ -271,12 +263,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                   <div className={styles.back_svg}>
                     <BiLeftArrowAlt className="text-dark" />
                   </div>
-                  <span>
-                    Are you a seller! &nbsp;
-                    <Link className="text-decoration-none" href="/">
-                      Sign up as seller
-                    </Link>{" "}
-                  </span>
+                <span>Sign up and get started, 😄</span>
                 </div>
                 <div className={styles.login_form}>
                   <h1>Sign Up</h1>
