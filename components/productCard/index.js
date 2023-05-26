@@ -41,11 +41,7 @@ export default function ProductCard({ product, setLoading }) {
   return (
     <div className={styles.product}>
       <div className={styles.product__container}>
-        <Link
-          href={`/product/${product.slug}?style=${active}`}
-          target="_blank"
-          onClick={handleLinkClick}
-        >
+        <Link href={`/product/${product.slug}?style=${active}`} target="_blank">
           <div>
             <ProductSwiper images={images} />
           </div>
