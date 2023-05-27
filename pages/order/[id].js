@@ -4,11 +4,9 @@ import Order from "@/models/Order";
 import User from "@/models/User";
 import { IoIosArrowForward } from "react-icons/io";
 import db from "@/utils/db";
-import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useReducer, useEffect } from "react";
 import axios from "axios";
-// import StripePayment from "@/components/stripePayment";
-import { getSession } from "next-auth/react";
+import Mpesa from "@/components/mpesa";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -23,39 +21,13 @@ function reducer(state, action) {
   }
 }
 
-
-
-
-export default function order({
-  orderData,
-  paypal_client_id,
-}) {
-  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
-
+export default function order({ orderData }) {
   const [dispatch] = useReducer(reducer, {
     loading: true,
     error: "",
     success: "",
   });
-  useEffect(() => {
-    if (!orderData._id) {
-      dispatch({
-        type: "PAY_RESET",
-      });
-    } else {
-      paypalDispatch({
-        type: "resetOptions",
-        value: {
-          "client-id": paypal_client_id,
-          currency: "KSH",
-        },
-      });
-      paypalDispatch({
-        type: "setLoadingStatus",
-        value: "pending",
-      });
-    }
-  }, [order]);
+
   function createOrderHanlder(data, actions) {
     return actions.order
       .create({
@@ -90,8 +62,8 @@ export default function order({
   }
   return (
     <>
-      <Header  />
-     
+      <Header />
+
       <div className={styles.order}>
         <div className={styles.container}>
           <div className={styles.order__infos}>
@@ -145,10 +117,10 @@ export default function order({
                       <img src={product.color.image} alt="" /> / {product.size}
                     </div>
                     <div className={styles.product__infos_priceQty}>
-                     KSh {product.price} x {product.qty}
+                      KSh {product.price} x {product.qty}
                     </div>
                     <div className={styles.product__infos_total}>
-                     KSh {product.price * product.qty}
+                      KSh {product.price * product.qty}
                     </div>
                   </div>
                 </div>
@@ -165,11 +137,10 @@ export default function order({
                         Coupon Applied <em>({orderData.couponApplied})</em>{" "}
                       </span>
                       <span>
-                        -
-                       KSh {(
+                        - KSh{" "}
+                        {(
                           orderData.totalBeforeDiscount - orderData.total
                         ).toFixed(2)}
-                        
                       </span>
                     </div>
                     <div className={styles.order__products_total_sub}>
@@ -219,13 +190,9 @@ export default function order({
                   {orderData.shippingAddress.lastName}
                 </span>
                 <span>{orderData.shippingAddress.area}</span>
-               
-                <span>
-                  {orderData.shippingAddress.residential}
-              
-                </span>
-              <span>Room No. {orderData.shippingAddress.houseNumber}</span>
-            
+
+                <span>{orderData.shippingAddress.residential}</span>
+                <span>Room No. {orderData.shippingAddress.houseNumber}</span>
               </div>
               <div className={styles.order__address_shipping}>
                 <h2>Billing Address</h2>
@@ -234,51 +201,22 @@ export default function order({
                   {orderData.shippingAddress.lastName}
                 </span>
                 <span>{orderData.shippingAddress.area}</span>
-               
-                <span>
-                 {orderData.shippingAddress.residential}
-              
-                </span>
-                <span>
-                Room No. {orderData.shippingAddress.houseNumber}</span>
+
+                <span>{orderData.shippingAddress.residential}</span>
+                <span>Room No. {orderData.shippingAddress.houseNumber}</span>
               </div>
             </div>
             {!orderData.isPaid && (
               <div className={styles.order__payment}>
-                {orderData.paymentMethod == "paypal" && (
-                  <div>
-                    {isPending ? (
-                      <span>loading...</span>
-                    ) : (
-                   
-                      <PayPalButtons
-                        createOrder={createOrderHanlder}
-                        onApprove={onApproveHandler}
-                        onError={onErroHandler}
-                      ></PayPalButtons>
-                      
-                    
-                    )}
-                  </div>
-                )}
-                {/* {orderData.paymentMethod == "credit_card" && (
-                  <StripePayment
-                    total={orderData.total}
-                    order_id={orderData._id}
-                    stripe_public_key={stripe_public_key}
-                  />
-                )} */}
-                {orderData.paymentMethod == "cash" && (
-                  <div className={styles.cash}>cash</div>
+                {orderData.paymentMethod == "mpesa" && (
+                  <Mpesa orderData={orderData} />
                 )}
               </div>
-            )} 
+            )}
           </div>
         </div>
       </div>
-    
-       </>
-    
+    </>
   );
 }
 
@@ -286,17 +224,16 @@ export async function getServerSideProps(context) {
   db.connectDb();
   const { query } = context;
   const id = query.id;
-  console.log(context);
+const buni_client_id = process.env.BUNI_API_TOKEN; 
   const order = await Order.findById(id)
     .populate({ path: "user", model: User })
     .lean();
-  let paypal_client_id = process.env.PAYPAL_CLIENT_ID;
-  let stripe_public_key = process.env.STRIPE_PUBLIC_KEY;
+
   db.disconnectDb();
   return {
     props: {
       orderData: JSON.parse(JSON.stringify(order)),
-      // paypal_client_id,
+      buni_client_id,
       // stripe_public_key,
     },
   };

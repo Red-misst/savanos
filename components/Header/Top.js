@@ -1,9 +1,8 @@
 import styles from "./styles.module.scss";
-import UserMenu from "./UserMenu";
-import { useState, setState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Search from "./Search";
-import { useSelector } from "react-redux";
+import UserMenu from "./UserMenu";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiCategoryAlt } from "react-icons/bi";
 import {
@@ -14,14 +13,19 @@ import {
 import Cart from "./Cart";
 import { useSession } from "next-auth/react";
 
-export default function Top() {
+export default function Top({ setLoading }) {
   const { data: session } = useSession();
   const [showMenu, setShowMenu] = useState(false);
+
+  const handleLinkClick = () => {
+    setLoading(true);
+  };
+
   return (
-    <div className={` row ${styles.top}`}>
+    <div className={`row ${styles.top}`}>
       <div className="col-12 d-flex justify-content-space-btn gap-5">
-        <Link className="text-decoration-none my-auto" href="/">
-          <div>
+        <Link href="/" passHref>
+          <div className=" my-auto" onClick={handleLinkClick}>
             <span>
               <h2 className="fs-2">
                 <Link href="/" className="text-decoration-none text-dark">
@@ -38,14 +42,15 @@ export default function Top() {
         <ul className={`d-flex gap-3 ${styles.top_list}`}>
           <li className={styles.top_li}>
             <div className={styles.cart_1}>
-              <Cart />
+              <Cart  setLoading={setLoading} />
             </div>
           </li>
           <li className={styles.top_li}>
             <AiOutlineHeart className="fs-2" />
             <Link
-              className="text-decoration-none text-secondary"
               href="/profile/wishlist"
+              className="text-decoration-none text-secondary"
+              onClick={handleLinkClick}
             >
               <span>Wishlist</span>
             </Link>
@@ -53,8 +58,9 @@ export default function Top() {
           <li className={styles.top_li}>
             <RiCustomerService2Fill className="fs-2" />
             <Link
-              className="text-decoration-none text-secondary"
               href="/profile/wishlist"
+              className="text-decoration-none text-secondary"
+              onClick={handleLinkClick}
             >
               <span>
                 Customer
@@ -95,7 +101,13 @@ export default function Top() {
                 </div>
               </li>
             )}
-            {showMenu && <UserMenu session={session} />}
+            {showMenu && (
+              <UserMenu
+                session={session}
+           
+                setLoading={setLoading}
+              />
+            )}
           </li>
         </ul>
       </div>

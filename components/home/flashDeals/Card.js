@@ -1,11 +1,16 @@
 import Link from "next/link";
 import styles from "./styles.module.scss";
 import { MdFlashOn } from "react-icons/md";
-export default function FlashCard({ product }) {
+
+export default function FlashCard({ product, setLoading }) {
+  const handleLinkClick = () => {
+    setLoading(true);
+  };
+
   return (
     <div className={styles.card}>
       <div className={styles.card__img}>
-        <Link href={product.link}>
+        <Link href={product.link} onClick={handleLinkClick}>
           <img src={product.image} alt="" />
         </Link>
         <div className={styles.flash}>

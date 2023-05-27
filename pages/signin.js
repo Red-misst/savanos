@@ -12,7 +12,6 @@ import {
   getProviders,
   getSession,
   signIn,
-  country,
 } from "next-auth/react";
 import CircledIconBtn from "@/components/buttons/circledIconBtn";
 import LoginInput from "@/components/inputs/loginInput";
@@ -95,6 +94,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
   };
   const signInHandler = async () => {
     setLoading(true);
+    
     let options = {
       redirect: false,
       email: login_email,
@@ -110,9 +110,8 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
         setUser({ ...user, success: "" }); // Remove success message after a few seconds
       }, 2000);
     } else {
-      setUser({ ...user, error: "", success: "Logged in succesfully" });
+      setUser({ ...user, error: "", success: "" });
       Router.push("/");
-      setLoading(false);
     }
   };
   const signUpHandler = async () => {
@@ -133,7 +132,6 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
           password: password,
         };
         const res = await signIn("credentials", options);
-        setLoading(false);
         setUser({ ...user, success: "" });
         Router.push("/");
       }, 10);
@@ -148,7 +146,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
   return (
     <>
       {loading && <DotLoaderSpinner loading={loading} />}
-      <Header />
+      <Header loading={loading} setLoading={setLoading} />
       <div className="container-fluid">
         <div className="row">
           {signin && (
@@ -162,12 +160,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                   <div className={styles.back_svg}>
                     <BiLeftArrowAlt className="text-dark" />
                   </div>
-                  <span>
-                    Welcome back! &nbsp;
-                    <Link className="text-decoration-none" href="/">
-                      login as seller
-                    </Link>{" "}
-                  </span>
+                  <span>Welcome back, 😄</span>
                 </div>
                 <div className={styles.login_form}>
                   <h1>Sign in</h1>
@@ -178,13 +171,14 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                       login_email,
                       login_password,
                     }}
+                    validator={() => ({})}
                     validationSchema={loginValidation}
                     onSubmit={() => {
                       signInHandler();
                     }}
                   >
                     {(form) => (
-                      <Form method="post" action="/api/auth/signin/email">
+                      <Form>
                         <input
                           type="hidden"
                           name="csrfToken"
@@ -271,12 +265,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                   <div className={styles.back_svg}>
                     <BiLeftArrowAlt className="text-dark" />
                   </div>
-                  <span>
-                    Are you a seller! &nbsp;
-                    <Link className="text-decoration-none" href="/">
-                      Sign up as seller
-                    </Link>{" "}
-                  </span>
+                  <span>Sign up and get started, 😄</span>
                 </div>
                 <div className={styles.login_form}>
                   <h1>Sign Up</h1>
@@ -324,7 +313,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                           placeholder="retype Password"
                           onChange={handleChange}
                         />
-                        {/* start editing from here */}
+
                         <CircledIconBtn type="submit" text="Sign Up" />
                       </Form>
                     )}

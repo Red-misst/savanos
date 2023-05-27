@@ -4,18 +4,14 @@ import Offers from "./offers";
 import Menu from "./Menu";
 import User from "./User";
 import Header from "./Header";
-export default function Main() {
-
+export default function Main({  setLoading }) {
   return (
     <div className={`container-fluid ${styles.main}`}>
-      
-      <Header />
-      <Menu />
-      <MainSwiper />
-      <Offers />
-      <User />
-
+      <Header setLoading={setLoading} />
+      <Menu setLoading={setLoading} />
+      <MainSwiper setLoading={setLoading} />
+      <Offers setLoading={setLoading} />
+      <User setLoading={setLoading} />
     </div>
   );
 }
-
