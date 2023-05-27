@@ -2,12 +2,15 @@ import styles from "./styles.module.scss";
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import LoginInput from "@/components/inputs/loginInput";
+import MpesaInput from "@/components/inputs/mpesaInput";
+import MpesaBtn from "@/components/buttons/mpesaBtn";
+import axios from "axios";
 
 const initialValues = {
   phone_Number: "",
 };
-export default function Mpesa({ total, order_id }) {
+
+export default function Mpesa({ orderData }) {
   const [user, setUser] = useState(initialValues);
   const { phone_number } = user;
   const handleChange = (e) => {
@@ -16,15 +19,25 @@ export default function Mpesa({ total, order_id }) {
   };
 
   const phoneValidation = Yup.object({
-    phone_number: Yup.string()
-      .required("Email address is required")
-      .phone("Please enter a valid phone number"),
+    phone_number: Yup.string().required("Please enter phone number"),
   });
 
-  const makePayment = async () => {o
- 
-  o;
-    };
+  const makePayment = async () => {
+    try {
+      const apiUrl = "/api/mpesa-payment"; // Replace with the actual API endpoint
+
+      const payload = {
+        orderData,
+        phone_number,
+      };
+
+      const response = await axios.post(apiUrl, payload);
+      console.log(response.data); // Handle the response as needed
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <>
       <Formik
@@ -39,16 +52,13 @@ export default function Mpesa({ total, order_id }) {
       >
         {(form) => (
           <Form>
-            <input type="hidden" name="csrfToken" defaultValue={csrfToken} />
-            <LoginInput
+            <MpesaInput
               type="text"
               name="phone_number"
-              icon="email"
               placeholder="Phone Number"
               onChange={handleChange}
             />
-
-            <CircledIconBtn type="submit" text="Make payment" />
+            <MpesaBtn type="submit" text="Make Payment" />
           </Form>
         )}
       </Formik>

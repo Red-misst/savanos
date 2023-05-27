@@ -94,6 +94,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
   };
   const signInHandler = async () => {
     setLoading(true);
+    
     let options = {
       redirect: false,
       email: login_email,
@@ -109,7 +110,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
         setUser({ ...user, success: "" }); // Remove success message after a few seconds
       }, 2000);
     } else {
-      setUser({ ...user, error: "", success: "Logged in succesfully" });
+      setUser({ ...user, error: "", success: "" });
       Router.push("/");
     }
   };
@@ -170,13 +171,14 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                       login_email,
                       login_password,
                     }}
+                    validator={() => ({})}
                     validationSchema={loginValidation}
                     onSubmit={() => {
                       signInHandler();
                     }}
                   >
                     {(form) => (
-                      <Form method="post" action="/api/auth/signin/email">
+                      <Form>
                         <input
                           type="hidden"
                           name="csrfToken"
@@ -263,7 +265,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                   <div className={styles.back_svg}>
                     <BiLeftArrowAlt className="text-dark" />
                   </div>
-                <span>Sign up and get started, 😄</span>
+                  <span>Sign up and get started, 😄</span>
                 </div>
                 <div className={styles.login_form}>
                   <h1>Sign Up</h1>
@@ -311,7 +313,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                           placeholder="retype Password"
                           onChange={handleChange}
                         />
-                        {/* start editing from here */}
+
                         <CircledIconBtn type="submit" text="Sign Up" />
                       </Form>
                     )}

@@ -22,7 +22,6 @@ function reducer(state, action) {
 }
 
 export default function order({ orderData }) {
- 
   const [dispatch] = useReducer(reducer, {
     loading: true,
     error: "",
@@ -209,9 +208,8 @@ export default function order({ orderData }) {
             </div>
             {!orderData.isPaid && (
               <div className={styles.order__payment}>
-              
                 {orderData.paymentMethod == "mpesa" && (
-                  <Mpesa total={orderData.total} order_id={orderData._id} />
+                  <Mpesa orderData={orderData} />
                 )}
               </div>
             )}
@@ -226,7 +224,7 @@ export async function getServerSideProps(context) {
   db.connectDb();
   const { query } = context;
   const id = query.id;
-  console.log(context);
+const buni_client_id = process.env.BUNI_API_TOKEN; 
   const order = await Order.findById(id)
     .populate({ path: "user", model: User })
     .lean();
@@ -235,7 +233,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       orderData: JSON.parse(JSON.stringify(order)),
-      // paypal_client_id,
+      buni_client_id,
       // stripe_public_key,
     },
   };
