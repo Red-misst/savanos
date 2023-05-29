@@ -307,7 +307,7 @@ export default function create({ parents, categories }) {
             />
             <Details
               details={product.details}
-              product={product}
+              product={product}git
               setProduct={setProduct}
             />
             <Questions
