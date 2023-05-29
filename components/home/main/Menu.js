@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   GiLargeDress,
   GiClothes,
-  Gi3DHammer,
   GiWatch,
   GiBallerinaShoes,
   GiHeadphones,

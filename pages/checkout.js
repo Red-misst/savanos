@@ -29,8 +29,8 @@ export default function checkout({ cart, user }) {
   }, [addresses]);
   return (
     <>
-      {loading && <DotLoaderSpinner loading={loading} />}
-      <Header />
+        {loading && <DotLoaderSpinner loading={loading} />}
+      <Header loading={loading} setLoading={setLoading} />
       <div className={`${styles.container} ${styles.checkout}`}>
         <div className={styles.checkout__side}>
           <Shipping

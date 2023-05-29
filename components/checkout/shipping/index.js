@@ -188,7 +188,7 @@ export default function Shipping({
           validator={() => ({})}
           validationSchema={validate}
           onSubmit={(shipping) => {
-            console.log(shipping);
+            
             saveShippingHandler(shipping);
           }}
         >

@@ -12,7 +12,6 @@ import {
   getProviders,
   getSession,
   signIn,
-  country,
 } from "next-auth/react";
 import CircledIconBtn from "@/components/buttons/circledIconBtn";
 import LoginInput from "@/components/inputs/loginInput";
@@ -95,6 +94,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
   };
   const signInHandler = async () => {
     setLoading(true);
+    
     let options = {
       redirect: false,
       email: login_email,
@@ -102,12 +102,16 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
     };
     const res = await signIn("credentials", options);
     setUser({ ...user, success: "", error: "" });
-    setLoading(false);
+
     if (res?.error) {
       setLoading(false);
       setUser({ ...user, login_error: res?.error });
+      setTimeout(() => {
+        setUser({ ...user, success: "" }); // Remove success message after a few seconds
+      }, 2000);
     } else {
-      return Router.push("/");
+      setUser({ ...user, error: "", success: "" });
+      Router.push("/");
     }
   };
   const signUpHandler = async () => {
@@ -115,13 +119,12 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
       setLoading(true);
       const { data } = await axios.post("/api/auth/signup", {
         name,
-
         email,
         password,
       });
 
       setUser({ ...user, error: "", success: data.message });
-      setLoading(false);
+
       setTimeout(async () => {
         let options = {
           redirect: false,
@@ -129,17 +132,21 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
           password: password,
         };
         const res = await signIn("credentials", options);
+        setUser({ ...user, success: "" });
         Router.push("/");
-      }, 800);
+      }, 10);
     } catch (error) {
       setLoading(false);
       setUser({ ...user, success: "", error: error.response.data.message });
+      setTimeout(() => {
+        setUser({ ...user, success: "" }); // Remove success message after a few seconds
+      }, 2000);
     }
   };
   return (
     <>
       {loading && <DotLoaderSpinner loading={loading} />}
-      <Header />
+      <Header loading={loading} setLoading={setLoading} />
       <div className="container-fluid">
         <div className="row">
           {signin && (
@@ -153,12 +160,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                   <div className={styles.back_svg}>
                     <BiLeftArrowAlt className="text-dark" />
                   </div>
-                  <span>
-                    Welcome back! &nbsp;
-                    <Link className="text-decoration-none" href="/">
-                      login as seller
-                    </Link>{" "}
-                  </span>
+                  <span>Welcome back, 😄</span>
                 </div>
                 <div className={styles.login_form}>
                   <h1>Sign in</h1>
@@ -169,16 +171,17 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                       login_email,
                       login_password,
                     }}
+                    validator={() => ({})}
                     validationSchema={loginValidation}
                     onSubmit={() => {
                       signInHandler();
                     }}
                   >
                     {(form) => (
-                      <Form method="post" action="/api/auth/signin/email">
+                      <Form>
                         <input
                           type="hidden"
-                           name="csrfToken"
+                          name="csrfToken"
                           defaultValue={csrfToken}
                         />
                         <LoginInput
@@ -262,12 +265,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                   <div className={styles.back_svg}>
                     <BiLeftArrowAlt className="text-dark" />
                   </div>
-                  <span>
-                    Are you a seller! &nbsp;
-                    <Link className="text-decoration-none" href="/">
-                      Sign up as seller
-                    </Link>{" "}
-                  </span>
+                  <span>Sign up and get started, 😄</span>
                 </div>
                 <div className={styles.login_form}>
                   <h1>Sign Up</h1>
@@ -315,7 +313,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                           placeholder="retype Password"
                           onChange={handleChange}
                         />
-                        {/* start editing from here */}
+
                         <CircledIconBtn type="submit" text="Sign Up" />
                       </Form>
                     )}

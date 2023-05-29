@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles.module.scss";
-import { toggleSidebar } from "../../../../store/ExpandSlice";
+import { toggleSidebar } from "@/store/ExpandSlice";
 //-----------------------
 import {
   MdArrowForwardIos,
@@ -24,7 +24,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 export default function Sidebar() {
   const router = useRouter();
-  const route = router.pathname.split("/admin/dashboard/")[1];
+  const route = router.pathname.split("/storeAdmin/dashboard/")[1];
   const { data: session } = useSession();
   const dispatch = useDispatch();
   const { expandSidebar } = useSelector((state) => ({ ...state }));
@@ -59,7 +59,7 @@ export default function Sidebar() {
         </div>
         <ul className={styles.sidebar__list}>
           <li className={route == undefined ? styles.active : ""}>
-            <Link href="/admin/dashboard"  legacyBehavior >
+            <Link href="/storeAdmin/dashboard" legacyBehavior>
               <a>
                 <MdSpaceDashboard />
                 <span className={styles.show}>Dashboard</span>
@@ -67,7 +67,10 @@ export default function Sidebar() {
             </Link>
           </li>
           <li className={route == "sales" ? styles.active : ""}>
-            <Link href="/admin/dashboard/sales" legacyBehavior >
+            <Link
+              href={`/storeAdmin/dashboard/sales/${session?.user?.id} `}
+              legacyBehavior
+            >
               <a>
                 <FcSalesPerformance />
                 <span className={styles.show}>Sales</span>
@@ -75,14 +78,14 @@ export default function Sidebar() {
             </Link>
           </li>
           <li className={route == "orders" ? styles.active : ""}>
-            <Link href="/admin/dashboard/orders" legacyBehavior >
+            <Link href="/storeAdmin/dashboard/orders" legacyBehavior>
               <a>
                 <IoListCircleSharp />
                 <span className={styles.show}>Orders</span>
               </a>
             </Link>
           </li>
-         
+
           {/* <li className={route == "messages" ? styles.active : ""}>
             <Link href="/admin/dashboard/messages" legacyBehavior >
               <a>
@@ -98,7 +101,7 @@ export default function Sidebar() {
           </div>
           <ul className={styles.sidebar__list}>
             <li className={route == "product/all" ? styles.active : ""}>
-              <Link href="/storeAdmin/dashboard/product/all" legacyBehavior >
+              <Link href="/storeAdmin/dashboard/product/all" legacyBehavior>
                 <a>
                   <FaThList />
                   <span className={styles.show}>All Products</span>
@@ -106,7 +109,10 @@ export default function Sidebar() {
               </Link>
             </li>
             <li className={route == "product/create" ? styles.active : ""}>
-              <Link href="/storeAdmin/dashboard/product/create" legacyBehavior >
+              <Link
+                href={`/storeAdmin/dashboard/product/create/${session?.user?.id} `}
+                legacyBehavior
+              >
                 <a>
                   <BsPatchPlus />
                   <span className={styles.show}>Create Product</span>
@@ -115,7 +121,7 @@ export default function Sidebar() {
             </li>
           </ul>
         </div>
-       
+
         <nav>
           <ul
             className={`${styles.sidebar__list} ${
@@ -123,28 +129,28 @@ export default function Sidebar() {
             }`}
           >
             <li>
-              <Link href="" legacyBehavior >
+              <Link href="" legacyBehavior>
                 <a>
                   <RiSettingsLine />
                 </a>
               </Link>
             </li>
             <li>
-              <Link href="" legacyBehavior >
+              <Link href="" legacyBehavior>
                 <a>
                   <IoNotificationsSharp />
                 </a>
               </Link>
             </li>
             <li>
-              <Link href="" legacyBehavior >
+              <Link href="" legacyBehavior>
                 <a>
                   <AiFillMessage />
                 </a>
               </Link>
             </li>
             <li>
-              <Link href="" legacyBehavior >
+              <Link href="" legacyBehavior>
                 <a>
                   <RiLogoutCircleFill />
                 </a>
