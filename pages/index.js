@@ -36,13 +36,12 @@ export default function Home({ products }) {
       <Header setLoading={setLoading} />
       <div className={`container-fluid ${styles.home}`}>
         <Main setLoading={setLoading} />
-        <FlashDeals  setLoading={setLoading} />
+        <FlashDeals setLoading={setLoading} />
         <div className={styles.home__category}>
           <Category
             header="Dresses"
             products={women_dresses}
             background="#5a31f4"
-           
             setLoading={setLoading}
           />
           {!isMedium && (
@@ -50,7 +49,6 @@ export default function Home({ products }) {
               header="Shoes"
               products={women_shoes}
               background="#3c811f"
-          
               setLoading={setLoading}
             />
           )}
@@ -59,7 +57,6 @@ export default function Home({ products }) {
               header="Shoes"
               products={women_shoes}
               background="#3c811f"
-         
               setLoading={setLoading}
             />
           )}
@@ -67,7 +64,6 @@ export default function Home({ products }) {
             header="Accessories"
             products={women_accessories}
             background="#000"
-         
             setLoading={setLoading}
           />
         </div>
@@ -75,21 +71,18 @@ export default function Home({ products }) {
           products={women_swiper}
           header="Trending Fashion"
           bg="#2f82ff"
-        
           setLoading={setLoading}
         />
         <ProductsSwiper
           products={gamingSwiper}
           header="For Gamers"
           bg="#2f82ff"
-  
           setLoading={setLoading}
         />
         <ProductsSwiper
           products={homeImprovSwiper}
           header="House Improvements"
           bg="#5a31f4"
-          
           setLoading={setLoading}
         />
         <div className={`row ${styles.products}`}>
@@ -98,7 +91,6 @@ export default function Home({ products }) {
               className="col-sm-6 col-md-4 col-lg-3"
               product={product}
               key={product._id}
-              
               setLoading={setLoading}
             />
           ))}
