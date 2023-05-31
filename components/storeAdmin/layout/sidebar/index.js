@@ -2,22 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles.module.scss";
 import { toggleSidebar } from "@/store/ExpandSlice";
 //-----------------------
-import {
-  MdArrowForwardIos,
-  MdOutlineCategory,
-  MdSpaceDashboard,
-} from "react-icons/md";
+import { MdArrowForwardIos, MdSpaceDashboard } from "react-icons/md";
 import { FcSalesPerformance } from "react-icons/fc";
 import { IoListCircleSharp, IoNotificationsSharp } from "react-icons/io5";
-import { ImUsers } from "react-icons/im";
+
 import { AiFillMessage } from "react-icons/ai";
 import { FaThList } from "react-icons/fa";
 import { BsPatchPlus } from "react-icons/bs";
-import {
-  RiCoupon3Fill,
-  RiLogoutCircleFill,
-  RiSettingsLine,
-} from "react-icons/ri";
+import { RiLogoutCircleFill, RiSettingsLine } from "react-icons/ri";
 //-----------------------
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -78,7 +70,10 @@ export default function Sidebar() {
             </Link>
           </li>
           <li className={route == "orders" ? styles.active : ""}>
-            <Link href="/storeAdmin/dashboard/orders" legacyBehavior>
+            <Link
+              href={`/storeAdmin/dashboard/orders/${session?.user?.id} `}
+              legacyBehavior
+            >
               <a>
                 <IoListCircleSharp />
                 <span className={styles.show}>Orders</span>

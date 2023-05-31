@@ -186,5 +186,5 @@ export async function getServerSideProps(context) {
       orders: JSON.parse(JSON.stringify(orders)),
       products: JSON.parse(JSON.stringify(products)),
     },
-  };
+  }; 
 }

@@ -31,6 +31,11 @@
       font-weight: 400;
     }
   }
+  &_togglePass {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+  }
 }
 .error {
   background-color: $error-color-light !important;
@@ -47,23 +52,23 @@
   }
 }
 
-.error_popup{
+.error_popup {
   padding: 10px;
-    position: absolute;
-    top: -70px;
-    left: 0;
-    width: 100%;
-    min-height: 100%;
-    background-color: $error-color;
-    display: grid;
-    place-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    color: $cream-color;
-    font-size: 13px;
-    font-weight: 600;
-    z-index: 1;
-   span {
+  position: absolute;
+  top: -70px;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  background-color: $error-color;
+  display: grid;
+  place-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  color: $cream-color;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 1;
+  span {
     position: absolute;
     bottom: -9px;
     left: 1rem;

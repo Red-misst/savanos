@@ -35,8 +35,8 @@ function Row(props) {
           {row._id}
         </TableCell>
         <TableCell align="right">
-          {row.paymentMethod == "paypal"
-            ? "Paypal"
+          {row.paymentMethod == "mpesa"
+            ? "mpesa"
             : row.paymentMethod == "credit_card"
             ? "Credit Card"
             : "Cash On Delievery"}
@@ -77,54 +77,10 @@ function Row(props) {
         </TableCell>
         <TableCell align="right">{row.couponApplied || "-"}</TableCell>
         <TableCell align="right">
-          <b>{row.total}$</b>
+          <b>KSh {row.total}</b>
         </TableCell>
       </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Order for
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell>Full Name</TableCell>
-                    <TableCell>Email</TableCell>
-                    <TableCell align="right">Shipping Informations</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow key={row.user.id}>
-                    <TableCell component="th" scope="row">
-                      <img
-                        src={row.user.image}
-                        className={styles.table__img}
-                        alt=""
-                      />
-                    </TableCell>
-                    <TableCell>{row.user.name}</TableCell>
-                    <TableCell align="left">{row.user.email}</TableCell>
-                    <TableCell align="right">
-                      {row.shippingAddress.firstName}{" "}
-                      {row.shippingAddress.lastName} <br />
-                      {row.shippingAddress.address1} <br />
-                      {row.shippingAddress.address2} <br />
-                      {row.shippingAddress.state},{row.shippingAddress.city}{" "}
-                      <br />
-                      {row.shippingAddress.country} <br />
-                      {row.shippingAddress.zipCode} <br />
-                      {row.shippingAddress.phoneNumber} <br />
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
+
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
@@ -155,7 +111,7 @@ function Row(props) {
                       <TableCell>{p.name}</TableCell>
                       <TableCell align="left">{p.size}</TableCell>
                       <TableCell align="left">x{p.qty}</TableCell>
-                      <TableCell align="left">{p.price}$</TableCell>
+                      <TableCell align="left">KSh {p.price}</TableCell>
                     </TableRow>
                   ))}
                   <TableRow key={row._id}>
@@ -169,7 +125,7 @@ function Row(props) {
                       align="left"
                       style={{ padding: "20px 0 20px 18px" }}
                     >
-                      <b style={{ fontSize: "20px" }}>{row.total}$</b>
+                      <b style={{ fontSize: "20px" }}>KSh {row.total}</b>
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -190,13 +146,6 @@ Row.propTypes = {
     status: PropTypes.string.isRequired,
     coupon: PropTypes.string.isRequired,
     total: PropTypes.number.isRequired,
-    user: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        shippingAddress: PropTypes.string.isRequired,
-      })
-    ).isRequired,
   }).isRequired,
 };
 

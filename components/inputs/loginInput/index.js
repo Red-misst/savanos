@@ -2,10 +2,18 @@ import styles from "./styles.module.scss";
 import { BiUser } from "react-icons/bi";
 import { SiMinutemailer } from "react-icons/si";
 import { IoKeyOutline } from "react-icons/io5";
+import { AiOutlineEye } from "react-icons/ai";
 import { ErrorMessage, useField } from "formik";
 
-export default function LoginInput({ icon, placeholder, ...props }) {
+export default function LoginInput({ setPasswordVisible, passwordVisible  ,icon, placeholder, ...props }) {
   const [field, meta] = useField(props);
+   const togglePasswordVisibility = () => {
+    if (passwordVisible == "text") {
+      setPasswordVisible("password");
+    } else {
+      setPasswordVisible("text");
+    }
+  };
   return (
     <div
       className={`${styles.input} ${
@@ -28,6 +36,11 @@ export default function LoginInput({ icon, placeholder, ...props }) {
         {...field}
         {...props}
       />
+      {icon == "password" ? (
+        <AiOutlineEye onClick={togglePasswordVisibility} className={styles.input_togglePass} />
+      ) : (
+        ""
+      )}
       {meta.touched && meta.error && (
         <div className={styles.error_popup}>
           <span></span>
