@@ -13,7 +13,7 @@ import { Form, Formik } from "formik";
 import SingularSelect from "@/components/selects/SingularSelect";
 import MultipleSelect from "@/components/selects/MultipleSelect";
 import AdminInput from "@/components/inputs/adminInput";
-
+import DotLoaderSpinner from "@/components/loaders/dotLoader";
 import { useDispatch } from "react-redux";
 import { showDialog } from "@/store/DialogSlice";
 import Images from "@/components/storeAdmin/createProduct/images";
@@ -129,7 +129,8 @@ export default function create({ parents, categories }) {
   });
   const createProduct = async () => {
     let test = validateCreateProduct(product, images);
-    if (test === "valid") {
+    console.log(test);
+    if (test == "valid") {
       createProductHandler();
     } else {
       dispatch(
@@ -184,6 +185,7 @@ export default function create({ parents, categories }) {
   };
   return (
     <Layout>
+      {loading && <DotLoaderSpinner loading={loading} />}
       <div className={styles.header}>Create Product</div>
 
       <Formik
