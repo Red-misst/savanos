@@ -1,9 +1,9 @@
 import Header from "@/components/Header";
 import Footer from "@/components/footer";
-import React from "react";
+import React, { useState } from "react";
 import styles from "@/styles/signin.module.scss";
 import Link from "next/link";
-import { useState } from "react";
+
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { BiLeftArrowAlt } from "react-icons/bi";
@@ -35,6 +35,7 @@ const initialValues = {
 
 export default function signin({ providers, callbackUrl, csrfToken }) {
   const [user, setUser] = useState(initialValues);
+  const [passwordVisible, setPasswordVisible] = useState("password");
   const [signin, setSignin] = useState(true);
   const [signup, setSingup] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -94,7 +95,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
   };
   const signInHandler = async () => {
     setLoading(true);
-    
+
     let options = {
       redirect: false,
       email: login_email,
@@ -143,6 +144,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
       }, 2000);
     }
   };
+
   return (
     <>
       {loading && <DotLoaderSpinner loading={loading} />}
@@ -192,11 +194,13 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                           onChange={handleChange}
                         />
                         <LoginInput
-                          type="password"
+                          type={passwordVisible}
                           name="login_password"
                           icon="password"
                           placeholder="Password"
                           onChange={handleChange}
+                          passwordVisible={passwordVisible}
+                          setPasswordVisible={setPasswordVisible}
                         />
                         {/* start editing from here */}
                         <CircledIconBtn type="submit" text="Sign in" />
@@ -300,18 +304,22 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                           onChange={handleChange}
                         />
                         <LoginInput
-                          type="password"
+                          type={passwordVisible}
                           name="password"
                           icon="password"
                           placeholder="Password"
                           onChange={handleChange}
+                          passwordVisible={passwordVisible}
+                          setPasswordVisible={setPasswordVisible}
                         />
                         <LoginInput
-                          type="password"
+                          type={passwordVisible}
                           name="conf_password"
                           icon="password"
                           placeholder="retype Password"
                           onChange={handleChange}
+                          passwordVisible={passwordVisible}
+                          setPasswordVisible={setPasswordVisible}
                         />
 
                         <CircledIconBtn type="submit" text="Sign Up" />

@@ -11,8 +11,8 @@ import SimillarSwiper from "./SimillarSwiper";
 import StoreDetails from "./storeDetails";
 import axios from "axios";
 import Link from "next/link";
-// import DialogModal from "@/components/dialogModal";
-import { useSelector , useDispatch } from "react-redux";
+import DialogModal from "@/components/dialogModal";
+import { useSelector, useDispatch } from "react-redux";
 import { addToCart, updateCart } from "@/store/cartSlice";
 import { hideDialog, showDialog } from "@/store/DialogSlice";
 import { signIn, useSession } from "next-auth/react";
@@ -27,23 +27,19 @@ export default function Infos({ product, setActiveImg, store }) {
   const { cart } = useSelector((state) => ({ ...state }));
   // console.log(cart)
 
-
   useEffect(() => {
     dispatch(hideDialog());
   }, []);
   useEffect(() => {
-
     setSize("");
     setQty(1);
   }, [router.query.style]);
   useEffect(() => {
-
     if (qty > product.quantity) {
       setQty(product.quantity);
     }
   }, [router.query.size]);
   const addToCartHandler = async () => {
-   
     if (!router.query.size) {
       setError("Please Select a size");
       return;
@@ -59,10 +55,9 @@ export default function Infos({ product, setActiveImg, store }) {
       setError("This Product is out of stock.");
       return;
     } else {
-      
       let _uid = `${data._id}_${product.style}_${router.query.size}`;
       let store = data.store;
- 
+
       let exist = cart.cartItems.find((p) => p._uid === _uid);
       if (exist) {
         let newCart = cart.cartItems.map((p) => {
@@ -72,7 +67,7 @@ export default function Infos({ product, setActiveImg, store }) {
           return p;
         });
         dispatch(updateCart(newCart));
-      } else { 
+      } else {
         dispatch(
           addToCart({
             ...data,
@@ -122,7 +117,7 @@ export default function Infos({ product, setActiveImg, store }) {
   };
   return (
     <div className={styles.infos}>
-      {/* <DialogModal /> */}
+      <DialogModal />
       <div className={styles.infos__container}>
         <h1 className={styles.infos__name}>{product.name}</h1>
         <h2 className={styles.infos__sku}>{product.sku}</h2>
@@ -141,14 +136,18 @@ export default function Infos({ product, setActiveImg, store }) {
           {!size ? <h2>{product.priceRange}</h2> : <h1>KSh {product.price}</h1>}
           {product.discount > 0 ? (
             <h3>
-              {size && <span>KSh {Math.round(product.price - product.priceBefore)}</span>}
+              {size && (
+                <span>
+                  KSh {Math.round(product.price - product.priceBefore)}
+                </span>
+              )}
               <span>(-{product.discount}%)</span>
             </h3>
           ) : (
             ""
           )}
         </div>
-      
+
         <span>
           {size
             ? product.quantity
@@ -221,7 +220,6 @@ export default function Infos({ product, setActiveImg, store }) {
         <Accordian details={[product.description, ...product.details]} />
         <StoreDetails store={store} />
         <SimillarSwiper />
-        
       </div>
     </div>
   );

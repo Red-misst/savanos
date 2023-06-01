@@ -23,27 +23,51 @@
   }
   &__productImg {
     height: 150px;
-    height: 100px;
+    width: 100px; /* Fixed width */
     object-fit: cover;
     box-shadow: $shadow-1;
   }
 }
+
 .ver {
   width: 32px;
   height: 32px;
 }
+
 .not_processed {
   color: #e3503e;
 }
+
 .processing {
   color: #54b7d3;
 }
+
 .dispatched {
   color: #1e91cf;
 }
+
 .cancelled {
   color: #e3d4d4;
 }
+
 .completed {
   color: #4cb64c;
+}
+
+/* Responsive styles */
+
+@media (max-width: 600px) {
+  .table__productImg {
+    height: 80px; /* Adjust the height for smaller screens */
+    width: 80px; /* Adjust the width for smaller screens */
+  }
+
+  .table {
+    td {
+      svg {
+        width: 20px; /* Adjust the icon size for smaller screens */
+        height: 20px; /* Adjust the icon size for smaller screens */
+      }
+    }
+  }
 }

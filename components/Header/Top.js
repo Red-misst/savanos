@@ -24,14 +24,10 @@ export default function Top({ setLoading }) {
   return (
     <div className={`row ${styles.top}`}>
       <div className="col-12 d-flex justify-content-space-btn gap-5">
-        <Link href="/" passHref>
+        <Link href="/" className="text-decoration-none text-dark" passHref>
           <div className=" my-auto" onClick={handleLinkClick}>
             <span>
-              <h2 className="fs-2">
-                <Link href="/" className="text-decoration-none text-dark">
-                  saVanna
-                </Link>
-              </h2>
+              <h2 className="fs-2">saVanos</h2>
             </span>
           </div>
         </Link>
@@ -42,7 +38,7 @@ export default function Top({ setLoading }) {
         <ul className={`d-flex gap-3 ${styles.top_list}`}>
           <li className={styles.top_li}>
             <div className={styles.cart_1}>
-              <Cart  setLoading={setLoading} />
+              <Cart setLoading={setLoading} />
             </div>
           </li>
           <li className={styles.top_li}>
@@ -96,18 +92,12 @@ export default function Top({ setLoading }) {
               <li className={styles.top_li}>
                 <div className={styles.flex}>
                   <RiAccountCircleLine />
-                  <span>Account</span>
+                  <span></span>
                   <RiArrowDropDownFill />
                 </div>
               </li>
             )}
-            {showMenu && (
-              <UserMenu
-                session={session}
-           
-                setLoading={setLoading}
-              />
-            )}
+            {showMenu && <UserMenu session={session} setLoading={setLoading} />}
           </li>
         </ul>
       </div>
