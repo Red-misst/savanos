@@ -13,6 +13,13 @@ import {
   getSession,
   signIn,
 } from "next-auth/react";
+import  {
+  twitterIcon,
+  gitHubIcon,
+  facebookIcon,
+  googleIconbookIcon,
+} from "@/data/icons.js";;
+
 import CircledIconBtn from "@/components/buttons/circledIconBtn";
 import LoginInput from "@/components/inputs/loginInput";
 import DotLoaderSpinner from "@/components/loaders/dotLoader";
@@ -233,7 +240,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                               onClick={() => signIn(provider.id)}
                             >
                               <img
-                                src={`../../icons/${provider.name}.png`}
+                                src={twitterIcon}
                                 alt={`login with ${provider.name}`}
                               />
                               Sign in with {provider.name}

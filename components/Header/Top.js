@@ -71,31 +71,35 @@ export default function Top({ setLoading }) {
             onMouseLeave={() => setShowMenu(false)}
           >
             {session ? (
-              <li className={styles.top_li}>
-                <div
-                  className={`d-flex justify-content-between ${styles.flex}`}
-                >
-                  <img
-                    className="my-auto"
-                    src={session.user.image}
-                    alt="Profile_pic"
-                  />
-                  <span>
-                    {session.user.name.length > 5
-                      ? `${session.user.name.substring(0, 5)}..`
-                      : session.user.name}
-                  </span>
-                  <RiArrowDropDownFill />
-                </div>
-              </li>
+              <ul>
+                <li className={styles.top_li}>
+                  <div
+                    className={`d-flex justify-content-between ${styles.flex}`}
+                  >
+                    <img
+                      className="my-auto"
+                      src={session.user.image}
+                      alt="Profile_pic"
+                    />
+                    <span>
+                      {session.user.name.length > 5
+                        ? `${session.user.name.substring(0, 5)}..`
+                        : session.user.name}
+                    </span>
+                    <RiArrowDropDownFill />
+                  </div>
+                </li>
+              </ul>
             ) : (
-              <li className={styles.top_li}>
-                <div className={styles.flex}>
-                  <RiAccountCircleLine />
-                  <span></span>
-                  <RiArrowDropDownFill />
-                </div>
-              </li>
+              <ul>
+                <li className={styles.top_li}>
+                  <div className={styles.flex}>
+                    <RiAccountCircleLine />
+                    <span></span>
+                    <RiArrowDropDownFill />
+                  </div>
+                </li>
+              </ul>
             )}
             {showMenu && <UserMenu session={session} setLoading={setLoading} />}
           </li>

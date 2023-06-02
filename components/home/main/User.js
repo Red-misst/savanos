@@ -27,7 +27,7 @@ export default function User({ setLoading }) {
   return (
     <div className={styles.user}>
       <img
-        src="../../../images/userHeader.jpg"
+        src="https://res.cloudinary.com/dcdivbkwd/image/upload/v1685628783/userheader_gizaig.jpg"
         alt="header-img"
         className={styles.user__header}
       />
@@ -40,7 +40,7 @@ export default function User({ setLoading }) {
         ) : (
           <div className={styles.user__infos}>
             <img
-              src="https://res.cloudinary.com/dmhcnhtng/image/upload/v1664642478/992490_b0iqzq.png"
+              src="https://res.cloudinary.com/dcdivbkwd/image/upload/v1685628495/992490_b0iqzq_pz5mzd.png"
               alt="profile_img"
             />
             <div className={styles.user__infos_btns}>
@@ -88,8 +88,8 @@ export default function User({ setLoading }) {
         </ul>
         <div className={styles.user__swiper}>
           <img
-            src="https://assets.stickpng.com/images/5a5a6d2414d8c4188e0b088d.png"
-            alt=""
+            src="https://res.cloudinary.com/dcdivbkwd/image/upload/v1685629144/5a5a6d2414d8c4188e0b088d_gmfahh.png"
+            alt="new_badge"
             className={styles.new}
           />
           <Swiper
@@ -115,8 +115,8 @@ export default function User({ setLoading }) {
         </div>
       </div>
       <img
-        src="../../../images/userHeader.jpg"
-        alt=""
+        src="https://res.cloudinary.com/dcdivbkwd/image/upload/v1685628783/userheader_gizaig.jpg"
+        alt="footer_img"
         className={styles.user__footer}
       />
     </div>

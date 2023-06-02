@@ -1,8 +1,32 @@
 import Link from "next/link";
 import styles from "./styles.module.scss";
 import { MdFlashOn } from "react-icons/md";
-
+import { useEffect, useState } from "react";
 export default function FlashCard({ product, setLoading }) {
+  const [images, setImages] = useState(product.subProducts[active]?.images);
+  const [prices, setPrices] = useState(
+    product.subProducts[active]?.sizes
+      .map((s) => {
+        return s.price;
+      })
+      .sort((a, b) => {
+        return a - b;
+      })
+  );
+
+  useEffect(() => {
+    setImages(product.subProducts[active].images);
+    setPrices(
+      product.subProducts[active]?.sizes
+        .map((s) => {
+          return s.price;
+        })
+        .sort((a, b) => {
+          return a - b;
+        })
+    );
+  }, [active, product]);
+
   const handleLinkClick = () => {
     setLoading(true);
   };
@@ -10,8 +34,8 @@ export default function FlashCard({ product, setLoading }) {
   return (
     <div className={styles.card}>
       <div className={styles.card__img}>
-        <Link href={product.link} onClick={handleLinkClick}>
-          <img src={product.image} alt="" />
+        <Link href={`/product/${product.slug}?style=${active}`} target="_blank">
+          <img src={product.subProducts[i].images[0]} alt="flash_deal" />
         </Link>
         <div className={styles.flash}>
           <MdFlashOn />

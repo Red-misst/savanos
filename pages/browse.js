@@ -2,24 +2,20 @@ import styles from "@/styles/browse.module.scss";
 import db from "@/utils/db";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
-import Header from "@/components/header";
+import Header from "@/components/Header";
 import SubCategory from "@/models/SubCategory";
-import {
-  filterArray,
-  randomize,
-  removeDuplicates,
-} from "@/utils/arrays_utils";
+import { filterArray, randomize, removeDuplicates } from "@/utils/arrays_utils";
 import Link from "next/link";
-import ProductCard from ".@/components/ProductCard";
+import ProductCard from "@/components/productCard";
 import CategoryFilter from "@/components/browse/categoryFilter";
 import SizesFilter from "@/components/browse/sizesFilter";
-import ColorsFilter from "@components/browse/colorsFilter";
-import BrandsFilter from "@components/browse/brandsFilter";
-import StylesFilter from "@components/browse/stylesFilter";
-import PatternsFilter from "@components/browse/patternsFilter";
-import MaterialsFilter from "@components/browse/materialsFilter";
-import GenderFilter from "@components/browse/genderFilter";
-import HeadingFilters from "@components/browse/headingFilters";
+import ColorsFilter from "@/components/browse/colorsFilter";
+import BrandsFilter from "@/components/browse/brandsFilter";
+import StylesFilter from "@/components/browse/stylesFilter";
+import PatternsFilter from "@/components/browse/patternsFilter";
+import MaterialsFilter from "@/components/browse/materialsFilter";
+import GenderFilter from "@/components/browse/genderFilter";
+import HeadingFilters from "@/components/browse/headingFilters";
 import { useRouter } from "next/router";
 import { Pagination } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
@@ -35,7 +31,6 @@ export default function Browse({
   patterns,
   materials,
   paginationCount,
-
 }) {
   const router = useRouter();
   const filter = ({
@@ -198,14 +193,14 @@ export default function Browse({
   return (
     <div className={styles.browse}>
       <div ref={headerRef}>
-        <Header searchHandler={searchHandler} country={country} />
+        <Header searchHandler={searchHandler} />
       </div>
       <div className={styles.browse__container}>
         <div ref={el}>
           <div className={styles.browse__path}>Home / Browse</div>
           <div className={styles.browse__tags}>
             {categories.map((c) => (
-              <Link href="" key={c._id}>
+              <Link href="" key={c._id} legacyBehavior>
                 <a>{c.name}</a>
               </Link>
             ))}
@@ -457,14 +452,7 @@ export async function getServerSideProps(ctx) {
     }
     return styleRegex;
   }
-  let data = await axios
-    .get("https://api.ipregistry.co/?key=r208izz0q0icseks")
-    .then((res) => {
-      return res.data.location.country;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+
   //-------------------------------------------------->
   db.connectDb();
   let productsDb = await Product.find({
@@ -535,7 +523,6 @@ export async function getServerSideProps(ctx) {
       patterns,
       materials,
       paginationCount: Math.ceil(totalProducts / pageSize),
-     
     },
   };
 }

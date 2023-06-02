@@ -5,7 +5,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper";
 
-export default function MainSwiper({ setLoading }) {
+export default function MainSwiper({ setLoading, swipers }) {
   const handleLinkClick = () => {
     setLoading(true);
   };
@@ -27,9 +27,9 @@ export default function MainSwiper({ setLoading }) {
         modules={[Autoplay, Pagination, Navigation]}
         className="mainSwiper"
       >
-        {[...Array(10).keys()].map((i) => (
+        {swipers.map((swiper) => (
           <SwiperSlide>
-            <img src={`../../../images/swiper/${i + 1}.jpg`} alt="Swiper-img" />
+            <img src={swiper.img} alt="Swiper-img" />
             <Link href="" onClick={handleLinkClick}></Link>
           </SwiperSlide>
         ))}

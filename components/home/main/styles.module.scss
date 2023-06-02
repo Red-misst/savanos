@@ -4,9 +4,9 @@
 
   gap: 10px;
   grid-template-areas:
-    "menu header header"
+    "menu header user"
     "menu swiper user"
-    "menu offers user";
+    "offers offers offers";
   @media (max-width: 990px) {
     grid-template-areas:
       "header"
@@ -17,7 +17,7 @@
   }
   .menu {
     grid-area: menu;
-    height: 620px;
+    height: 100%;
     background: #fff;
     border-radius: 10px;
     box-shadow: $shadow-1;
@@ -80,21 +80,38 @@
     align-items: center;
     gap: 1rem;
     li {
-      height: 50px;
-      width: 80px;
-      font-size: 14px;
-      border: 1px solid $purple-color;
-      border-radius: 20px;
       display: flex;
       align-items: center;
 
-      color: $purple-color !important;
+      .cont {
+        position: relative;
+
+        img {
+          width: 80px;
+          height: 60px;
+          border-radius: 10px;
+          border-radius: 10px;
+        }
+        span {
+          position: absolute;
+          top: 17px;
+          left: 15px;
+          font-size: 16px;
+          font-weight: 600;
+          color: $cream-color;
+        }
+      }
+      &:last-of-type {
+        span {
+          left: 1px;
+        }
+      }
     }
   }
 }
 .swiper {
   grid-area: swiper;
-  height: 300px;
+  height: 150px;
   background: #fff;
   border-radius: 10px;
   box-shadow: $shadow-1;
@@ -107,7 +124,7 @@
   background: #fff;
   border-radius: 10px;
   box-shadow: $shadow-1;
-  background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20190221/ourmid/pngtree-color-horn-polygon-pop-wind-image_16349.jpg");
+  background-image: url("https://res.cloudinary.com/dcdivbkwd/image/upload/v1685629543/pngtree-color-horn-polygon-pop-wind-image_16349_jwfx76.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -115,7 +132,7 @@
 .user {
   position: relative;
   grid-area: user;
-  height: 530px;
+  height: 630px;
   background: #fff;
   border-radius: 10px;
   box-shadow: $shadow-1;
@@ -195,6 +212,10 @@
         }
       }
     }
+  }
+  &__swiper {
+    position: absolute;
+    bottom: 40px;
   }
   &__footer {
     position: absolute;
