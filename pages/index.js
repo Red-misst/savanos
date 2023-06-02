@@ -15,7 +15,6 @@ import db from "@/utils/db";
 import { useState } from "react";
 import FlashDeals from "@/components/home/flashDeals";
 import {
-  gamingSwiper,
   homeImprovSwiper,
   women_accessories,
   women_dresses,
@@ -116,10 +115,13 @@ export async function getServerSideProps() {
 
   let products = await Product.find().sort({ createdAt: -1 }).lean();
   let swipers = await MainSwiper.find().lean();
-  //link for swiper : https://90ee9j-3000.csb.app/browse?category=${swiper.category}
-  
-  
-  
+  swipers = swipers.map((swiper) => {
+    return {
+      img: swiper.img,
+      link: `/browse?category=${swiper.category}`,
+    };
+  });
+
   let gaming = await Product.find({ category: "62c2bdd58b564896ec16cc6b" })
     .sort({ createdAt: -1 })
     .lean();

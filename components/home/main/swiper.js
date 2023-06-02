@@ -29,8 +29,9 @@ export default function MainSwiper({ setLoading, swipers }) {
       >
         {swipers.map((swiper) => (
           <SwiperSlide>
-            <img src={swiper.img} alt="Swiper-img" />
-            <Link href="" onClick={handleLinkClick}></Link>
+            <Link href={swiper.link} onClick={handleLinkClick}>
+              <img src={swiper.img} alt="Swiper-img" />
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
