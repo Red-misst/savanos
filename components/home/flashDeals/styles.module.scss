@@ -38,7 +38,7 @@
     position: relative;
     width: 100%;
     height: 320px;
-    cursor: pointer; 
+    cursor: pointer;
     overflow: hidden;
 
     img {
@@ -66,17 +66,16 @@
       svg {
         position: absolute;
         transform: scale(2);
-        fill:$cream-color;
+        fill: $cream-color;
       }
     }
   }
-  &__name{
-     width:100%;
-     display: flex;
-     justify-content:start-end;
-      font-weight: 600!important;
-      color: #222;
- 
+  &__name {
+    width: 100%;
+    display: flex;
+    justify-content: start-end;
+    font-weight: 600 !important;
+    color: #222;
   }
   &__price {
     display: flex;
@@ -85,15 +84,7 @@
     margin-top: 2px;
     span {
       font-weight: 700;
-      &:first-of-type {
-        color: $red-color;
-      }
-      &:last-of-type {
-        font-size: 14px;
-        font-weight: normal;
-        text-decoration: line-through;
-        color: #666;
-      }
+      color: $red-color;
     }
   }
   &__bar {

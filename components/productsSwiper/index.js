@@ -59,11 +59,11 @@ export default function ProductsSwiper({ header, products, bg, setLoading }) {
             <div className={styles.product}>
               <div className={styles.product__img}>
                 <Link
-                  href=""
+                  href={`${product.link}`}
                   className="text-decoration-none"
                   onClick={handleLinkClick}
                 >
-                  <img src={product.image} alt="" />
+                  <img src={product.image} alt="product_img" />
                 </Link>
               </div>
               <div className={styles.product__infos}>

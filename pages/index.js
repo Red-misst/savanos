@@ -28,7 +28,13 @@ import DotLoaderSpinner from "@/components/loaders/dotLoader";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({ products, swipers, offers, flashSales }) {
+export default function Home({
+  products,
+  swipers,
+  offers,
+  flashSales,
+  gaming,
+}) {
   const [loading, setLoading] = useState(false);
   const isMedium = useMediaQuery({ query: "(max-width:850px)" });
   const isMobile = useMediaQuery({ query: "(max-width:550px)" });
@@ -39,7 +45,7 @@ export default function Home({ products, swipers, offers, flashSales }) {
       <Header setLoading={setLoading} />
       <div className={`container-fluid ${styles.home}`}>
         <Main setLoading={setLoading} swipers={swipers} offers={offers} />
-        
+
         <FlashDeals setLoading={setLoading} flashSales={flashSales} />
         <div className={styles.home__category}>
           <Category
@@ -78,7 +84,7 @@ export default function Home({ products, swipers, offers, flashSales }) {
           setLoading={setLoading}
         />
         <ProductsSwiper
-          products={gamingSwiper}
+          products={gaming}
           header="For Gamers"
           bg="#2f82ff"
           setLoading={setLoading}
@@ -110,6 +116,30 @@ export async function getServerSideProps() {
 
   let products = await Product.find().sort({ createdAt: -1 }).lean();
   let swipers = await MainSwiper.find().lean();
+  //link for swiper : https://90ee9j-3000.csb.app/browse?category=${swiper.category}
+  
+  
+  
+  let gaming = await Product.find({ category: "62c2bdd58b564896ec16cc6b" })
+    .sort({ createdAt: -1 })
+    .lean();
+
+  gaming = gaming.map((product) => {
+    const active = Math.floor(Math.random() * product.subProducts.length);
+    const subProduct = product.subProducts[active];
+    const prices = subProduct.sizes.map((size) => size.price);
+    const price =
+      prices.length > 1
+        ? `KSh ${Math.min(...prices)} - KSh ${Math.max(...prices)}`
+        : prices[0];
+
+    return {
+      link: `/product/${product.slug}?style=${active}`,
+      price,
+      name: product.name,
+      image: subProduct.images[0].url,
+    };
+  });
 
   let offers = await Product.find()
     .sort({ "subProducts.discount": -1, createdAt: -1 })
@@ -119,7 +149,26 @@ export async function getServerSideProps() {
   let deals = await FlashSale.find().lean();
   let productIds = deals.map((deal) => deal.product);
   let flashSales = await Product.find({ _id: { $in: productIds } }).lean();
-  console.log(flashSales);
+
+  flashSales = flashSales.map((product) => {
+    const active = Math.floor(Math.random() * product.subProducts.length);
+    const subProduct = product.subProducts[active];
+    const prices = subProduct.sizes.map((size) => size.price);
+    const price =
+      prices.length > 1
+        ? `KSh ${Math.min(...prices)} - KSh ${Math.max(...prices)}`
+        : prices[0];
+
+    const discount = subProduct.discount ? subProduct.discount : null;
+
+    return {
+      link: `/product/${product.slug}?style=${active}`,
+      price,
+      name: product.name,
+      image: subProduct.images[0].url,
+      discount,
+    };
+  });
 
   return {
     props: {
@@ -127,6 +176,7 @@ export async function getServerSideProps() {
       swipers: JSON.parse(JSON.stringify(swipers)),
       flashSales: JSON.parse(JSON.stringify(flashSales)),
       offers: JSON.parse(JSON.stringify(offers)),
+      gaming: JSON.parse(JSON.stringify(gaming)),
     },
   };
 }
