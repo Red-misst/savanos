@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./styles.module.scss";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 import { Form, Formik } from "formik";
 import ShippingInput from "@/components/inputs/shippingInput";
 import { applyCoupon } from "@/requests/user";
@@ -9,39 +10,41 @@ import Router from "next/router";
 export default function Summary({
   totalAfterDiscount,
   setTotalAfterDiscount,
-  user,
+
   delivery,
+  setLoading,
   cart,
   paymentMethod,
   selectedAddress,
-  orderId,
 }) {
   const [coupon, setCoupon] = useState("");
   const [discount, setDiscount] = useState("");
-  const [error, setError] = useState("");
-  const [order_error, setOrder_Error] = useState("");
+
   const validateCoupon = Yup.object({
     coupon: Yup.string().required("Pleace enter a coupon first !"),
   });
   const applyCouponHandler = async () => {
     const res = await applyCoupon(coupon);
     if (res.message) {
-      setError(res.message);
+      toast.error(res.message);
+
       return;
     } else {
       setTotalAfterDiscount(res.totalAfterDiscount);
       setDiscount(res.discount);
-      setError("");
+
       return;
     }
   };
   const placeOrderHandler = async () => {
     try {
       if (paymentMethod == "") {
-        setOrder_Error("Please choose a payment method.");
+        toast.error("Please choose a payment method.");
+
         return;
       } else if (!selectedAddress) {
-        setOrder_Error("Please choose a shipping address.");
+        toast.error("Please choose a shipping address.");
+
         return;
       }
 
@@ -54,12 +57,11 @@ export default function Summary({
         totalBeforeDiscount: cart.cartTotal,
         couponApplied: coupon,
       });
-
-      console.log(data.data.orderId);
+      setLoading(true);
       Router.push(`/order/${data.data.orderId}`);
     } catch (error) {
-      console.log(error);
-      setOrder_Error(error.response.data.message);
+      toast.error(error.response.data.message);
+      setLoading(false);
     }
   };
 
@@ -84,16 +86,15 @@ export default function Summary({
                 placeholder="*Coupon"
                 onChange={(e) => setCoupon(e.target.value)}
               />
-              {error && <span className={styles.error}>{error}</span>}
               <button className={styles.apply_btn} type="submit">
                 Apply
               </button>
               <div className={styles.infos}>
                 <span>
-                  Shipping fee : <b>+ KSh {delivery}</b>{" "}
+                  Shipping fee : <b>+ KSh {delivery}</b>
                 </span>
                 <span>
-                  Total : <b>KSh {`${cart.cartTotal + delivery}`}</b>{" "}
+                  Total : <b>KSh {`${cart.cartTotal + delivery}`}</b>
                 </span>
                 {discount > 0 && (
                   <span className={styles.coupon_span}>
@@ -103,8 +104,7 @@ export default function Summary({
                 {totalAfterDiscount < cart.cartTotal &&
                   totalAfterDiscount != "" && (
                     <span>
-                      New price :{" "}
-                      <b>KSh {`${totalAfterDiscount + delivery}`}</b>
+                      New price :<b>KSh {`${totalAfterDiscount + delivery}`}</b>
                     </span>
                   )}
               </div>
@@ -115,7 +115,6 @@ export default function Summary({
       <button className={styles.submit_btn} onClick={() => placeOrderHandler()}>
         Place Order
       </button>
-      {order_error && <span className={styles.error}>{order_error}</span>}
     </div>
   );
 }

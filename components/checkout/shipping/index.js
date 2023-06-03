@@ -74,31 +74,51 @@ export default function Shipping({
   const handleChange = async (e) => {
     const { name, value } = e.target;
     setShipping({ ...shipping, [name]: value });
-    if (e.target.name === "area") {
-      getShipping(value);
-    }
 
     return;
   };
   const getShipping = async (value) => {
     const res = await deliveryFee(value);
     console.log(res);
-    setDelivery(res);
+    if (setDelivery) {
+      setDelivery(res);
+    }
+
     return;
   };
 
   const saveShippingHandler = async () => {
+    setLoading(true);
+
     const res = await saveAddress(shipping);
-    setAddresses(res.addresses);
+    setAddresses((addresses) => [...addresses, shipping]);
+
+    setLoading(false);
+    return;
   };
   const changeActiveHandler = async (id) => {
+    setLoading(true);
     const res = await changeActiveAddress(id);
-    setAddresses(res.addresses);
+    setAddresses((addresses) =>
+      addresses.map((ad) => ({
+        ...ad,
+        active: ad._id == id ? true : false,
+      }))
+    );
+    let activeAddress = addresses.find((ad) => ad.active == true);
+    getShipping(activeAddress);
+    setLoading(false);
+    return;
   };
   const deleteHandler = async (id) => {
+    setLoading(true);
     const res = await deleteAddress(id);
-    setAddresses(res.addresses);
+    setAddresses((addresses) => addresses.filter((ad) => ad._id !== id));
+
+    setLoading(false);
+    return;
   };
+
   return (
     <div className={styles.shipping}>
       {!profile && (

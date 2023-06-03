@@ -28,21 +28,15 @@ export default function cart() {
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
   useEffect(() => {
-;
     setSubtotal(selected.reduce((a, c) => a + c.price * c.qty, 0).toFixed(2));
-    setTotal(
-      (
-        selected.reduce((a, c) => a + c.price * c.qty, 0) 
-      ).toFixed(2)
-    );
+    setTotal(selected.reduce((a, c) => a + c.price * c.qty, 0).toFixed(2));
   }, [selected]);
   //-----------------------
   const saveCartToDbHandler = async () => {
     if (session) {
       setLoading(true);
       const res = saveCart(selected);
-   
-    
+
       Router.push("/checkout");
       setLoading(false);
       return;
@@ -53,7 +47,7 @@ export default function cart() {
   return (
     <>
       {loading && <DotLoaderSpinner loading={loading} />}
-      <Header />
+      <Header setLoading={setLoading} />
       <div className={`container-fluid ${styles.cart}`}>
         {cart.cartItems.length >= 1 ? (
           <div className={styles.cart__container}>
@@ -74,10 +68,10 @@ export default function cart() {
             </div>
             <Checkout
               subtotal={subtotal}
-            
               total={total}
               selected={selected}
               saveCartToDbHandler={saveCartToDbHandler}
+              setLoading={setLoading}
             />
             <PaymentMethods />
           </div>
@@ -94,4 +88,3 @@ export default function cart() {
     </>
   );
 }
-

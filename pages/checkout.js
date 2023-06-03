@@ -11,28 +11,37 @@ import Products from "@/components/checkout/products";
 import Payment from "@/components/checkout/payment";
 import Summary from "@/components/checkout/summary";
 import DotLoaderSpinner from "@/components/loaders/dotLoader";
+import { deliveryFee } from "@/requests/user";
 
 export default function checkout({ cart, user, areas }) {
-  const [delivery, setDelivery] = useState("0"); 
+  const [delivery, setDelivery] = useState("0");
   const [addresses, setAddresses] = useState(user?.address || []);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [totalAfterDiscount, setTotalAfterDiscount] = useState("");
   const [selectedAddress, setSelectedAddress] = useState("");
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    let check = addresses.find((ad) => ad.active == true);
+    let activeAddress = addresses.find((ad) => ad.active == true);
 
-    if (check) {
-      setSelectedAddress(check);
+    if (activeAddress) {
+      setSelectedAddress(activeAddress);
+      getShipping(activeAddress);
     } else {
       setSelectedAddress("");
     }
     console.log(addresses);
   }, [addresses]);
+
+  const getShipping = async (activeAddress) => {
+    const res = await deliveryFee(activeAddress);
+
+    setDelivery(res);
+    return;
+  };
   return (
     <>
       {loading && <DotLoaderSpinner loading={loading} />}
-      <Header loading={loading} setLoading={setLoading} />
+      <Header setLoading={setLoading} />
       <div className={`${styles.container} ${styles.checkout}`}>
         <div className={styles.checkout__side}>
           <Shipping
@@ -59,6 +68,7 @@ export default function checkout({ cart, user, areas }) {
             paymentMethod={paymentMethod}
             selectedAddress={selectedAddress}
             delivery={delivery}
+            setLoading={setLoading}
           />
         </div>
       </div>

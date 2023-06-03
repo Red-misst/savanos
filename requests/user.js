@@ -22,7 +22,7 @@ export const saveAddress = async (shipping) => {
     return error.response.data.message;
   }
 };
-export const changeActiveAddress = async (id) => { 
+export const changeActiveAddress = async (id) => {
   try {
     const { data } = await axios.put("/api/user/manageAddress", {
       id,
@@ -48,7 +48,8 @@ export const applyCoupon = async (coupon) => {
   });
   return data;
 };
-export const deliveryFee = async (value) => {
+export const deliveryFee = async (activeAddress) => {
+  let value = activeAddress.area;
   let data =
     value === "Talai"
       ? 30

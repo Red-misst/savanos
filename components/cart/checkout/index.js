@@ -2,11 +2,14 @@ import styles from "./styles.module.scss";
 
 export default function Checkout({
   subtotal,
-  shippingFee,
+  setLoading,
   total,
   selected,
   saveCartToDbHandler,
 }) {
+  const handleLinkClick = () => {
+    setLoading(true);
+  };
   return (
     <div className={`${styles.cart__checkout} ${styles.card}`}>
       <h2>Order Summary</h2>
@@ -28,7 +31,10 @@ export default function Checkout({
             background: `${selected.length == 0 ? "#eee" : ""}`,
             cursor: `${selected.length == 0 ? "not-allowed" : ""}`,
           }}
-          onClick={() => saveCartToDbHandler()}
+          onClick={() => {
+            saveCartToDbHandler();
+            handleLinkClick();
+          }}
         >
           Continue
         </button>

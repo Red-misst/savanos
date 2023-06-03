@@ -17,14 +17,14 @@ handler.post(async (req, res) => {
       couponApplied,
       delivery,
     } = req.body;
-
+    const orderTotal = total + delivery;
     const user = await User.findById(req.user);
     const newOrder = await new Order({
       user: user._id,
       products,
       shippingAddress,
       paymentMethod,
-      total,
+      total: orderTotal,
       shippingPrice: delivery,
       totalBeforeDiscount,
       couponApplied,
