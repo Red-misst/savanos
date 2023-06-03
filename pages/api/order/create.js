@@ -15,16 +15,17 @@ handler.post(async (req, res) => {
       total,
       totalBeforeDiscount,
       couponApplied,
-      
+      delivery,
     } = req.body;
-   
+
     const user = await User.findById(req.user);
     const newOrder = await new Order({
-      user : user._id,
+      user: user._id,
       products,
       shippingAddress,
       paymentMethod,
       total,
+      shippingPrice: delivery,
       totalBeforeDiscount,
       couponApplied,
     }).save();
@@ -32,10 +33,9 @@ handler.post(async (req, res) => {
     res.json({ orderId: newOrder._id });
     db.disconnectDb();
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).json({ message: error.message });
   }
- 
 });
 
 export default handler;

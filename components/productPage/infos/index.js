@@ -92,7 +92,7 @@ export default function Infos({ product, setActiveImg, store }) {
       });
       dispatch(
         showDialog({
-          header: "Product Added to Whishlist Successfully",
+          header: "Product Added to Wishlist Successfully",
           msgs: [
             {
               msg: data.message,
@@ -104,7 +104,7 @@ export default function Infos({ product, setActiveImg, store }) {
     } catch (error) {
       dispatch(
         showDialog({
-          header: "Whishlist Error",
+          header: "Wishlist Error",
           msgs: [
             {
               msg: error.response.data.message,

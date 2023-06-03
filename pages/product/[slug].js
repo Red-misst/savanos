@@ -14,17 +14,19 @@ import { useState } from "react";
 import Infos from "@/components/productPage/infos";
 import Reviews from "@/components/productPage/reviews";
 import ProductsSwiper from "@/components/productsSwiper";
-import { women_swiper } from "@/data/home";
-export default function product({ product, related, store }) {
+import DotLoaderSpinner from "@/components/loaders/dotLoader";
+export default function product({ product, related, simProducts, store }) {
+  const [loading, setLoading] = useState(false);
   const [activeImg, setActiveImg] = useState("");
   console.log(product);
- 
+
   return (
     <>
+      {loading && <DotLoaderSpinner loading={loading} />}
       <Head>
         <title>{product.name}</title>
       </Head>
-      <Header />
+      <Header setLoading={setLoading} />
       <div className={styles.product}>
         <div className={styles.product__container}>
           <div className={styles.path}>
@@ -35,13 +37,18 @@ export default function product({ product, related, store }) {
           </div>
           <div className={styles.product__main}>
             <MainSwiper images={product.images} activeImg={activeImg} />
-            <Infos product={product} setActiveImg={setActiveImg} store={store} />
+            <Infos
+              product={product}
+              setActiveImg={setActiveImg}
+              store={store}
+            />
           </div>
           <Reviews product={product} />
 
           <ProductsSwiper
-            products={women_swiper}
+            products={simProducts}
             header="You might also be interested in..."
+            setLoading={setLoading}
             bg="#2f82ff"
           />
         </div>
@@ -60,15 +67,14 @@ export async function getServerSideProps(context) {
   db.connectDb();
   //------------
 
-
   let product = await Product.findOne({ slug })
     .populate({ path: "category", model: Category })
     .populate({ path: "subCategories", model: SubCategory })
     .populate({ path: "reviews.reviewBy", model: User })
     .lean();
 
-    let store = await Store.findById(product.store).lean();
-    
+  let store = await Store.findById(product.store).lean();
+
   let subProduct = product.subProducts[style];
   let prices = subProduct.sizes
     .map((s) => {
@@ -88,11 +94,13 @@ export async function getServerSideProps(context) {
       return p.color;
     }),
     priceRange: subProduct.discount
-      ? `From KSh ${(prices[0] - prices[0] / subProduct.discount).toFixed(2)} to KSh ${(
+      ? `KSh ${(prices[0] - prices[0] / subProduct.discount).toFixed(
+          2
+        )} - KSh ${(
           prices[prices.length - 1] -
           prices[prices.length - 1] / subProduct.discount
         ).toFixed(2)}`
-      : `From ${prices[0]} to ${prices[prices.length - 1]}$`,
+      : `KSh ${prices[0]} - KSh ${prices[prices.length - 1]}`,
     price:
       subProduct.discount > 0
         ? (
@@ -147,6 +155,27 @@ export async function getServerSideProps(context) {
       product.reviews.length
     ).toFixed(1);
   }
+  //similar products swiper
+  let simProducts = await Product.find({ category: "62c2bdd58b564896ec16cc6b" })
+    .sort({ createdAt: -1 })
+    .lean();
+
+  simProducts = simProducts.map((product) => {
+    const active = Math.floor(Math.random() * product.subProducts.length);
+    const subProduct = product.subProducts[active];
+    const prices = subProduct.sizes.map((size) => size.price);
+    const price =
+      prices.length > 1
+        ? `KSh ${Math.min(...prices)} - KSh ${Math.max(...prices)}`
+        : prices[0];
+
+    return {
+      link: `/product/${product.slug}?style=${active}`,
+      price,
+      name: product.name,
+      image: subProduct.images[0].url,
+    };
+  });
   db.disconnectDb();
 
   return {
@@ -154,6 +183,7 @@ export async function getServerSideProps(context) {
       product: JSON.parse(JSON.stringify(newProduct)),
       related: JSON.parse(JSON.stringify(related)),
       store: JSON.parse(JSON.stringify(store)),
+      simProducts: JSON.parse(JSON.stringify(simProducts)),
     },
   };
 }

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const saveCart = async (cart) => {
   try {
-    const {data} = await axios.post("/api/user/saveCart", {
+    const { data } = await axios.post("/api/user/saveCart", {
       cart,
     });
 
@@ -16,13 +16,13 @@ export const saveAddress = async (shipping) => {
     const { data } = await axios.post("/api/user/saveAddress", {
       shipping,
     });
-   console.log(data)
+    console.log(data);
     return data;
   } catch (error) {
     return error.response.data.message;
   }
 };
-export const changeActiveAddress = async (id) => {
+export const changeActiveAddress = async (id) => { 
   try {
     const { data } = await axios.put("/api/user/manageAddress", {
       id,
@@ -48,4 +48,12 @@ export const applyCoupon = async (coupon) => {
   });
   return data;
 };
-
+export const deliveryFee = async (value) => {
+  let data =
+    value === "Talai"
+      ? 30
+      : value === "Mabs" || value === "Kesses" || value === "Chebarus"
+      ? 50
+      : 0;
+  return data;
+};

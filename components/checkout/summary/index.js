@@ -10,10 +10,11 @@ export default function Summary({
   totalAfterDiscount,
   setTotalAfterDiscount,
   user,
+  delivery,
   cart,
   paymentMethod,
   selectedAddress,
-  orderId
+  orderId,
 }) {
   const [coupon, setCoupon] = useState("");
   const [discount, setDiscount] = useState("");
@@ -33,7 +34,6 @@ export default function Summary({
       setError("");
       return;
     }
-    return;
   };
   const placeOrderHandler = async () => {
     try {
@@ -44,26 +44,25 @@ export default function Summary({
         setOrder_Error("Please choose a shipping address.");
         return;
       }
-   
-      
-      const  data  = await axios.post("/api/order/create", {
+
+      const data = await axios.post("/api/order/create", {
         products: cart.products,
         shippingAddress: selectedAddress,
         paymentMethod,
         total: totalAfterDiscount !== "" ? totalAfterDiscount : cart.cartTotal,
+        delivery: delivery,
         totalBeforeDiscount: cart.cartTotal,
         couponApplied: coupon,
- 
       });
-    
-      console.log(data.data.orderId)
+
+      console.log(data.data.orderId);
       Router.push(`/order/${data.data.orderId}`);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setOrder_Error(error.response.data.message);
     }
   };
-  
+
   return (
     <div className={styles.summary}>
       <div className={styles.header}>
@@ -91,7 +90,10 @@ export default function Summary({
               </button>
               <div className={styles.infos}>
                 <span>
-                  Total : <b>KSh {cart.cartTotal}</b>{" "}
+                  Shipping fee : <b>+ KSh {delivery}</b>{" "}
+                </span>
+                <span>
+                  Total : <b>KSh {`${cart.cartTotal + delivery}`}</b>{" "}
                 </span>
                 {discount > 0 && (
                   <span className={styles.coupon_span}>
@@ -101,7 +103,8 @@ export default function Summary({
                 {totalAfterDiscount < cart.cartTotal &&
                   totalAfterDiscount != "" && (
                     <span>
-                      New price : <b>KSh {totalAfterDiscount}</b>
+                      New price :{" "}
+                      <b>KSh {`${totalAfterDiscount + delivery}`}</b>
                     </span>
                   )}
               </div>

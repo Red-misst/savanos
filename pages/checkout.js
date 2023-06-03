@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "@/styles/checkout.module.scss";
 import { getSession } from "next-auth/react";
 import User from "@/models/User";
+import Area from "@/models/Area";
 import Cart from "@/models/Cart";
 import db from "@/utils/db";
 import Header from "@/components/cart/header";
@@ -11,7 +12,8 @@ import Payment from "@/components/checkout/payment";
 import Summary from "@/components/checkout/summary";
 import DotLoaderSpinner from "@/components/loaders/dotLoader";
 
-export default function checkout({ cart, user }) {
+export default function checkout({ cart, user, areas }) {
+  const [delivery, setDelivery] = useState("0"); 
   const [addresses, setAddresses] = useState(user?.address || []);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [totalAfterDiscount, setTotalAfterDiscount] = useState("");
@@ -25,11 +27,11 @@ export default function checkout({ cart, user }) {
     } else {
       setSelectedAddress("");
     }
-    console.log(addresses)
+    console.log(addresses);
   }, [addresses]);
   return (
     <>
-        {loading && <DotLoaderSpinner loading={loading} />}
+      {loading && <DotLoaderSpinner loading={loading} />}
       <Header loading={loading} setLoading={setLoading} />
       <div className={`${styles.container} ${styles.checkout}`}>
         <div className={styles.checkout__side}>
@@ -37,13 +39,15 @@ export default function checkout({ cart, user }) {
             user={user}
             addresses={addresses}
             setAddresses={setAddresses}
-            loading = {loading}
-            setLoading = {setLoading}
+            loading={loading}
+            setLoading={setLoading}
+            areas={areas}
+            setDelivery={setDelivery}
           />
-     <Products cart={cart} /> 
+          <Products cart={cart} />
         </div>
         <div className={styles.checkout__side}>
-           <Payment
+          <Payment
             paymentMethod={paymentMethod}
             setPaymentMethod={setPaymentMethod}
           />
@@ -54,7 +58,8 @@ export default function checkout({ cart, user }) {
             cart={cart}
             paymentMethod={paymentMethod}
             selectedAddress={selectedAddress}
-          /> 
+            delivery={delivery}
+          />
         </div>
       </div>
     </>
@@ -63,10 +68,12 @@ export default function checkout({ cart, user }) {
 export async function getServerSideProps(context) {
   db.connectDb();
   const session = await getSession(context);
-  
+
   const user = await User.findById(session.user.id);
 
   const cart = await Cart.findOne({ user: user.id });
+  const areas = await Area.find().lean();
+
   db.disconnectDb();
   if (!cart) {
     return {
@@ -77,6 +84,7 @@ export async function getServerSideProps(context) {
   }
   return {
     props: {
+      areas: JSON.parse(JSON.stringify(areas)),
       cart: JSON.parse(JSON.stringify(cart)),
       user: JSON.parse(JSON.stringify(user)),
     },

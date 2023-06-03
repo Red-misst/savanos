@@ -13,12 +13,6 @@ import {
   getSession,
   signIn,
 } from "next-auth/react";
-import  {
-  twitterIcon,
-  gitHubIcon,
-  facebookIcon,
-  googleIconbookIcon,
-} from "@/data/icons.js";;
 
 import CircledIconBtn from "@/components/buttons/circledIconBtn";
 import LoginInput from "@/components/inputs/loginInput";
@@ -92,11 +86,14 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
   const toggleForm = () => {
     if (signup) {
       setSingup(false);
+      setPasswordVisible("password");
       setSignin(true);
       scrollTo(0, 0);
     } else if (signin) {
       setSignin(false);
+      setPasswordVisible("password");
       setSingup(true);
+
       scrollTo(0, 0);
     }
   };
@@ -225,7 +222,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                       </Form>
                     )}
                   </Formik>
-                  <div className={styles.login_socials}>
+                  {/* <div className={styles.login_socials}>
                     <span className={styles.or}>Or continue with</span>
                     {providers.map((provider) => {
                       if (provider.name === "Credentials") return null;
@@ -248,7 +245,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                           </div>
                         );
                     })}
-                  </div>
+                  </div> */}
 
                   <div className="d-flex justify-content-center my-4">
                     <span className={styles.login_cont}>
@@ -300,7 +297,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                           type="text"
                           name="name"
                           icon="user"
-                          placeholder="Full name"
+                          placeholder="Fu name"
                           onChange={handleChange}
                         />
                         <LoginInput

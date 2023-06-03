@@ -15,8 +15,7 @@ export default function Checkout({
         <span>KSh{subtotal}</span>
       </div>
       <div className={styles.cart__checkout_line}>
-        <span>Shipping</span>
-        <span>+KSh {shippingFee}</span>
+        <span>Shipping fee(if any) will be applied in the next page</span>
       </div>
       <div className={styles.cart__checkout_total}>
         <span>Total</span>

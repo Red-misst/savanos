@@ -43,7 +43,7 @@ export default function SingularSelect({
           No Selected / Or Empty
         </MenuItem>
         {data.map((option) => (
-          <MenuItem key={option._id} value={option._id || option.name}>
+          <MenuItem key={option.name} value={option.name || option._id}>
             {option.name}
           </MenuItem>
         ))}
