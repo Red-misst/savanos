@@ -6,11 +6,9 @@
   gap: 2rem;
   margin-bottom: 2rem;
   @media (max-width: 900px) {
-    align-items: baseline;
     gap: 0.2rem;
-    padding: 0 8px;
-    position: sticky;
-    top: 0;
+    justify-content: space-between;
+    width: 80vw;
   }
   input[type="checkbox"] {
     width: 17px;
@@ -27,6 +25,7 @@
     }
     @media (max-width: 900px) {
       // right: -110px;
+
       width: 100px;
     }
     span {
@@ -57,7 +56,7 @@
         left: 0;
         background: #fff;
         padding: 1rem;
-        z-index: 99;
+        z-index: 20;
         width: 100%;
         height: 250px;
         overflow-y: auto;
@@ -108,8 +107,7 @@
       }
     }
     @media (max-width: 900px) {
-      // right: -110px;
-      // width: 100px;
+      left: 1px;
     }
   }
   &__priceBtns {

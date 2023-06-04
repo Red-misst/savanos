@@ -8,11 +8,11 @@
     display: grid;
 
     grid-template-columns: 280px 1fr;
-    grid-template-areas: "filter products";
+
     gap: 1rem;
     margin-top: 2rem;
     @media (max-width: 990px) {
-      grid-template-columns: 1fr;
+      grid-template-columns: none;
       position: relative;
     }
     &_filters {
@@ -23,7 +23,12 @@
       text-align: center;
       padding-top: 1rem;
       @media (max-width: 990px) {
-        display: none;
+        margin: auto;
+        position: absolute;
+        z-index: 90;
+        background-color: $white-color;
+        margin-top: 30px;
+        padding-bottom: 30px;
       }
       &:before {
         content: "";
@@ -40,8 +45,15 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
+
       @media (max-width: 990px) {
         margin-left: 9px;
+      }
+      &_topFilter {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: $white-color;
       }
     }
   }
@@ -104,6 +116,43 @@
       position: absolute;
       top: 2rem;
       left: 316px;
+    }
+  }
+}
+
+.filters {
+  &__hidden {
+    @media (max-width: 990px) {
+      visibility: hidden !important;
+    }
+  }
+  &__visible {
+    @media (max-width: 990px) {
+      visibility: hidden !important;
+    }
+  }
+
+  &__btn {
+    @media (max-width: 990px) {
+      width: 75%;
+      height: 40px;
+      margin: 0 auto;
+      background-color: $purple-color !important;
+      position: sticky;
+      bottom: 0;
+      z-index: 100;
+      display: grid;
+      border-radius: 13px;
+
+      span {
+        color: $white-color;
+        font-size: 18px;
+        font-weight: 800;
+        margin: auto;
+      }
+    }
+    @media (min-width: 990px) {
+      display: none;
     }
   }
 }

@@ -3,6 +3,7 @@ import db from "@/utils/db";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
 import Header from "@/components/Header";
+import { IoFilter } from "react-icons/io5";
 import SubCategory from "@/models/SubCategory";
 import { filterArray, randomize, removeDuplicates } from "@/utils/arrays_utils";
 import Link from "next/link";
@@ -44,7 +45,7 @@ export default function Browse({
     material,
     gender,
     price,
-    shipping,
+
     rating,
     sort,
     page,
@@ -61,7 +62,7 @@ export default function Browse({
     if (material) query.material = material;
     if (gender) query.gender = gender;
     if (price) query.price = price;
-    // if (shipping) query.shipping = shipping;
+ 
     if (rating) query.rating = rating;
     if (sort) query.sort = sort;
     if (page) query.page = page;
@@ -120,9 +121,7 @@ export default function Browse({
   const multiPriceHandler = (min, max) => {
     filter({ price: `${min}_${max}` });
   };
-  // const shippingHandler = (shipping) => {
-  //   filter({ shipping });
-  // };
+
   const ratingHandler = (rating) => {
     filter({ rating });
   };
@@ -175,6 +174,7 @@ export default function Browse({
   //---------------------------------
   const [scrollY, setScrollY] = useState(0);
   const [height, setHeight] = useState(0);
+  const [filterVisible, setFilterVisible] = useState(false);
   const headerRef = useRef(null);
   const el = useRef(null);
   useEffect(() => {
@@ -188,7 +188,13 @@ export default function Browse({
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
+  const filterHandler = () => {
+    if (filterVisible) {
+      setFilterVisible(false);
+    } else {
+      setFilterVisible(true);
+    }
+  };
   //---------------------------------
   return (
     <div className={styles.browse}>
@@ -202,10 +208,12 @@ export default function Browse({
         <div
           className={`${styles.browse__store} ${
             scrollY >= height ? styles.fixed : ""
-          }`}
+          } `}
         >
           <div
-            className={`${styles.browse__store_filters} ${styles.scrollbar}`}
+            className={`${styles.browse__store_filters} ${styles.scrollbar} ${
+              !filterVisible ? styles.filters___hidden : styles.filters__visible
+            }`}
           >
             <button
               className={styles.browse__clearBtn}
@@ -251,14 +259,16 @@ export default function Browse({
             />
           </div>
           <div className={styles.browse__store_products_wrap}>
-            <HeadingFilters
-              priceHandler={priceHandler}
-              multiPriceHandler={multiPriceHandler}
-              // shippingHandler={shippingHandler}
-              ratingHandler={ratingHandler}
-              replaceQuery={replaceQuery}
-              sortHandler={sortHandler}
-            />
+            <div className={styles.browse__store_products_topFilter}>
+              <HeadingFilters
+                priceHandler={priceHandler}
+                multiPriceHandler={multiPriceHandler}
+              
+                ratingHandler={ratingHandler}
+                replaceQuery={replaceQuery}
+                sortHandler={sortHandler}
+              />
+            </div>
             <div className={styles.browse__store_products}>
               {products.map((product) => (
                 <ProductCard product={product} key={product._id} />
@@ -272,6 +282,15 @@ export default function Browse({
                 variant="outlined"
                 color="primary"
               />
+            </div>
+
+            <div
+              className={styles.filters__btn}
+              onClick={() => filterHandler()}
+            >
+              <span>
+                Filters <IoFilter className="fs-2 " />
+              </span>
             </div>
           </div>
         </div>
@@ -287,7 +306,7 @@ export async function getServerSideProps(ctx) {
   const categoryQuery = query.category || "";
   const genderQuery = query.gender || "";
   const priceQuery = query.price?.split("_") || "";
-  const shippingQuery = query.shipping || 0;
+
   const ratingQuery = query.rating || "";
   const sortQuery = query.sort || "";
   const pageSize = 50;
@@ -405,12 +424,7 @@ export async function getServerSideProps(ctx) {
           },
         }
       : {};
-  const shipping =
-    shippingQuery && shippingQuery == "0"
-      ? {
-          shipping: 0,
-        }
-      : {};
+ 
   const rating =
     ratingQuery && ratingQuery !== ""
       ? {
@@ -459,7 +473,7 @@ export async function getServerSideProps(ctx) {
     ...material,
     ...gender,
     ...price,
-    ...shipping,
+
     ...rating,
   })
     .skip(pageSize * (page - 1))
@@ -501,7 +515,7 @@ export async function getServerSideProps(ctx) {
     ...material,
     ...gender,
     ...price,
-    ...shipping,
+
     ...rating,
   });
   return {
