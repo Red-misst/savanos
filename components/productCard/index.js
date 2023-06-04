@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import ProductSwiper from "./ProductSwiper";
 import styles from "./styles.module.scss";
 

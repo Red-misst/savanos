@@ -6,11 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Navigation } from "swiper";
 
-export default function ProductsSwiper({ header, products, bg, setLoading }) {
-  const handleLinkClick = () => {
-    setLoading(true);
-  };
-
+export default function ProductsSwiper({ header, products, bg }) {
   return (
     <div className={styles.wrapper}>
       {header && (
@@ -20,11 +16,7 @@ export default function ProductsSwiper({ header, products, bg, setLoading }) {
         >
           {header}
           <span>
-            <Link
-              href=""
-              onClick={handleLinkClick}
-              className="text-decoration-none"
-            >
+            <Link href="" className="text-decoration-none">
               <BsArrowRightCircle className="fs-2" />
             </Link>
           </span>
@@ -59,11 +51,11 @@ export default function ProductsSwiper({ header, products, bg, setLoading }) {
             <div className={styles.product}>
               <div className={styles.product__img}>
                 <Link
-                  href=""
+                  href={`${product.link}`}
                   className="text-decoration-none"
-                  onClick={handleLinkClick}
+                  target="_blank"
                 >
-                  <img src={product.image} alt="" />
+                  <img src={product.image} alt="product_img" />
                 </Link>
               </div>
               <div className={styles.product__infos}>

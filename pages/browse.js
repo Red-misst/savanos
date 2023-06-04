@@ -2,24 +2,21 @@ import styles from "@/styles/browse.module.scss";
 import db from "@/utils/db";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
-import Header from "@/components/header";
+import Header from "@/components/Header";
+import { IoFilter } from "react-icons/io5";
 import SubCategory from "@/models/SubCategory";
-import {
-  filterArray,
-  randomize,
-  removeDuplicates,
-} from "@/utils/arrays_utils";
+import { filterArray, randomize, removeDuplicates } from "@/utils/arrays_utils";
 import Link from "next/link";
-import ProductCard from ".@/components/ProductCard";
+import ProductCard from "@/components/productCard";
 import CategoryFilter from "@/components/browse/categoryFilter";
 import SizesFilter from "@/components/browse/sizesFilter";
-import ColorsFilter from "@components/browse/colorsFilter";
-import BrandsFilter from "@components/browse/brandsFilter";
-import StylesFilter from "@components/browse/stylesFilter";
-import PatternsFilter from "@components/browse/patternsFilter";
-import MaterialsFilter from "@components/browse/materialsFilter";
-import GenderFilter from "@components/browse/genderFilter";
-import HeadingFilters from "@components/browse/headingFilters";
+import ColorsFilter from "@/components/browse/colorsFilter";
+import BrandsFilter from "@/components/browse/brandsFilter";
+import StylesFilter from "@/components/browse/stylesFilter";
+import PatternsFilter from "@/components/browse/patternsFilter";
+import MaterialsFilter from "@/components/browse/materialsFilter";
+import GenderFilter from "@/components/browse/genderFilter";
+import HeadingFilters from "@/components/browse/headingFilters";
 import { useRouter } from "next/router";
 import { Pagination } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
@@ -35,7 +32,6 @@ export default function Browse({
   patterns,
   materials,
   paginationCount,
-
 }) {
   const router = useRouter();
   const filter = ({
@@ -49,7 +45,7 @@ export default function Browse({
     material,
     gender,
     price,
-    shipping,
+
     rating,
     sort,
     page,
@@ -66,7 +62,7 @@ export default function Browse({
     if (material) query.material = material;
     if (gender) query.gender = gender;
     if (price) query.price = price;
-    // if (shipping) query.shipping = shipping;
+
     if (rating) query.rating = rating;
     if (sort) query.sort = sort;
     if (page) query.page = page;
@@ -125,9 +121,7 @@ export default function Browse({
   const multiPriceHandler = (min, max) => {
     filter({ price: `${min}_${max}` });
   };
-  // const shippingHandler = (shipping) => {
-  //   filter({ shipping });
-  // };
+
   const ratingHandler = (rating) => {
     filter({ rating });
   };
@@ -180,6 +174,7 @@ export default function Browse({
   //---------------------------------
   const [scrollY, setScrollY] = useState(0);
   const [height, setHeight] = useState(0);
+  const [filterVisible, setFilterVisible] = useState(false);
   const headerRef = useRef(null);
   const el = useRef(null);
   useEffect(() => {
@@ -192,32 +187,34 @@ export default function Browse({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+    setFilterVisible(false);
   }, []);
-  console.log(scrollY, height);
+  const filterHandler = () => {
+    if (filterVisible) {
+      setFilterVisible(false);
+    } else {
+      setFilterVisible(true);
+    }
+  };
   //---------------------------------
   return (
     <div className={styles.browse}>
       <div ref={headerRef}>
-        <Header searchHandler={searchHandler} country={country} />
+        <Header searchHandler={searchHandler} />
       </div>
       <div className={styles.browse__container}>
         <div ref={el}>
           <div className={styles.browse__path}>Home / Browse</div>
-          <div className={styles.browse__tags}>
-            {categories.map((c) => (
-              <Link href="" key={c._id}>
-                <a>{c.name}</a>
-              </Link>
-            ))}
-          </div>
         </div>
         <div
           className={`${styles.browse__store} ${
             scrollY >= height ? styles.fixed : ""
-          }`}
+          } `}
         >
           <div
-            className={`${styles.browse__store_filters} ${styles.scrollbar}`}
+            className={`${styles.browse__store_filters} ${styles.scrollbar} ${
+              filterVisible ? "" : styles.filters__hidden
+            }`}
           >
             <button
               className={styles.browse__clearBtn}
@@ -263,14 +260,15 @@ export default function Browse({
             />
           </div>
           <div className={styles.browse__store_products_wrap}>
-            <HeadingFilters
-              priceHandler={priceHandler}
-              multiPriceHandler={multiPriceHandler}
-              // shippingHandler={shippingHandler}
-              ratingHandler={ratingHandler}
-              replaceQuery={replaceQuery}
-              sortHandler={sortHandler}
-            />
+            <div className={styles.browse__store_products_topFilter}>
+              <HeadingFilters
+                priceHandler={priceHandler}
+                multiPriceHandler={multiPriceHandler}
+                ratingHandler={ratingHandler}
+                replaceQuery={replaceQuery}
+                sortHandler={sortHandler}
+              />
+            </div>
             <div className={styles.browse__store_products}>
               {products.map((product) => (
                 <ProductCard product={product} key={product._id} />
@@ -286,6 +284,11 @@ export default function Browse({
               />
             </div>
           </div>
+          <div className={styles.filters__btn} onClick={() => filterHandler()}>
+            <span>
+              Filters <IoFilter className="fs-2 " />
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -299,7 +302,7 @@ export async function getServerSideProps(ctx) {
   const categoryQuery = query.category || "";
   const genderQuery = query.gender || "";
   const priceQuery = query.price?.split("_") || "";
-  const shippingQuery = query.shipping || 0;
+
   const ratingQuery = query.rating || "";
   const sortQuery = query.sort || "";
   const pageSize = 50;
@@ -417,12 +420,7 @@ export async function getServerSideProps(ctx) {
           },
         }
       : {};
-  const shipping =
-    shippingQuery && shippingQuery == "0"
-      ? {
-          shipping: 0,
-        }
-      : {};
+
   const rating =
     ratingQuery && ratingQuery !== ""
       ? {
@@ -457,14 +455,7 @@ export async function getServerSideProps(ctx) {
     }
     return styleRegex;
   }
-  let data = await axios
-    .get("https://api.ipregistry.co/?key=r208izz0q0icseks")
-    .then((res) => {
-      return res.data.location.country;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+
   //-------------------------------------------------->
   db.connectDb();
   let productsDb = await Product.find({
@@ -478,7 +469,7 @@ export async function getServerSideProps(ctx) {
     ...material,
     ...gender,
     ...price,
-    ...shipping,
+
     ...rating,
   })
     .skip(pageSize * (page - 1))
@@ -520,7 +511,7 @@ export async function getServerSideProps(ctx) {
     ...material,
     ...gender,
     ...price,
-    ...shipping,
+
     ...rating,
   });
   return {
@@ -535,7 +526,6 @@ export async function getServerSideProps(ctx) {
       patterns,
       materials,
       paginationCount: Math.ceil(totalProducts / pageSize),
-     
     },
   };
 }

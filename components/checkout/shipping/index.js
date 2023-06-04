@@ -4,17 +4,16 @@ import { useRouter } from "next/navigation";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import ShippingInput from "@/components/inputs/shippingInput";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-
-// import SingularSelect from "@/components/selects/SingularSelect";
+import SingularSelect from "@/components/selects/SingularSelect";
 import {
   changeActiveAddress,
   deleteAddress,
   saveAddress,
+  deliveryFee,
 } from "@/requests/user";
 import { FaIdCard } from "react-icons/fa";
 import { GiPhone } from "react-icons/gi";
-import { FaMapMarkerAlt } from "react-icons/fa";
+
 import {
   IoMdArrowDropupCircle,
   IoIosRemoveCircleOutline,
@@ -36,10 +35,12 @@ export default function Shipping({
   addresses,
   setAddresses,
   profile,
-  loading,
+  areas,
   setLoading,
+  setDelivery,
 }) {
   const router = useRouter();
+
   const [shipping, setShipping] = useState(initialValues);
   const [visible, setVisible] = useState(user?.address.length ? false : true);
   const { firstName, lastName, phoneNumber, area, residential, houseNumber } =
@@ -70,15 +71,25 @@ export default function Shipping({
       .min(1, "room/house should contain 1-30 characters..")
       .max(30, "room/house should contain 2-30 characters."),
   });
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const { name, value } = e.target;
     setShipping({ ...shipping, [name]: value });
- 
+
     return;
   };
+  const getShipping = async (value) => {
+    const res = await deliveryFee(value);
+    
+    if (setDelivery) {
+      setDelivery(res);
+    }
+
+    return;
+  };
+
   const saveShippingHandler = async () => {
     setLoading(true);
-   
+
     const res = await saveAddress(shipping);
     setAddresses((addresses) => [...addresses, shipping]);
 
@@ -94,7 +105,8 @@ export default function Shipping({
         active: ad._id == id ? true : false,
       }))
     );
-
+    let activeAddress = addresses.find((ad) => ad.active == true);
+    getShipping(activeAddress);
     setLoading(false);
     return;
   };
@@ -106,6 +118,7 @@ export default function Shipping({
     setLoading(false);
     return;
   };
+
   return (
     <div className={styles.shipping}>
       {!profile && (
@@ -188,7 +201,6 @@ export default function Shipping({
           validator={() => ({})}
           validationSchema={validate}
           onSubmit={(shipping) => {
-            
             saveShippingHandler(shipping);
           }}
         >
@@ -212,14 +224,17 @@ export default function Shipping({
                 placeholder="*Phone number"
                 onChange={handleChange}
               />
-              <ShippingInput
+              <SingularSelect
                 name="area"
-                placeholder="*Area"
-                onChange={handleChange}
+                value={area}
+                placeholder="*Region"
+                handleChange={handleChange}
+                data={areas}
               />
+
               <ShippingInput
                 name="residential"
-                placeholder="*Residential"
+                placeholder="*Residential / Hostel Name"
                 onChange={handleChange}
               />
               <ShippingInput

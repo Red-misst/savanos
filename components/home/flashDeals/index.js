@@ -10,9 +10,9 @@ import "swiper/css/pagination";
 
 // import required modules
 import { Navigation } from "swiper";
-import { flashDealsArray } from "@/data/home";
+
 import FlashCard from "./Card";
-export default function FlashDeals({ setLoading }) {
+export default function FlashDeals({ setLoading, flashSales }) {
   return (
     <div className={styles.flashDeals}>
       <div className={styles.flashDeals__header}>
@@ -30,9 +30,13 @@ export default function FlashDeals({ setLoading }) {
         className="flashDeals__swiper"
       >
         <div className={styles.flashDeals__list}>
-          {flashDealsArray.map((product, i) => (
+          {flashSales.map((flashSale, i) => (
             <SwiperSlide>
-              <FlashCard product={product} key={i} setLoading={setLoading} />
+              <FlashCard
+                flashSale={flashSale}
+                key={i}
+                setLoading={setLoading}
+              />
             </SwiperSlide>
           ))}
         </div>

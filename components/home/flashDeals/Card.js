@@ -1,8 +1,11 @@
 import Link from "next/link";
 import styles from "./styles.module.scss";
 import { MdFlashOn } from "react-icons/md";
+import { useEffect, useState } from "react";
 
-export default function FlashCard({ product, setLoading }) {
+export default function FlashCard({ flashSale, setLoading }) {
+  const [active, setActive] = useState(0);
+
   const handleLinkClick = () => {
     setLoading(true);
   };
@@ -10,46 +13,33 @@ export default function FlashCard({ product, setLoading }) {
   return (
     <div className={styles.card}>
       <div className={styles.card__img}>
-        <Link href={product.link} onClick={handleLinkClick}>
-          <img src={product.image} alt="" />
+        <Link href={flashSale.link} target="_blank">
+          <img src={flashSale.image} alt="flash_deal" />
         </Link>
         <div className={styles.flash}>
           <MdFlashOn />
-          <span>-{product.discount}%</span>
+          {flashSale.discount ? <span>-{flashSale.discount}%</span> : ""}
         </div>
       </div>
       <div className={styles.card__name}>
         <span>
-          {product.name.length > 23
-            ? `${product.name.slice(0, 23) + "..."}`
-            : product.name}
+          {flashSale.name.length > 23
+            ? `${flashSale.name.slice(0, 23) + "..."}`
+            : flashSale.name}
         </span>
       </div>
       <div className={styles.card__price}>
-        <span>
-          KSh {Math.round(product.price * ((100 - product.discount) / 100))}
-        </span>
-        <span>
-          -KSh
-          {Math.round(
-            product.price - product.price * ((100 - product.discount) / 100)
-          )}
-        </span>
+        <span>{flashSale.price}</span>
       </div>
       <div className={styles.card__bar}>
         <div
           className={styles.card__bar_inner}
           style={{
-            width: `${
-              ((product.inStock - product.sold) * 100) / product.inStock
-            }%`,
+            width: "80%",
           }}
         ></div>
       </div>
-      <div className={styles.card__percentage}>
-        {Math.round(((product.inStock - product.sold) * 100) / product.inStock)}
-        % left
-      </div>
+      <div className={styles.card__percentage}> left</div>
     </div>
   );
 }

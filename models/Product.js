@@ -36,6 +36,7 @@ const productSchema = new mongoose.Schema(
     },
     store: {
       type: String,
+      required: true,
     },
     description: {
       type: String,
@@ -43,12 +44,13 @@ const productSchema = new mongoose.Schema(
     },
     brand: {
       type: String,
+      required: true,
+      default: "generic",
     },
     slug: {
       type: String,
       required: true,
       unique: true,
-      //lowercase: true,
     },
     category: {
       type: ObjectId,

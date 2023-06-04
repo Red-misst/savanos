@@ -22,7 +22,7 @@ export default function HeadingFilters({
   );
   const checkRating = replaceQuery("rating", "4");
   const sortQuery = router.query.sort || "";
-  console.log("sortQuery", sortQuery);
+
   return (
     <div className={styles.filters}>
       <div className={styles.filters__price}>
@@ -42,9 +42,9 @@ export default function HeadingFilters({
           onChange={(e) => priceHandler(e.target.value, "max")}
         />
       </div>
-      <div className={styles.filers__priceBtns}>
+      <div className={styles.filters__priceBtns}>
         <Tooltip
-          title={<h2>Check out products under 10$</h2>}
+          title={<h2>Check out products under Ksh 10</h2>}
           placement="top"
           arrow
           onClick={() => multiPriceHandler(0, 10)}
@@ -54,7 +54,7 @@ export default function HeadingFilters({
           </button>
         </Tooltip>
         <Tooltip
-          title={<h2>Check out products between 10$ and 50$</h2>}
+          title={<h2>Check out products between Ksh 10 and Ksh 50</h2>}
           placement="top"
           arrow
           onClick={() => multiPriceHandler(10, 50)}
@@ -64,7 +64,7 @@ export default function HeadingFilters({
           </button>
         </Tooltip>
         <Tooltip
-          title={<h2>Check out products between 50$ and 100$</h2>}
+          title={<h2>Check out products between Ksh 50 and Ksh 100</h2>}
           placement="top"
           arrow
           onClick={() => multiPriceHandler(50, 100)}
@@ -74,7 +74,7 @@ export default function HeadingFilters({
           </button>
         </Tooltip>
         <Tooltip
-          title={<h2>Check out products between 100$ and 500$</h2>}
+          title={<h2>Check out products between Ksh 100 and Ksh 00</h2>}
           placement="top"
           arrow
           onClick={() => multiPriceHandler(100, 500)}
@@ -84,7 +84,7 @@ export default function HeadingFilters({
           </button>
         </Tooltip>
         <Tooltip
-          title={<h2>Check out products for more than 500$</h2>}
+          title={<h2>Check out products for more than Ksh 500</h2>}
           placement="top"
           arrow
           onClick={() => multiPriceHandler(500, "")}
@@ -93,18 +93,6 @@ export default function HeadingFilters({
             <span style={{ height: "100%" }}></span>
           </button>
         </Tooltip>
-      </div>
-      <div
-        className={styles.filters__shipping}
-        onClick={() => shippingHandler(check.result)}
-      >
-        <input
-          type="checkbox"
-          name="shipping"
-          id="shipping"
-          checked={router.query.shipping == "0"}
-        />
-        <label htmlFor="shipping">Free Shipping</label>
       </div>
       <div
         className={styles.filters__rating}

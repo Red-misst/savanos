@@ -28,7 +28,7 @@ handler.put(async (req, res) => {
       { new: true }
     );
     db.disconnectDb();
-    return;
+    return res.json({ addresses });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -46,7 +46,7 @@ handler.delete(async (req, res) => {
       { new: true }
     );
     db.disconnectDb();
-    return res.json({ addresses: user.address.filter((a) => a._id != id) });
+    res.json({ addresses: user.address.filter((a) => a._id != id) });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

@@ -5,7 +5,7 @@ import Header from "@/components/cart/header";
 import Footer from "@/components/footer";
 import Product from "@/components/cart/product";
 import styles from "@/styles/cart.module.scss";
-import { updateCart } from "@/store/cartSlice";
+
 import CartHeader from "@/components/cart/cartHeader";
 import Checkout from "@/components/cart/checkout";
 import PaymentMethods from "@/components/cart/paymentMethods";
@@ -23,26 +23,20 @@ export default function cart() {
 
   const dispatch = useDispatch();
   //-----------------------
-  const [shippingFee, setShippingFee] = useState(0);
+
   const [loading, setLoading] = useState(false);
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
   useEffect(() => {
-    setShippingFee(30);
     setSubtotal(selected.reduce((a, c) => a + c.price * c.qty, 0).toFixed(2));
-    setTotal(
-      (
-        selected.reduce((a, c) => a + c.price * c.qty, 0) + Number(shippingFee)
-      ).toFixed(2)
-    );
+    setTotal(selected.reduce((a, c) => a + c.price * c.qty, 0).toFixed(2));
   }, [selected]);
   //-----------------------
   const saveCartToDbHandler = async () => {
     if (session) {
       setLoading(true);
       const res = saveCart(selected);
-      // console.log(res);
-    
+
       Router.push("/checkout");
       setLoading(false);
       return;
@@ -53,7 +47,7 @@ export default function cart() {
   return (
     <>
       {loading && <DotLoaderSpinner loading={loading} />}
-      <Header />
+      <Header setLoading={setLoading} />
       <div className={`container-fluid ${styles.cart}`}>
         {cart.cartItems.length >= 1 ? (
           <div className={styles.cart__container}>
@@ -74,10 +68,10 @@ export default function cart() {
             </div>
             <Checkout
               subtotal={subtotal}
-              shippingFee={shippingFee}
               total={total}
               selected={selected}
               saveCartToDbHandler={saveCartToDbHandler}
+              setLoading={setLoading}
             />
             <PaymentMethods />
           </div>
@@ -94,4 +88,3 @@ export default function cart() {
     </>
   );
 }
-

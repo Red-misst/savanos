@@ -1,12 +1,14 @@
 import styles from "@/styles/order.module.scss";
-import Header from "@/components/Header";
+import Header from "@/components/cart/header";
 import Order from "@/models/Order";
 import User from "@/models/User";
 import { IoIosArrowForward } from "react-icons/io";
 import db from "@/utils/db";
 import { useReducer, useEffect } from "react";
 import axios from "axios";
+import { useState } from "react";
 import Mpesa from "@/components/mpesa";
+import DotLoaderSpinner from "@/components/loaders/dotLoader";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -22,6 +24,7 @@ function reducer(state, action) {
 }
 
 export default function order({ orderData }) {
+  const [loading, setLoading] = useState(false);
   const [dispatch] = useReducer(reducer, {
     loading: true,
     error: "",
@@ -62,7 +65,8 @@ export default function order({ orderData }) {
   }
   return (
     <>
-      <Header />
+      {loading && <DotLoaderSpinner loading={loading} />}
+      <Header setLoading={setLoading} />
 
       <div className={styles.order}>
         <div className={styles.container}>
@@ -144,8 +148,8 @@ export default function order({ orderData }) {
                       </span>
                     </div>
                     <div className={styles.order__products_total_sub}>
-                      <span>Tax price</span>
-                      <span>+ KSh {orderData.taxPrice}</span>
+                      <span>Shipping Fee</span>
+                      <span>+ KSh {orderData.shippingPrice}</span>
                     </div>
                     <div
                       className={`${styles.order__products_total_sub} ${styles.bordertop}`}
@@ -157,8 +161,8 @@ export default function order({ orderData }) {
                 ) : (
                   <>
                     <div className={styles.order__products_total_sub}>
-                      <span>Tax price</span>
-                      <span>+ KSh {orderData.taxPrice}</span>
+                      <span>Shipping Fee</span>
+                      <span>+ KSh {orderData.shippingPrice}</span>
                     </div>
                     <div
                       className={`${styles.order__products_total_sub} ${styles.bordertop}`}
@@ -194,17 +198,6 @@ export default function order({ orderData }) {
                 <span>{orderData.shippingAddress.residential}</span>
                 <span>Room No. {orderData.shippingAddress.houseNumber}</span>
               </div>
-              <div className={styles.order__address_shipping}>
-                <h2>Billing Address</h2>
-                <span>
-                  {orderData.shippingAddress.firstName}{" "}
-                  {orderData.shippingAddress.lastName}
-                </span>
-                <span>{orderData.shippingAddress.area}</span>
-
-                <span>{orderData.shippingAddress.residential}</span>
-                <span>Room No. {orderData.shippingAddress.houseNumber}</span>
-              </div>
             </div>
             {!orderData.isPaid && (
               <div className={styles.order__payment}>
@@ -224,7 +217,7 @@ export async function getServerSideProps(context) {
   db.connectDb();
   const { query } = context;
   const id = query.id;
-const buni_client_id = process.env.BUNI_API_TOKEN; 
+  const buni_client_id = process.env.BUNI_API_TOKEN;
   const order = await Order.findById(id)
     .populate({ path: "user", model: User })
     .lean();

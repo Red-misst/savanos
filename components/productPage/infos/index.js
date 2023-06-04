@@ -42,6 +42,9 @@ export default function Infos({ product, setActiveImg, store }) {
   const addToCartHandler = async () => {
     if (!router.query.size) {
       setError("Please Select a size");
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
       return;
     }
     const { data } = await axios.get(
@@ -51,8 +54,14 @@ export default function Infos({ product, setActiveImg, store }) {
       setError(
         "The Quantity you have choosed is more than in stock. Try and lower the Qty"
       );
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
     } else if (data.quantity < 1) {
       setError("This Product is out of stock.");
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
       return;
     } else {
       let _uid = `${data._id}_${product.style}_${router.query.size}`;
@@ -92,7 +101,7 @@ export default function Infos({ product, setActiveImg, store }) {
       });
       dispatch(
         showDialog({
-          header: "Product Added to Whishlist Successfully",
+          header: "Product Added to Wishlist Successfully",
           msgs: [
             {
               msg: data.message,
@@ -104,7 +113,7 @@ export default function Infos({ product, setActiveImg, store }) {
     } catch (error) {
       dispatch(
         showDialog({
-          header: "Whishlist Error",
+          header: "Wishlist Error",
           msgs: [
             {
               msg: error.response.data.message,

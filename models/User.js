@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: "Please enter your email address.",
+      lowercase: true,
       trim: true,
       unique: true,
     },

@@ -24,8 +24,8 @@ export default function Offers({ setLoading }) {
         modules={[Pagination, Navigation]}
         className="offers_swiper"
       >
-        {offersArray.map((offer, index) => (
-          <SwiperSlide key={index}>
+        {offersArray.map((offer) => (
+          <SwiperSlide>
             <Link href="" onClick={handleLinkClick}>
               <img src={offer.image} alt="offers" />
             </Link>

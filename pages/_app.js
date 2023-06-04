@@ -20,7 +20,7 @@ export default function App({
   return (
     <>
       <Head>
-        <title>saVanna</title>
+        <title>saVanos</title>
         <meta name="description" content="saVanna online shopping" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

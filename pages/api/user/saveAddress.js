@@ -8,7 +8,7 @@ handler.post(async (req, res) => {
   try {
     db.connectDb();
     const { shipping } = req.body;
-    
+
     const user = User.findById(req.user);
     await user.updateOne({
       $push: {
@@ -17,7 +17,7 @@ handler.post(async (req, res) => {
     });
 
     db.disconnectDb();
-   
+
     return res.json({ message: "Address saved successfully" });
   } catch (error) {
     return res.status(500).json({ message: error.message });

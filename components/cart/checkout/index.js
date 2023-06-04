@@ -2,11 +2,14 @@ import styles from "./styles.module.scss";
 
 export default function Checkout({
   subtotal,
-  shippingFee,
+  setLoading,
   total,
   selected,
   saveCartToDbHandler,
 }) {
+  const handleLinkClick = () => {
+    setLoading(true);
+  };
   return (
     <div className={`${styles.cart__checkout} ${styles.card}`}>
       <h2>Order Summary</h2>
@@ -15,8 +18,7 @@ export default function Checkout({
         <span>KSh{subtotal}</span>
       </div>
       <div className={styles.cart__checkout_line}>
-        <span>Shipping</span>
-        <span>+KSh {shippingFee}</span>
+        <span>Shipping fee(if any) will be applied in the next page</span>
       </div>
       <div className={styles.cart__checkout_total}>
         <span>Total</span>
@@ -29,7 +31,10 @@ export default function Checkout({
             background: `${selected.length == 0 ? "#eee" : ""}`,
             cursor: `${selected.length == 0 ? "not-allowed" : ""}`,
           }}
-          onClick={() => saveCartToDbHandler()}
+          onClick={() => {
+            saveCartToDbHandler();
+            handleLinkClick();
+          }}
         >
           Continue
         </button>
