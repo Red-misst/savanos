@@ -62,7 +62,7 @@ export default function Browse({
     if (material) query.material = material;
     if (gender) query.gender = gender;
     if (price) query.price = price;
- 
+
     if (rating) query.rating = rating;
     if (sort) query.sort = sort;
     if (page) query.page = page;
@@ -187,6 +187,7 @@ export default function Browse({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+    setFilterVisible(false);
   }, []);
   const filterHandler = () => {
     if (filterVisible) {
@@ -212,7 +213,7 @@ export default function Browse({
         >
           <div
             className={`${styles.browse__store_filters} ${styles.scrollbar} ${
-              !filterVisible ? styles.filters___hidden : styles.filters__visible
+              filterVisible ? "" : styles.filters__hidden
             }`}
           >
             <button
@@ -263,7 +264,6 @@ export default function Browse({
               <HeadingFilters
                 priceHandler={priceHandler}
                 multiPriceHandler={multiPriceHandler}
-              
                 ratingHandler={ratingHandler}
                 replaceQuery={replaceQuery}
                 sortHandler={sortHandler}
@@ -283,15 +283,11 @@ export default function Browse({
                 color="primary"
               />
             </div>
-
-            <div
-              className={styles.filters__btn}
-              onClick={() => filterHandler()}
-            >
-              <span>
-                Filters <IoFilter className="fs-2 " />
-              </span>
-            </div>
+          </div>
+          <div className={styles.filters__btn} onClick={() => filterHandler()}>
+            <span>
+              Filters <IoFilter className="fs-2 " />
+            </span>
           </div>
         </div>
       </div>
@@ -424,7 +420,7 @@ export async function getServerSideProps(ctx) {
           },
         }
       : {};
- 
+
   const rating =
     ratingQuery && ratingQuery !== ""
       ? {

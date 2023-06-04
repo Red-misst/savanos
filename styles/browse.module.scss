@@ -28,7 +28,7 @@
         z-index: 90;
         background-color: $white-color;
         margin-top: 30px;
-        padding-bottom: 30px;
+        padding-bottom: 50px;
       }
       &:before {
         content: "";
@@ -122,11 +122,6 @@
 
 .filters {
   &__hidden {
-    @media (max-width: 990px) {
-      visibility: hidden !important;
-    }
-  }
-  &__visible {
     @media (max-width: 990px) {
       visibility: hidden !important;
     }

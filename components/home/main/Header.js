@@ -4,8 +4,6 @@ import styles from "./styles.module.scss";
 export default function Header({ setLoading }) {
   const { data: session } = useSession();
 
- 
-
   const handleLinkClick = () => {
     setLoading(true);
   };
@@ -13,11 +11,11 @@ export default function Header({ setLoading }) {
   return (
     <div className={styles.header}>
       <ul>
-        {session ? (
+        {session?.user?.role === "seller" ? (
           <li>
             <Link
               className="text-decoration-none"
-              href=""
+              href={`/storeAdmin/dashboard/${session.user.id}`}
               onClick={handleLinkClick}
             >
               <div className={styles.cont}>
