@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 export default function Header({ setLoading }) {
   const { data: session } = useSession();
 
-  console.log(session);
+ 
 
   const handleLinkClick = () => {
     setLoading(true);

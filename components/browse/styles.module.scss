@@ -1,5 +1,6 @@
 .filter {
   padding: 1rem;
+
   h3 {
     font-size: 17px;
     font-weight: 600;
@@ -90,6 +91,8 @@
       object-fit: contain;
     }
   }
+
+
 }
 .activeFilter {
   border: 1px solid #222;

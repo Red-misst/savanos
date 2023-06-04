@@ -8,7 +8,8 @@ import Store from "@/models/Store";
 import Head from "next/head";
 import Header from "@/components/Header";
 import Footer from "@/components/footer";
-import { produceWithPatches } from "immer";
+// import { produceWithPatches } from "immer";
+
 import MainSwiper from "@/components/productPage/mainSwiper";
 import { useState } from "react";
 import Infos from "@/components/productPage/infos";

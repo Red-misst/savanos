@@ -188,7 +188,7 @@ export default function Browse({
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  console.log(scrollY, height);
+
   //---------------------------------
   return (
     <div className={styles.browse}>
@@ -198,13 +198,6 @@ export default function Browse({
       <div className={styles.browse__container}>
         <div ref={el}>
           <div className={styles.browse__path}>Home / Browse</div>
-          <div className={styles.browse__tags}>
-            {categories.map((c) => (
-              <Link href="" key={c._id} legacyBehavior>
-                <a>{c.name}</a>
-              </Link>
-            ))}
-          </div>
         </div>
         <div
           className={`${styles.browse__store} ${

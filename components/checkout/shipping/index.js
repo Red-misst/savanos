@@ -79,7 +79,7 @@ export default function Shipping({
   };
   const getShipping = async (value) => {
     const res = await deliveryFee(value);
-    console.log(res);
+    
     if (setDelivery) {
       setDelivery(res);
     }

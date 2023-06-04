@@ -165,7 +165,7 @@ export default function create({ parents, categories }) {
       formData.append("path", path);
       formData.append("file", temp);
       let cloudinary_style_img = await uploadImages(formData);
-      style_img = cloudinary_style_img[0].url; 
+      style_img = cloudinary_style_img[0].url;
     }
     try {
       const { data } = await axios.post("/api/storeAdmin/product", {
@@ -316,7 +316,8 @@ export default function create({ parents, categories }) {
             />
             <Details
               details={product.details}
-              product={product}git
+              product={product}
+              git
               setProduct={setProduct}
             />
             <Questions

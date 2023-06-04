@@ -3,13 +3,13 @@ import styles from "./styles.module.scss";
 import Head from "next/head";
 import Header from "@/components/Header";
 import Sidebar from "../sidebar";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function Layout({ session, tab, children }) {
-  const [isSidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const { expandSidebar } = useSelector((state) => ({ ...state }));
 
-  const toggleSidebar = () => {
-    setSidebarCollapsed(!isSidebarCollapsed);
-  };
+  const showSidebar = expandSidebar.expandSidebar;
 
   return (
     <div className={styles.layout}>
@@ -18,17 +18,18 @@ export default function Layout({ session, tab, children }) {
       </Head>
       <Header />
       <div className={styles.layout__container}>
-        <button className={styles.collapseButton} onClick={toggleSidebar}>
-          {!isSidebarCollapsed ? "Collapse Sidebar" : "Expand Sidebar"}
-        </button>
         <Sidebar
           data={{
             ...session,
             tab,
           }}
-          collapsed={isSidebarCollapsed}
         />
-        <div className={styles.layout__content}>{children}</div>
+        <div
+          className={styles.layout__content}
+          style={{ marginLeft: `${showSidebar ? "280px" : "80px"}` }}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
