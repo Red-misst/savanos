@@ -7,7 +7,7 @@ export default function profile({ user, tab }) {
 
       <Head>
         <title>{user.name} -profile</title>
-      </Head>
+      </Head> 
       <Layout session={user.user} tab={tab}></Layout>;
     </>
   );

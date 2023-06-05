@@ -7,10 +7,6 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 export default function Layout({ session, tab, children }) {
-  const { expandSidebar } = useSelector((state) => ({ ...state }));
-
-  const showSidebar = expandSidebar.expandSidebar;
-
   return (
     <div className={styles.layout}>
       <Head>
@@ -24,12 +20,7 @@ export default function Layout({ session, tab, children }) {
             tab,
           }}
         />
-        <div
-          className={styles.layout__content}
-          style={{ marginLeft: `${showSidebar ? "280px" : "80px"}` }}
-        >
-          {children}
-        </div>
+        <div className={styles.layout__content}>{children}</div>
       </div>
     </div>
   );

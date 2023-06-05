@@ -13,7 +13,7 @@ import ProductCard from "@/components/productCard";
 import Category from "@/components/home/category";
 import db from "@/utils/db";
 import { useState } from "react";
-import FlashDeals from "@/components/home/flashDeals";
+
 import {
   homeImprovSwiper,
   women_accessories,
@@ -45,37 +45,6 @@ export default function Home({
       <div className={`container-fluid ${styles.home}`}>
         <Main setLoading={setLoading} swipers={swipers} offers={offers} />
 
-        <FlashDeals setLoading={setLoading} flashSales={flashSales} />
-        <div className={styles.home__category}>
-          <Category
-            header="Dresses"
-            products={women_dresses}
-            background="#5a31f4"
-            setLoading={setLoading}
-          />
-          {!isMedium && (
-            <Category
-              header="Shoes"
-              products={women_shoes}
-              background="#3c811f"
-              setLoading={setLoading}
-            />
-          )}
-          {isMobile && (
-            <Category
-              header="Shoes"
-              products={women_shoes}
-              background="#3c811f"
-              setLoading={setLoading}
-            />
-          )}
-          <Category
-            header="Accessories"
-            products={women_accessories}
-            background="#000"
-            setLoading={setLoading}
-          />
-        </div>
         <ProductsSwiper
           products={women_swiper}
           header="Trending Fashion"
