@@ -31,7 +31,7 @@ export default function FlashDeals({ setLoading, flashSales }) {
       >
         <div className={styles.flashDeals__list}>
           {flashSales.map((flashSale, i) => (
-            <SwiperSlide>
+            <SwiperSlide key={i}>
               <FlashCard
                 flashSale={flashSale}
                 key={i}

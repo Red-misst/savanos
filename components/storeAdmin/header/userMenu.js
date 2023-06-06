@@ -1,8 +1,7 @@
 import styles from "./styles.module.scss";
-
 import Sidebar from "@/components/profile/sidebar";
-import { sidebarData } from "@/data/profile";
-import {  signIn } from "next-auth/react";
+import { storeData } from "@/data/profile";
+import { signIn } from "next-auth/react";
 
 export default function UserMenu({ session, setLoading }) {
   const handleLinkClick = () => {
@@ -40,10 +39,11 @@ export default function UserMenu({ session, setLoading }) {
         )}
         {session && (
           <ul>
-            {sidebarData.map((item, i) => (
+            {storeData.map((item, i) => (
               <Sidebar
                 key={i}
                 item={item}
+                session={session}
                 visible={"" == i.toString()}
                 index={i.toString()}
               />

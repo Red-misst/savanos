@@ -2,7 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,8 +11,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+
 import styles from "./styles.module.scss";
 
 function Row(props) {
@@ -21,26 +20,14 @@ function Row(props) {
 
   return (
     <React.Fragment>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
+      <TableRow
+        sx={{ "& > *": { borderBottom: "unset" } }}
+        onClick={() => setOpen(!open)}
+      >
         <TableCell component="th" scope="row">
-          {row._id}
+          {row._id.slice(0, 4)}...
         </TableCell>
-        <TableCell align="right">
-          {row.paymentMethod == "mpesa"
-            ? "mpesa"
-            : row.paymentMethod == "credit_card"
-            ? "Credit Card"
-            : "Cash On Delievery"}
-        </TableCell>
+
         <TableCell align="right">
           {row.isPaid ? (
             <img
@@ -75,7 +62,7 @@ function Row(props) {
             {row.status}
           </span>
         </TableCell>
-        <TableCell align="right">{row.couponApplied || "-"}</TableCell>
+
         <TableCell align="right">
           <b>KSh {row.total}</b>
         </TableCell>
@@ -99,7 +86,7 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.products.map((p) => (
+                  {row.products.map((p, i) => (
                     <TableRow key={p._id}>
                       <TableCell component="th" scope="row">
                         <img
@@ -123,7 +110,7 @@ function Row(props) {
                     <TableCell align="left"></TableCell>
                     <TableCell
                       align="left"
-                      style={{ padding: "20px 0 20px 18px" }}
+                      style={{ padding: "20px 0 20px 14px" }}
                     >
                       <b style={{ fontSize: "20px" }}>KSh {row.total}</b>
                     </TableCell>
@@ -141,10 +128,10 @@ function Row(props) {
 Row.propTypes = {
   row: PropTypes.shape({
     order: PropTypes.number.isRequired,
-    payment_method: PropTypes.string.isRequired,
+
     paid: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    coupon: PropTypes.string.isRequired,
+
     total: PropTypes.number.isRequired,
   }).isRequired,
 };
@@ -164,12 +151,11 @@ export default function CollapsibleTable({ rows }) {
       <Table aria-label="collapsible table" className={styles.table}>
         <TableHead>
           <TableRow>
-            <TableCell />
             <TableCell>Order</TableCell>
-            <TableCell align="right">Payment Method</TableCell>
+
             <TableCell align="right">Paid</TableCell>
             <TableCell align="right">Status</TableCell>
-            <TableCell align="right">Coupon</TableCell>
+
             <TableCell align="right">Total</TableCell>
           </TableRow>
         </TableHead>

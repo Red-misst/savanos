@@ -95,7 +95,7 @@ export default function Home({
           setLoading={setLoading}
         />
         <div className={`row ${styles.products}`}>
-          {products.map((product) => (
+          {products.map((product, i) => (
             <ProductCard
               className="col-sm-6 col-md-3 col-lg-3"
               product={product}

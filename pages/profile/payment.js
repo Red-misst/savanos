@@ -1,13 +1,16 @@
 import { getSession } from "next-auth/react";
 import { useState } from "react";
-import Layout from "@/components/profile/layout";
+import Header from "@/components/Header";
+import DotLoaderSpinner from "@/components/loaders/dotLoader";
 import User from "@/models/User";
 import Payment from "@/components/checkout/payment";
 import styles from "@/styles/profile.module.scss";
 import axios from "axios";
+
 import { useRouter } from "next/router";
-export default function payment({ user, tab, defaultPaymentMethod }) {
+export default function payment({ user, defaultPaymentMethod }) {
   const router = useRouter();
+   const [loading, setLoading] = useState(false);
   const [dbPM, setDbPM] = useState(defaultPaymentMethod);
   const [paymentMethod, setPaymentMethod] = useState(defaultPaymentMethod);
   const [error, setError] = useState("");
@@ -24,7 +27,9 @@ export default function payment({ user, tab, defaultPaymentMethod }) {
     }
   };
   return (
-    <Layout session={user.user} tab={tab}>
+    <>
+     {loading && <DotLoaderSpinner loading={loading} />}
+      <Header setLoading={setLoading} />
       <div className={styles.header}>
         <h1>MY PAYMENT METHODS</h1>
       </div>
@@ -43,7 +48,7 @@ export default function payment({ user, tab, defaultPaymentMethod }) {
         Save
       </button>
       {error && <span className={styles.error}>{error}</span>}
-    </Layout>
+    </>
   );
 }
 
@@ -58,7 +63,7 @@ export async function getServerSideProps(ctx) {
   return {
     props: {
       user: session,
-      tab,
+
       defaultPaymentMethod: user.defaultPaymentMethod,
     },
   };

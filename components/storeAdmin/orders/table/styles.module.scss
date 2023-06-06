@@ -53,21 +53,3 @@
 .completed {
   color: #4cb64c;
 }
-
-/* Responsive styles */
-
-@media (max-width: 600px) {
-  .table__productImg {
-    height: 80px; /* Adjust the height for smaller screens */
-    width: 80px; /* Adjust the width for smaller screens */
-  }
-
-  .table {
-    td {
-      svg {
-        width: 20px; /* Adjust the icon size for smaller screens */
-        height: 20px; /* Adjust the icon size for smaller screens */
-      }
-    }
-  }
-}

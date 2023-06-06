@@ -1,53 +1,36 @@
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import Layout from "@/components/profile/layout";
-import { ordersLinks } from "@/data/profile";
+
+import { useState } from "react";
+import DotLoaderSpinner from "@/components/loaders/dotLoader";
+import Header from "@/components/Header";
+
 import Order from "@/models/Order";
 import styles from "@/styles/profile.module.scss";
 import { FiExternalLink } from "react-icons/fi";
-import slugify from "slugify";
-export default function orders({ user, tab, orders }) {
-  const router = useRouter();
+
+export default function orders({ orders }) {
+  const [loading, setLoading] = useState(false);
+
   return (
-    <Layout session={user.user} tab={tab}>
+    <>
+      {loading && <DotLoaderSpinner loading={loading} />}
+      <Header setLoading={setLoading} />
       <Head>
         <title>Orders</title>
       </Head>
-      <div className={styles.orders}>
+      <div className={`container-sm ${styles.orders}`}>
         <div className={styles.header}>
           <h1>MY ORDERS</h1>
         </div>
-        <nav>
-          <ul>
-            {ordersLinks.map((link, i) => (
-              <li
-                key={i}
-                className={
-                  slugify(link.name, { lower: true }) ==
-                  router.query.q.split("__")[0]
-                    ? styles.active
-                    : ""
-                }
-              >
-                <Link
-                  href={`/profile/orders?tab=${tab}&q=${slugify(link.name, {
-                    lower: true,
-                  })}__${link.filter}`}
-                >
-                  {link.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+
         <table>
           <thead>
             <tr>
               <td>Order id</td>
               <td>Products</td>
-              <td>Payment Method</td>
+
               <td>Total</td>
               <td>Paid</td>
               <td>Status</td>
@@ -57,20 +40,15 @@ export default function orders({ user, tab, orders }) {
           <tbody>
             {orders.map((order) => (
               <tr>
-                <td>{order._id}</td>
+                <td>{order._id.slice(0, 2)}...</td>
+
                 <td className={styles.orders__images}>
                   {order.products.map((p) => (
                     <img src={p.image} key={p._id} alt="" />
                   ))}
                 </td>
-                <td>
-                  {order.paymentMethod == "paypal"
-                    ? "Paypal"
-                    : order.paymentMethod == "credit_card"
-                    ? "Credit Card"
-                    : "COD"}
-                </td>
-                <td>{order.total}$</td>
+
+                <td>KSh {order.total}</td>
                 <td className={styles.orders__paid}>
                   {order.isPaid ? (
                     <img src="../../../images/verified.png" alt="" />
@@ -89,7 +67,7 @@ export default function orders({ user, tab, orders }) {
           </tbody>
         </table>
       </div>
-    </Layout>
+    </>
   );
 }
 export async function getServerSideProps(ctx) {

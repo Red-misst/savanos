@@ -1,4 +1,3 @@
-import Layout from "@/components/storeAdmin/layout";
 import styles from "@/styles/storeDashboard.module.scss";
 import User from "@/models/User";
 import db from "@/utils/db";
@@ -7,8 +6,7 @@ import Store from "@/models/Store";
 import Product from "@/models/Product";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import Dropdown from "@/components/storeAdmin/dashboard/dropdown";
-import Notifications from "@/components/storeAdmin/dashboard/notifications";
+import CollapsibleTable from "@/components/storeAdmin/orders/table";
 
 import { SlHandbag, SlEye } from "react-icons/sl";
 import { SiProducthunt } from "react-icons/si";
@@ -62,18 +60,8 @@ export default function dashboard({ user, store, orders, products }) {
       <Head>
         <title>{store.name} - Seller Dashboard</title>
       </Head>
-      <Layout>
-        <div className={styles.header}>
-          <div className={styles.header__search}>
-            <label htmlFor="">
-              <input type="text" placeholder="Search here..." />
-            </label>
-          </div>
-          <div className={styles.header__right}>
-            <Dropdown userImage={user?.image} />
-            <Notifications classname="fs-2" />
-          </div>
-        </div>
+
+      <div className="container-sm">
         <div className={styles.cards}>
           <div className={styles.card}>
             <div className={styles.card__icon}>
@@ -101,69 +89,19 @@ export default function dashboard({ user, store, orders, products }) {
               <h4>+ KSh{storeProductsTotal.toFixed(2)}</h4>
               <h5>KSh {unpaidStoreProductsTotal.toFixed(2)} Unpaid.</h5>
               <span>Total Earnings</span>
-              <span>Total Earnings</span>
             </div>
           </div>
         </div>
         <div className={styles.data}>
-          <div className={styles.orders}>
+          <div>
             <div className={styles.heading}>
               <h2>Recent Orders</h2>
-              <Link href="/storeAdmin/dashboard/orders">View All</Link>
+           
             </div>
-            <table>
-              <thead>
-                <tr>
-                  <td>Id</td>
-                  <td>Total</td>
-                  <td>Payment</td>
-                  <td>Status</td>
-                  <td>View</td>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map((order) => (
-                  <tr>
-                    <td>{order._id.substring(0, 4)}</td>
-                    <td>KSh {order.total} </td>
-                    <td>
-                      {order.isPaid ? (
-                        <img src="../../../images/verified.webp" alt="" />
-                      ) : (
-                        <img src="../../../images/unverified1.png" alt="" />
-                      )}
-                    </td>
-                    <td>
-                      <div
-                        className={`${styles.status} ${
-                          order.status == "Not Processed"
-                            ? styles.not_processed
-                            : order.status == "Processing"
-                            ? styles.processing
-                            : order.status == "Dispatched"
-                            ? styles.dispatched
-                            : order.status == "Cancelled"
-                            ? styles.cancelled
-                            : order.status == "Completed"
-                            ? styles.completed
-                            : ""
-                        }`}
-                      >
-                        {order.status}
-                      </div>
-                    </td>
-                    <td>
-                      <Link href={`/order/${order._id}`}>
-                        <SlEye />
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <CollapsibleTable rows={orders} />
           </div>
         </div>
-      </Layout>
+      </div>
     </div>
   );
 }
@@ -186,5 +124,5 @@ export async function getServerSideProps(context) {
       orders: JSON.parse(JSON.stringify(orders)),
       products: JSON.parse(JSON.stringify(products)),
     },
-  }; 
+  };
 }

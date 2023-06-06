@@ -3,16 +3,8 @@ export const sidebarData = [
     heading: "My Account",
     links: [
       {
-        name: "My Profile",
-        link: "/profile",
-      },
-      {
         name: "Addresses",
         link: "/profile/address",
-      },
-      {
-        name: "My Payment Options",
-        link: "/profile/payment",
       },
       {
         name: "Account Security",
@@ -44,11 +36,7 @@ export const sidebarData = [
         link: "/profile/orders",
         filter: "Processing",
       },
-      {
-        name: "Unprocessed Orders",
-        link: "/profile/orders",
-        filter: "Not Processed",
-      },
+
       {
         name: "Dispatched Orders",
         link: "/profile/orders",
@@ -66,45 +54,45 @@ export const sidebarData = [
       },
     ],
   },
-  {
-    heading: "My Lists",
-    links: [
-      {
-        name: "Whishlist",
-        link: "/profile/wishlist",
-      },
-      {
-        name: "Recently Viewed",
-        link: "/profile/recent",
-      },
-    ],
-  },
-  {
-    heading: "Customer Service",
-    links: [
-      {
-        name: "My Message",
-        link: "/profile/messages",
-      },
-      {
-        name: "Service Records",
-        link: "/profile/services",
-      },
-    ],
-  },
-  {
-    heading: "Other Services",
-    links: [
-      {
-        name: "Survey Center",
-        link: "",
-      },
-      {
-        name: "Contact Preferences",
-        link: "",
-      },
-    ],
-  },
+  // {
+  //   heading: "My Lists",
+  //   links: [
+  //     {
+  //       name: "Whishlist",
+  //       link: "/profile/wishlist",
+  //     },
+  //     {
+  //       name: "Recently Viewed",
+  //       link: "/profile/recent",
+  //     },
+  //   ],
+  // },
+  // {
+  //   heading: "Customer Service",
+  //   links: [
+  //     {
+  //       name: "My Message",
+  //       link: "/profile/messages",
+  //     },
+  //     {
+  //       name: "Service Records",
+  //       link: "/profile/services",
+  //     },
+  //   ],
+  // },
+  // {
+  //   heading: "Other Services",
+  //   links: [
+  //     {
+  //       name: "Survey Center",
+  //       link: "",
+  //     },
+  //     {
+  //       name: "Contact Preferences",
+  //       link: "",
+  //     },
+  //   ],
+  // },
   {
     heading: "Policy",
     links: [
@@ -142,23 +130,53 @@ export const ordersLinks = [
     filter: "unpaid",
   },
   {
-    name: "Processing Orders",
-    filter: "Processing",
-  },
-  {
-    name: "Unprocessed Orders",
-    filter: "Not Processed",
-  },
-  {
     name: "Dispatched Orders",
     filter: "Dispatched",
   },
   {
-    name: "Delievered Orders",
+    name: "Delivered Orders",
     filter: "Delievered",
   },
   {
     name: "Cancelled Orders",
     filter: "Cancelled",
+  },
+];
+
+export const storeData = [
+  {
+    heading: "Seller Account",
+    links: [
+      {
+        name: "Dashboard",
+        link: "/storeAdmin/dashboard",
+      },
+    ],
+  },
+  {
+    heading: "Orders",
+    links: [
+      {
+        name: "All Orders",
+        link: "/storeAdmin/orders",
+      },
+    ],
+  },
+  {
+    heading: "Products",
+    links: [
+      {
+        name: "All Products",
+        link: "/storeAdmin/dashboard/product/all",
+      },
+      {
+        name: "Create Product",
+        link: "/storeAdmin/create",
+      },
+    ],
+  },
+  {
+    heading: "Sign out",
+    link: [],
   },
 ];
