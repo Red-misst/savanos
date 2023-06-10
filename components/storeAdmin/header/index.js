@@ -1,19 +1,12 @@
 import styles from "./styles.module.scss";
 import { useState } from "react";
 import Link from "next/link";
-import Search from "./Search";
-import UserMenu from "./UserMenu";
-import { AiOutlineHeart } from "react-icons/ai";
-import { BiCategoryAlt } from "react-icons/bi";
-import {
-  RiAccountCircleLine,
-  RiArrowDropDownFill,
-  RiCustomerService2Fill,
-} from "react-icons/ri";
-import Cart from "./Cart";
+import UserMenu from "./userMenu";
+import { RiAccountCircleLine, RiArrowDropDownFill } from "react-icons/ri";
+
 import { useSession } from "next-auth/react";
 
-export default function Top({ setLoading }) {
+export default function Header({ setLoading }) {
   const { data: session } = useSession();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -27,44 +20,12 @@ export default function Top({ setLoading }) {
         <Link href="/" className="text-decoration-none text-dark" passHref>
           <div className=" my-auto" onClick={handleLinkClick}>
             <span>
-              <h2 className="fs-2">saVanos</h2>
+              <h2 className="fs-2">saVanos - dashboard</h2>
             </span>
           </div>
         </Link>
 
-        <div className={`d-flex w-50 my-auto ${styles.search_1}`}>
-          <Search />
-        </div>
         <ul className={`d-flex gap-3 ${styles.top_list}`}>
-          <li className={styles.top_li}>
-            <div className={styles.cart_1}>
-              <Cart setLoading={setLoading} />
-            </div>
-          </li>
-          <li className={styles.top_li}>
-            <AiOutlineHeart className="fs-2" />
-            <Link
-              href="/profile/wishlist"
-              className="text-decoration-none text-dark"
-              onClick={handleLinkClick}
-            >
-              <span>Wishlist</span>
-            </Link>
-          </li>
-          <li className={styles.top_li}>
-            <RiCustomerService2Fill className="fs-2" />
-            <Link
-              href="/profile/wishlist"
-              className="text-decoration-none text-dark"
-              onClick={handleLinkClick}
-            >
-              <span>
-                Customer
-                <br />
-                Support
-              </span>
-            </Link>
-          </li>
           <li
             className={styles.top_li}
             onMouseOver={() => setShowMenu(true)}
@@ -104,12 +65,6 @@ export default function Top({ setLoading }) {
             {showMenu && <UserMenu session={session} setLoading={setLoading} />}
           </li>
         </ul>
-      </div>
-      <div
-        className={`col-12 d-flex justify-content-space-btn align-items-center  ${styles.search_2}`}
-      >
-        <BiCategoryAlt className={styles.categories} />
-        <Search />
       </div>
     </div>
   );

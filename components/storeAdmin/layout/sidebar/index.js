@@ -81,14 +81,6 @@ export default function Sidebar() {
             </Link>
           </li>
 
-          {/* <li className={route == "messages" ? styles.active : ""}>
-            <Link href="/admin/dashboard/messages" legacyBehavior >
-              <a>
-                <AiFillMessage />
-                <span className={styles.show}>Messages</span>
-              </a>
-            </Link>
-          </li> */}
         </ul>
         <div className={styles.sidebar__dropdown}>
           <div className={styles.sidebar__dropdown_heading}>

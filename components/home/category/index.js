@@ -20,13 +20,15 @@ export default function Category({ header, products, background, setLoading }) {
         </Link>
       </div>
       <div className={styles.category__products}>
-        {products.slice(0, isMobile ? 6 : isMedium ? 4 : 6).map((product) => (
-          <div className={styles.product}>
-            <Link href="" onClick={handleLinkClick}>
-              <img src={product.image} alt="" />
-            </Link>
-          </div>
-        ))}
+        {products
+          .slice(0, isMobile ? 6 : isMedium ? 4 : 6)
+          .map((product, i) => (
+            <div className={styles.product} key={i}>
+              <Link href="" onClick={handleLinkClick}>
+                <img src={product.image} alt="" />
+              </Link>
+            </div>
+          ))}
       </div>
     </div>
   );

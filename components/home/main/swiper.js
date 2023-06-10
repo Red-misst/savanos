@@ -27,8 +27,8 @@ export default function MainSwiper({ setLoading, swipers }) {
         modules={[Autoplay, Pagination, Navigation]}
         className="mainSwiper"
       >
-        {swipers.map((swiper) => (
-          <SwiperSlide>
+        {swipers.map((swiper, i) => (
+          <SwiperSlide key={i}>
             <Link href={swiper.link} onClick={handleLinkClick}>
               <img src={swiper.img} alt="Swiper-img" />
             </Link>
