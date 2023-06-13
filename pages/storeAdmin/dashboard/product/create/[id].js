@@ -1,16 +1,15 @@
 import styles from "@/styles/products.module.scss";
-import Layout from "@/components/storeAdmin/layout";
+import Header from "@/components/storeAdmin/header";
 import db from "@/utils/db";
 import Product from "@/models/Product";
-import Category from "@/models/Category";
-import User from "@/models/User";
 import Store from "@/models/Store";
+import Category from "@/models/Category";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
-import SingularSelect from "@/components/selects/SingularSelect";
+import ProductSelect from "@/components/selects/productSelect";
 import MultipleSelect from "@/components/selects/MultipleSelect";
 import AdminInput from "@/components/inputs/adminInput";
 import DotLoaderSpinner from "@/components/loaders/dotLoader";
@@ -71,10 +70,11 @@ export default function create({ parents, categories }) {
   const [description_images, setDescription_images] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  console.log(product);
+
   useEffect(() => {
     const getParentData = async () => {
       if (product.parent) {
+        console.log(product.parent);
         const { data } = await axios.get(`/api/product/${product.parent}`);
         console.log(data);
         if (data) {
@@ -184,170 +184,174 @@ export default function create({ parents, categories }) {
     }
   };
   return (
-    <Layout>
+    <>
       {loading && <DotLoaderSpinner loading={loading} />}
-      <div className={styles.header}>Create Product</div>
+      <Header setLoading={setLoading} />
+      <div className="container-sm">
+        <div className={`mx-auto ${styles.header}`}>Create Product</div>
 
-      <Formik
-        enableReinitialize
-        initialValues={{
-          name: product.name,
-          brand: product.brand,
-          description: product.description,
-          category: product.category,
-          subCategories: product.subCategories,
-          parent: product.parent,
-          sku: product.sku,
-          discount: product.discount,
-          color: product.color.color,
-          imageInputFile: "",
-          styleInout: "",
-        }}
-        validator={() => ({})}
-        validationSchema={validate}
-        onSubmit={() => {
-          createProduct();
-        }}
-      >
-        {(formik) => (
-          <Form>
-            <Images
-              name="imageInputFile"
-              header="Product Carousel Images"
-              text="Add images"
-              images={images}
-              setImages={setImages}
-              setColorImage={setColorImage}
-            />
-            <div className={styles.flex}>
-              {product.color.image && (
-                <img
-                  src={product.color.image}
-                  className={styles.image_span}
-                  alt=""
-                />
-              )}
-              {product.color.color && (
-                <span
-                  className={styles.color_span}
-                  style={{ background: `${product.color.color}` }}
-                ></span>
-              )}
-            </div>
-            <Colors
-              name="color"
-              product={product}
-              setProduct={setProduct}
-              colorImage={colorImage}
-            />
-            <Style
-              name="styleInput"
-              product={product}
-              setProduct={setProduct}
-              colorImage={colorImage}
-            />
-            <SingularSelect
-              name="parent"
-              value={product.parent}
-              placeholder="Parent product"
-              data={parents}
-              header="Add to an existing product"
-              handleChange={handleChange}
-            />
-            <SingularSelect
-              name="category"
-              value={product.category}
-              placeholder="Category"
-              data={categories}
-              header="Select a Category"
-              handleChange={handleChange}
-              disabled={product.parent}
-            />
-            {product.category && (
-              <MultipleSelect
-                value={product.subCategories}
-                data={subs}
-                header="Select SubCategories"
-                name="subCategories"
-                disabled={product.parent}
+        <Formik
+          enableReinitialize
+          initialValues={{
+            name: product.name,
+            brand: product.brand,
+            description: product.description,
+            category: product.category,
+            subCategories: product.subCategories,
+            parent: product.parent,
+            sku: product.sku,
+            discount: product.discount,
+            color: product.color.color,
+            imageInputFile: "",
+            styleInout: "",
+          }}
+          validator={() => ({})}
+          validationSchema={validate}
+          onSubmit={() => {
+            createProduct();
+          }}
+        >
+          {(formik) => (
+            <Form>
+              <Images
+                name="imageInputFile"
+                header="Product Carousel Images"
+                text="Add images"
+                images={images}
+                setImages={setImages}
+                setColorImage={setColorImage}
+              />
+              <div className={styles.flex}>
+                {product.color.image && (
+                  <img
+                    src={product.color.image}
+                    className={styles.image_span}
+                    alt="product_img"
+                  />
+                )}
+                {product.color.color && (
+                  <span
+                    className={styles.color_span}
+                    style={{ background: `${product.color.color}` }}
+                  ></span>
+                )}
+              </div>
+              <Colors
+                name="color"
+                product={product}
+                setProduct={setProduct}
+                colorImage={colorImage}
+              />
+              <Style
+                name="styleInput"
+                product={product}
+                setProduct={setProduct}
+                colorImage={colorImage}
+              />
+              <ProductSelect
+                name="parent"
+                value={product.parent}
+                placeholder="Parent product"
+                data={parents}
+                header="Add to an existing product"
                 handleChange={handleChange}
               />
-            )}
-            <div className={styles.header}>Basic Infos</div>
-            <AdminInput
-              type="text"
-              label="Name"
-              name="name"
-              placholder="Product name"
-              onChange={handleChange}
-            />
-            <AdminInput
-              type="text"
-              label="Description"
-              name="description"
-              placholder="Product description"
-              onChange={handleChange}
-            />
-            <AdminInput
-              type="text"
-              label="Brand"
-              name="brand"
-              placholder="Product brand"
-              onChange={handleChange}
-            />
-            <AdminInput
-              type="text"
-              label="Sku"
-              name="sku"
-              placholder="Product sku/ number"
-              onChange={handleChange}
-            />
-            <AdminInput
-              type="text"
-              label="Discount"
-              name="discount"
-              placholder="Product discount"
-              onChange={handleChange}
-            />
-            <Sizes
-              sizes={product.sizes}
-              product={product}
-              setProduct={setProduct}
-            />
-            <Details
-              details={product.details}
-              product={product}
-              git
-              setProduct={setProduct}
-            />
-            <Questions
-              questions={product.questions}
-              product={product}
-              setProduct={setProduct}
-            />
+              <ProductSelect
+                name="category"
+                value={product.category}
+                placeholder="Category"
+                data={categories}
+                header="Select a Category"
+                handleChange={handleChange}
+                disabled={product.parent}
+              />
+              {product.category && (
+                <MultipleSelect
+                  value={product.subCategories}
+                  data={subs}
+                  header="Select SubCategories"
+                  name="subCategories"
+                  disabled={product.parent}
+                  handleChange={handleChange}
+                />
+              )}
+              <div className={styles.header}>Basic Infos</div>
+              <AdminInput
+                type="text"
+                label="Name"
+                name="name"
+                placholder="Product name"
+                onChange={handleChange}
+              />
+              <AdminInput
+                type="text"
+                label="Description"
+                name="description"
+                placholder="Product description"
+                onChange={handleChange}
+              />
+              <AdminInput
+                type="text"
+                label="Brand"
+                name="brand"
+                placholder="Product brand"
+                onChange={handleChange}
+              />
+              <AdminInput
+                type="text"
+                label="Sku"
+                name="sku"
+                placholder="Product sku/ number"
+                onChange={handleChange}
+              />
+              <AdminInput
+                type="text"
+                label="Discount"
+                name="discount"
+                placholder="Product discount"
+                onChange={handleChange}
+              />
+              <Sizes
+                sizes={product.sizes}
+                product={product}
+                setProduct={setProduct}
+              />
+              <Details
+                details={product.details}
+                product={product}
+                git
+                setProduct={setProduct}
+              />
+              <Questions
+                questions={product.questions}
+                product={product}
+                setProduct={setProduct}
+              />
 
-            <button
-              className={`${styles.btn} ${styles.btn__primary} ${styles.submit_btn}`}
-              type="submit"
-            >
-              Create Product
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </Layout>
+              <button
+                className={` ${styles.btn_primary} ${styles.submit_btn}`}
+                type="submit"
+              >
+                Create Product
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </>
   );
 }
 
 export async function getServerSideProps(context) {
   const { query } = context;
   db.connectDb();
-  const user = await User.findById(query.id).lean();
+
   const store = await Store.findOne({ seller: query.id }).lean();
 
   const results = await Product.find({ store: store._id })
     .select("name subProducts")
     .lean();
+
   const categories = await Category.find().lean();
 
   db.disconnectDb();

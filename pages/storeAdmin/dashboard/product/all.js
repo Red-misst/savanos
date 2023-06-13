@@ -1,18 +1,25 @@
 import styles from "@/styles/products.module.scss";
-import Layout from "@/components/storeAdmin/layout";
 import db from "@/utils/db";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
+import DotLoaderSpinner from "@/components/loaders/dotLoader";
+import { useState } from "react";
+
 import ProductCard from "@/components/storeAdmin/products/productCard";
+import Header from "@/components/storeAdmin/header";
 export default function all({ products }) {
-  console.log(products);
+  const [loading, setLoading] = useState(false);
   return (
-    <Layout>
+    <>
+      {loading && <DotLoaderSpinner loading={loading} />}
+      <Header setLoading={setLoading} />
+      <div className="container-md">
       <div className={styles.header}>All Products</div>
       {products.map((product) => (
         <ProductCard product={product} key={product._id} />
       ))}
-    </Layout>
+      </div>
+    </>
   );
 }
 

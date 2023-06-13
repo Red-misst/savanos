@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { FaStaylinked } from "react-icons/fa";
 import { RiDeleteBin7Fill, RiShape2Line } from "react-icons/ri";
 import { useDispatch } from "react-redux";
-import { showDialog } from "../../../../store/DialogSlice";
+import { showDialog } from "@/store/DialogSlice";
 import styles from "./styles.module.scss";
 import { GiExtractionOrb } from "react-icons/gi";
 export default function Images({
@@ -122,7 +122,7 @@ export default function Images({
           }`}
         >
           {!images.length ? (
-            <img src="../../../images/no_image.png" alt="" />
+            <img src="https://res.cloudinary.com/dcdivbkwd/image/upload/v1686046799/no_image_yrqcey.png" alt="no-IMG" />
           ) : (
             images.map((img, i) => (
               <div className={styles.images__main_grid_wrap} key={i}>

@@ -3,7 +3,7 @@ import cloudinary from "cloudinary";
 import bodyParser from "body-parser";
 import fs from "fs";
 import fileUpload from "express-fileupload";
-import { imgMiddleware } from "../../../middleware/imgMiddleware";
+import { imgMiddleware } from "@/middleware/imgMiddleware";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -53,6 +53,9 @@ const uploadToCloudinaryHandler = async (file, path) => {
       file.tempFilePath,
       {
         folder: path,
+        transformation: [
+          { width: 1800, height: 2400, crop: 'fill' }, // Set the desired width and height
+        ],
       },
       (err, res) => {
         if (err) {

@@ -1,6 +1,5 @@
 import styles from "./styles.module.scss";
-import Sidebar from "@/components/profile/sidebar";
-import { storeData } from "@/data/profile";
+import Link from "next/link";
 import { signIn } from "next-auth/react";
 
 export default function UserMenu({ session, setLoading }) {
@@ -39,15 +38,24 @@ export default function UserMenu({ session, setLoading }) {
         )}
         {session && (
           <ul>
-            {storeData.map((item, i) => (
-              <Sidebar
-                key={i}
-                item={item}
-                session={session}
-                visible={"" == i.toString()}
-                index={i.toString()}
-              />
-            ))}
+            <li>
+              <Link href={`/storeAdmin/dashboard/${session?.user?.id}`}>
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/storeAdmin/dashboard/product/create/${session?.user?.id}`}
+              >
+                Create Product
+              </Link>
+            </li>
+            <li>
+              <Link href="/storeAdmin/dashboard/product/all">All products</Link>
+            </li>
+            <li>
+              <Link href="/storeAdmin/dashboard"></Link>
+            </li>
           </ul>
         )}
       </div>

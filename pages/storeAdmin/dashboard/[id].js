@@ -7,15 +7,18 @@ import Product from "@/models/Product";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import CollapsibleTable from "@/components/storeAdmin/orders/table";
+import Header from "@/components/storeAdmin/header";
 
-import { SlHandbag, SlEye } from "react-icons/sl";
+import DotLoaderSpinner from "@/components/loaders/dotLoader";
+
+import { SlHandbag } from "react-icons/sl";
 import { SiProducthunt } from "react-icons/si";
 import { GiTakeMyMoney } from "react-icons/gi";
-import Link from "next/link";
 
-export default function dashboard({ user, store, orders, products }) {
+export default function dashboard({ store, orders, products }) {
   const [storeProductsTotal, setStoreProductsTotal] = useState(0);
   const [unpaidStoreProductsTotal, setUnpaidStoreProductsTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Calculate the total of products from the specific store
@@ -56,11 +59,12 @@ export default function dashboard({ user, store, orders, products }) {
   }, [orders, store._id]);
 
   return (
-    <div>
+    <>
+      {loading && <DotLoaderSpinner loading={loading} />}
       <Head>
         <title>{store.name} - Seller Dashboard</title>
       </Head>
-
+      <Header setLoading={setLoading} />
       <div className="container-sm">
         <div className={styles.cards}>
           <div className={styles.card}>
@@ -85,10 +89,14 @@ export default function dashboard({ user, store, orders, products }) {
             <div className={styles.card__icon}>
               <GiTakeMyMoney />
             </div>
-            <div className={styles.card__infos}>
-              <h4>+ KSh{storeProductsTotal.toFixed(2)}</h4>
-              <h5>KSh {unpaidStoreProductsTotal.toFixed(2)} Unpaid.</h5>
+            <div className={`${styles.card__infos} `}>
+              <h4 className={styles.profit}>
+                + KSh{storeProductsTotal.toFixed(2)}
+              </h4>
               <span>Total Earnings</span>
+              <h5 className={styles.unpaid}>
+                KSh {unpaidStoreProductsTotal.toFixed(2)} Unpaid.
+              </h5>
             </div>
           </div>
         </div>
@@ -96,32 +104,73 @@ export default function dashboard({ user, store, orders, products }) {
           <div>
             <div className={styles.heading}>
               <h2>Recent Orders</h2>
-           
             </div>
             <CollapsibleTable rows={orders} />
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
-
 export async function getServerSideProps(context) {
   const { query } = context;
   db.connectDb();
   const user = await User.findById(query.id).lean();
   const store = await Store.findOne({ seller: query.id }).lean();
 
-  const orders = await Order.find({ "products.store": store._id }).lean();
+  const orders = await Order.aggregate([
+    {
+      $match: {
+        "products.store": store._id,
+      },
+    },
+    {
+      $addFields: {
+        storeOrderProducts: {
+          $filter: {
+            input: "$products",
+            cond: { $eq: ["$$this.store", store._id] },
+          },
+        },
+      },
+    },
+    {
+      $project: {
+        storeOrderProducts: 1,
+        total: {
+          $sum: {
+            $map: {
+              input: "$storeOrderProducts",
+              as: "product",
+              in: { $multiply: ["$$product.price", "$$product.qty"] },
+            },
+          },
+        },
+        status: "$status",
+        createdAt: 1, // Include the createdAt field for sorting
+      },
+    },
+    {
+      $sort: {
+        createdAt: -1, // Sort by most recent (descending order of createdAt)
+      },
+    },
+  ]);
 
   const products = await Product.find({ store: store._id }).lean();
+
+  const filteredOrders = orders.map((order) => ({
+    ...order,
+    products: order.storeOrderProducts,
+    total: order.total,
+  }));
 
   db.disconnectDb();
   return {
     props: {
       user: JSON.parse(JSON.stringify(user)),
       store: JSON.parse(JSON.stringify(store)),
-      orders: JSON.parse(JSON.stringify(orders)),
+      orders: JSON.parse(JSON.stringify(filteredOrders)),
       products: JSON.parse(JSON.stringify(products)),
     },
   };

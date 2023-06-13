@@ -1,4 +1,5 @@
 .header {
+  max-width: 1100px;
   height: 100%;
   box-shadow: $shadow-1;
 }
@@ -10,12 +11,6 @@
   border-top: 1px solid $light-cream-color;
   border-bottom: 1px solid $light-cream-color;
   padding: 5px;
-
-  .search_1 {
-    width: 50%;
-    display: flex;
-  }
-
   &_list {
     margin: 7px 7px 7px auto;
     .top_li {
@@ -75,80 +70,11 @@
       }
     }
   }
-  .search_2 {
-    display: none !important;
-    .categories {
-      fill: $purple-color;
-      font-size: 35px;
-      margin-right: 10px;
-    }
-  }
-}
-
-//search bar
-.search {
-  background: $light-cream-color;
-  height: 40px;
-  border-radius: 5px;
-  input {
-    border: none;
-    outline: none;
-    background: transparent;
-    padding: 0 1rem;
-    font-size: 14px;
-    font-weight: 500;
-    color: $text-grey;
-  }
-  &_icon {
-    width: 40px;
-    height: 40px;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    background-color: $purple-color;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    svg {
-      width: 20px;
-      height: 20px;
-      fill: $white-color;
-    }
-  }
-}
-//cart
-.cart {
-  position: relative;
-  top: 3px;
-  svg {
-    margin-right: 20px;
-    width: 30px;
-    height: 30px;
-    fill: $text-grey;
-    cursor: pointer;
-    &:hover {
-      fill: $purple-color;
-    }
-  }
-  span {
-    position: absolute;
-    top: -5px;
-    right: 6px;
-    width: 20px;
-    height: 20px;
-    background-color: $purple-color;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    color: $white-color;
-    font-size: 12px;
-    font-weight: 500;
-  }
 }
 
 //UserMenu--------------------------------------
 .menu {
   width: 280px;
-
   box-shadow: $shadow-1;
   position: absolute;
   top: 100%;
@@ -179,11 +105,15 @@
       cursor: pointer;
       user-select: none;
       font-size: 16px;
-      b {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+
+      a {
+        text-decoration: none;
+        color: $text-grey;
+        &:hover {
+          color: $purple-color;
+        }
       }
+
       ul {
         margin-top: 0;
 
@@ -215,32 +145,5 @@
   .col {
     display: flex;
     flex-direction: column;
-  }
-}
-
-//Reactive side--------------------------------------------------------------------------------
-@media (max-width: 768px) {
-  .top {
-    &_container {
-      padding: 0 0.5rem;
-    }
-    .search_1 {
-      display: none !important;
-    }
-    .search_2 {
-      display: flex !important;
-    }
-
-    &_list {
-      .top_li {
-        &:nth-child(2),
-        &:nth-child(3) {
-          display: none;
-        }
-        &::after {
-          right: 0;
-        }
-      }
-    }
   }
 }
