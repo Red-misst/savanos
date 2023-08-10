@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss";
 import Link from "next/link";
 import { MdPlayArrow } from "react-icons/md";
-export default function Header() {
+export default function Header({setLoading}) {
   const handleLinkClick = () => {
     setLoading(true);
   };
@@ -9,7 +9,7 @@ export default function Header() {
     <div className={styles.header}>
       <div className={styles.header__container}>
         <div className={styles.header__left}>
-          <Link href="/" className="text-decoration-none text-dark fs-2">
+          <Link href="/" className="text-decoration-none text-dark fs-2"  onClick={() => handleLinkClick()}>
             saVanna
           </Link>
         </div>

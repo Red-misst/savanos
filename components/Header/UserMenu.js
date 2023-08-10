@@ -12,7 +12,7 @@ export default function UserMenu({ session, setLoading }) {
   return (
     <>
       <div className={styles.menu}>
-        <h4>Welcome to saVana!</h4>
+        <h4>Welcome to saVanos!</h4>
         {session ? (
           <div className={styles.flex}>
             <img

@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { offersArray } from "@/data/home";
+
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import { Pagination, Navigation } from "swiper";
 import Link from "next/link";
 
-export default function Offers({ setLoading }) {
+export default function Offers({ setLoading, offers }) {
   const handleLinkClick = () => {
     setLoading(true);
   };
@@ -24,9 +24,9 @@ export default function Offers({ setLoading }) {
         modules={[Pagination, Navigation]}
         className="offers_swiper"
       >
-        {offersArray.map((offer, i) => (
+        {offers.map((offer, i) => (
           <SwiperSlide key={i}>
-            <Link href="" onClick={handleLinkClick}>
+            <Link href={offer.link} onClick={handleLinkClick}>
               <img src={offer.image} alt="offers" />
             </Link>
             <span>{offer.price}Ksh</span>

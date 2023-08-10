@@ -31,15 +31,15 @@ export default function FlashCard({ flashSale, setLoading }) {
       <div className={styles.card__price}>
         <span>{flashSale.price}</span>
       </div>
-      <div className={styles.card__bar}>
+      {/* <div className={styles.card__bar}>
         <div
           className={styles.card__bar_inner}
           style={{
             width: "80%",
           }}
         ></div>
-      </div>
-      <div className={styles.card__percentage}> left</div>
+      </div> */}
+      <div className={styles.card__percentage}>{flashSale.qty} items left</div>
     </div>
   );
 }

@@ -38,7 +38,9 @@ handler.delete(async (req, res) => {
   try {
     db.connectDb();
     const { id } = req.body;
+    console.log(id);
     const user = await User.findById(req.user);
+    console.log(user);
     await user.updateOne(
       {
         $pull: { address: { _id: id } },

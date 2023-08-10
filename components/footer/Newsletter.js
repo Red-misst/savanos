@@ -9,7 +9,7 @@ export default function Newsletter() {
         <p>Subscribe to our newsletter and get 10% off your first purchase</p>
         <div className={styles.flex}>
           <form>
-            <input type="email" placeholder="Your email address" />
+            <input autocomplete="off" type="email" placeholder="Your email address" />
             <button className={styles.btn_primary} type="submit">
               Subscribe
             </button>

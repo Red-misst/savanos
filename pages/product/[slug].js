@@ -63,7 +63,7 @@ export async function getServerSideProps(context) {
   const { query } = context;
 
   const slug = query.slug;
-  const style = query.style;
+  const style = query.style || 0;
   const size = query.size || 0;
   db.connectDb();
   //------------

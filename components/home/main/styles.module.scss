@@ -189,15 +189,39 @@
       display: grid;
       place-items: center;
       transition: 0.2s;
+      &:nth-child(2){
+        position: relative;
+      }
       svg {
         width: 30px;
         height: 30px;
         stroke: $purple-color;
+        fill: $purple-color;
+      }
+      span{
+        position: absolute;
+        top: -5px;
+        right: 2px;
+        width: 20px;
+        height: 20px;
+        background-color: $purple-color;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        color: $white-color;
+        font-size: 12px;
+        font-weight: 500;
       }
       &:hover {
         background: $purple-color;
         svg {
-          stroke: #fff;
+          stroke:$white-color;
+          fill: $white-color;
+        }
+        span{
+          color:$purple-color;
+          background-color: $white-color;
+          border: 1px solid $purple-color;
         }
       }
       &:nth-of-type(3),

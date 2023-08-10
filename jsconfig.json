@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "types": ["google-libphonenumber"],
+    "typeRoots": ["node_modules/@types"],
     "paths": {
       "@/*": ["./*"]
     }

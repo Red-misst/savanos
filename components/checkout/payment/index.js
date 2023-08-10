@@ -1,4 +1,4 @@
-import { paymentMethods } from "../../../data/paymentMethods";
+import { paymentMethods } from "@/data/paymentMethods";
 import styles from "./styles.module.scss";
 
 export default function Payment({ paymentMethod, setPaymentMethod, profile }) {

@@ -1,8 +1,8 @@
 export const paymentMethods = [
   {
-    name: "mpesa",
+    name: "mpesa on delivery",
     id: "mpesa",
-    description: "Fast and secure payment via mpesa.",
+    description: "Payment done once goods are delivered.",
     images: [],
   },
 ];

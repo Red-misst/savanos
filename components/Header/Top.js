@@ -33,7 +33,7 @@ export default function Top({ setLoading }) {
         </Link>
 
         <div className={`d-flex w-50 my-auto ${styles.search_1}`}>
-          <Search />
+          <Search  setLoading={setLoading}/>
         </div>
         <ul className={`d-flex gap-3 ${styles.top_list}`}>
           <li className={styles.top_li}>
@@ -109,7 +109,7 @@ export default function Top({ setLoading }) {
         className={`col-12 d-flex justify-content-space-btn align-items-center  ${styles.search_2}`}
       >
         <BiCategoryAlt className={styles.categories} />
-        <Search />
+        <Search  setLoading={setLoading}/>
       </div>
     </div>
   );

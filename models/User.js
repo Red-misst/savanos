@@ -52,9 +52,7 @@ const userSchema = new mongoose.Schema(
         residential: {
           type: String,
         },
-        houseNumber: {
-          type: String,
-        },
+       
         active: {
           type: Boolean,
           default: false,

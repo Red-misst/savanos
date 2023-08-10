@@ -38,12 +38,13 @@ export default function Create({ setCategories }) {
         }}
       >
         {(formik) => (
-          <Form>
+          <Form autoComplete="off">
             <div className={styles.header}>Create a Category</div>
             <AdminInput
               type="text"
               label="Name"
               name="name"
+              autoComplete="off"
               placholder="Category name"
               onChange={(e) => setName(e.target.value)}
             />

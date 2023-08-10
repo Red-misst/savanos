@@ -76,14 +76,7 @@ export default function order({ orderData }) {
                 Home <IoIosArrowForward /> Orders <IoIosArrowForward /> ID{" "}
                 {orderData._id}
               </div>
-              <div className={styles.order__header_status}>
-                Payment Status :{" "}
-                {orderData.isPaid ? (
-                  <img src="../../../images/verified.png" alt="paid" />
-                ) : (
-                  <img src="../../../images/unverified.png" alt="paid" />
-                )}
-              </div>
+         
               <div className={styles.order__header_status}>
                 Order Status :
                 <span
@@ -196,16 +189,16 @@ export default function order({ orderData }) {
                 <span>{orderData.shippingAddress.area}</span>
 
                 <span>{orderData.shippingAddress.residential}</span>
-                <span>Room No. {orderData.shippingAddress.houseNumber}</span>
+                <span>{orderData.shippingAddress.phoneNumber}</span>
               </div>
             </div>
-            {!orderData.isPaid && (
+            {/* {!orderData.isPaid && (
               <div className={styles.order__payment}>
                 {orderData.paymentMethod == "mpesa" && (
                   <Mpesa orderData={orderData} />
                 )}
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
@@ -227,7 +220,7 @@ export async function getServerSideProps(context) {
     props: {
       orderData: JSON.parse(JSON.stringify(order)),
       buni_client_id,
-      // stripe_public_key,
+    
     },
   };
 }

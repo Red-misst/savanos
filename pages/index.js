@@ -4,7 +4,6 @@ import Header from "@/components/Header";
 import Ad from "@/components/ad";
 import Footer from "@/components/footer";
 import Main from "@/components/home/main";
-
 import ProductsSwiper from "@/components/productsSwiper";
 import MainSwiper from "@/models/MainSwiper";
 import FlashSale from "@/models/FlashSale";
@@ -147,15 +146,39 @@ export async function getServerSideProps() {
     .sort({ "subProducts.discount": -1, createdAt: -1 })
     .limit(15)
     .lean();
+  offers = offers.map((product) => {
+    // get the subproduct with the highest discount
+    const highestDiscount = product.subProducts.reduce((prev, current) => {
+      return prev.discount > current.discount ? prev : current;
+    });
 
+    //get the price of that subproduct assuming that each subproduct has its own price
+    const price = highestDiscount.sizes.map((size) => size.price);
+
+    const discount = highestDiscount.discount ? highestDiscount.discount : null;
+
+    return {
+      link: `/product/${product.slug}`,
+      price,
+      name: product.name,
+      image: highestDiscount.images[0].url,
+      discount,
+    };
+  });
+ 
+
+  // Filter out any null values
   let deals = await FlashSale.find().lean();
   let productIds = deals.map((deal) => deal.product);
   let flashSales = await Product.find({ _id: { $in: productIds } }).lean();
 
-  flashSales = flashSales.map((product) => {
+  flashSales = flashSales.map((product, index) => {
     const active = Math.floor(Math.random() * product.subProducts.length);
     const subProduct = product.subProducts[active];
     const prices = subProduct.sizes.map((size) => size.price);
+    const date = deals[index].date;
+    const qty = subProduct.sizes.map((size)=> size.qty)
+    console.log (qty)
     const price =
       prices.length > 1
         ? `KSh ${Math.min(...prices)} - KSh ${Math.max(...prices)}`
@@ -166,6 +189,8 @@ export async function getServerSideProps() {
     return {
       link: `/product/${product.slug}?style=${active}`,
       price,
+      date,
+      qty,
       name: product.name,
       image: subProduct.images[0].url,
       discount,

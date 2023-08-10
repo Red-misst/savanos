@@ -9,7 +9,6 @@ import * as Yup from "yup";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import {
   getCsrfToken,
-  getProviders,
   getSession,
   signIn,
 } from "next-auth/react";
@@ -34,7 +33,7 @@ const initialValues = {
   login_error: "",
 };
 
-export default function signin({ providers, callbackUrl, csrfToken }) {
+export default function signin({ callbackUrl, csrfToken }) {
   const [user, setUser] = useState(initialValues);
   const [passwordVisible, setPasswordVisible] = useState("password");
   const [signin, setSignin] = useState(true);
@@ -222,30 +221,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                       </Form>
                     )}
                   </Formik>
-                  {/* <div className={styles.login_socials}>
-                    <span className={styles.or}>Or continue with</span>
-                    {providers.map((provider) => {
-                      if (provider.name === "Credentials") return null;
-                      else
-                        return (
-                          <div
-                            key={provider.name}
-                            className={styles.login_socials_wrap}
-                          >
-                            <button
-                              className={styles.social_btn}
-                              onClick={() => signIn(provider.id)}
-                            >
-                              <img
-                                src={twitterIcon}
-                                alt={`login with ${provider.name}`}
-                              />
-                              Sign in with {provider.name}
-                            </button>
-                          </div>
-                        );
-                    })}
-                  </div> */}
+             
 
                   <div className="d-flex justify-content-center my-4">
                     <span className={styles.login_cont}>
@@ -376,10 +352,10 @@ export async function getServerSideProps(context) {
     };
   }
   const csrfToken = await getCsrfToken(context);
-  const providers = Object.values(await getProviders());
+  console.log(csrfToken);
+
   return {
     props: {
-      providers,
       csrfToken,
       callbackUrl,
     },

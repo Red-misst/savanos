@@ -23,7 +23,7 @@ export default function dashboard({ users, orders, products }) {
         <div className={styles.header}>
           <div className={styles.header__search}>
             <label htmlFor="">
-              <input type="text" placeholder="Search here..." />
+              <input autocomplete="off" type="text" placeholder="Search here..." />
             </label>
           </div>
           <div className={styles.header__right}>

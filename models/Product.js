@@ -79,7 +79,11 @@ const productSchema = new mongoose.Schema(
         question: String,
         answer: String,
       },
-    ],
+    ], 
+    featured:{
+      type: String,
+      default: "false",
+    },
     reviews: [reviewSchema],
     refundPolicy: {
       type: String,

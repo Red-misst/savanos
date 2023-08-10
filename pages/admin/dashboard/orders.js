@@ -1,8 +1,8 @@
-import Layout from "../../../components/admin/layout";
-import CollapsibleTable from "../../../components/admin/orders/table";
-import db from "../../../utils/db";
-import Order from "../../../models/Order";
-import User from "../../../models/User";
+import Layout from "@/components/admin/layout";
+import CollapsibleTable from "@/components/admin/orders/table";
+import db from "@/utils/db";
+import Order from "@/models/Order";
+import User from "@/models/User";
 export default function orders({ orders }) {
   return (
     <Layout>

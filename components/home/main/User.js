@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import styles from "./styles.module.scss";
 import { IoSettingsOutline } from "react-icons/io5";
-import { HiOutlineClipboardList } from "react-icons/hi";
+import { TiShoppingCart } from "react-icons/ti";
 import { BsHeart } from "react-icons/bs";
 import { AiOutlineMessage } from "react-icons/ai";
 
@@ -12,8 +12,10 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 import { EffectCards, Navigation } from "swiper";
 import { userSwiperArray } from "../../../data/home";
+import { useSelector } from "react-redux";
 
 export default function User({ setLoading }) {
+  const { cart } = useSelector((state) => ({ ...state }));
   const { data: session } = useSession();
 
   const handleLinkClick = () => {
@@ -58,16 +60,17 @@ export default function User({ setLoading }) {
         )}
         <ul className={styles.user__links}>
           <li>
-            <Link href="/profile" legacyBehavior>
+            <Link href="/profile/address" legacyBehavior>
               <a onClick={handleLinkClick}>
                 <IoSettingsOutline />
               </a>
             </Link>
           </li>
           <li>
-            <Link href="" legacyBehavior>
+            <Link href="/cart" legacyBehavior>
               <a onClick={handleLinkClick}>
-                <HiOutlineClipboardList />
+              <TiShoppingCart className={styles.icon} />
+        <span>{cart.cartItems.length}</span>
               </a>
             </Link>
           </li>
@@ -99,15 +102,15 @@ export default function User({ setLoading }) {
             modules={[EffectCards, Navigation]}
             className="user__swiper"
             style={{
-              maxWidth: "180px",
-              height: "240px",
+              maxWidth: "140px",
+              height: "230px",
               marginTop: "1rem",
             }}
           >
             {userSwiperArray.map((item, i) => (
               <SwiperSlide key={i}>
                 <Link href="" onClick={handleLinkClick}>
-                  <img src={item.image} alt="" />
+                  <img src={item.image} alt="offer" />
                 </Link>
               </SwiperSlide>
             ))}

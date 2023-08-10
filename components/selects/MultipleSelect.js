@@ -106,7 +106,7 @@ export default function MultipleSelect({
           onChange={handleChange}
           name={name}
           disabled={disabled}
-          input={<Input id="select-multiple-chip" />}
+          input={<input autocomplete="off" id="select-multiple-chip" />}
           renderValue={(selected) => (
             <div className={classes.chips}>
               {selected.map((value) => (

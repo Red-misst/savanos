@@ -23,6 +23,7 @@ export const saveAddress = async (shipping) => {
   }
 };
 export const changeActiveAddress = async (id) => {
+ 
   try {
     const { data } = await axios.put("/api/user/manageAddress", {
       id,
@@ -48,13 +49,13 @@ export const applyCoupon = async (coupon) => {
   });
   return data;
 };
-export const deliveryFee = async (activeAddress) => {
-  let value = activeAddress.area;
-  let data =
-    value === "Talai"
-      ? 30
-      : value === "Mabs" || value === "Kesses" || value === "Chebarus"
-      ? 50
-      : 0;
+export const deliveryFee = async () => {
+try{
+const { data } = await axios.get("/api/user/deliveryFee")
+console.log(data)
   return data;
+} catch (error) {
+  return error.response.data.message;
+}
 };
+ 

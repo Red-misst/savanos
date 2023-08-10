@@ -15,6 +15,7 @@ export default function CartHeader({ cartItems, selected, setSelected }) {
     }
   };
 
+
   return (
     <div className={`${styles.cart__header} ${styles.card}`}>
       <h1>Item Summary({cartItems.length})</h1>

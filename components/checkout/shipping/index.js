@@ -66,10 +66,6 @@ export default function Shipping({
       .required("Residential is required.")
       .min(2, "Residential should contain 2-60 characters.")
       .max(60, "Residential should contain 2-60 characters."),
-    houseNumber: Yup.string()
-      .required("room/house is required.")
-      .min(1, "room/house should contain 1-30 characters..")
-      .max(30, "room/house should contain 2-30 characters."),
   });
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -92,6 +88,7 @@ export default function Shipping({
 
     const res = await saveAddress(shipping);
     setAddresses((addresses) => [...addresses, shipping]);
+    router.refresh();
 
     setLoading(false);
     return;
@@ -162,7 +159,7 @@ export default function Shipping({
                   <MdHomeWork />
                   {address.residential}
                 </span>
-                <span>{address.roomNumber}</span>
+               
               </div>
               <span
                 className={styles.active__text}
@@ -196,7 +193,7 @@ export default function Shipping({
             phoneNumber,
             area,
             residential,
-            houseNumber,
+           
           }}
           validator={() => ({})}
           validationSchema={validate}
@@ -237,11 +234,7 @@ export default function Shipping({
                 placeholder="*Residential / Hostel Name"
                 onChange={handleChange}
               />
-              <ShippingInput
-                name="houseNumber"
-                placeholder="*Room Number"
-                onChange={handleChange}
-              />
+            
               <button type="submit">Save Address</button>
             </Form>
           )}

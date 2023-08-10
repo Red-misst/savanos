@@ -10,6 +10,11 @@ const categorySchema = new mongoose.Schema(
       minlength: [2, "must be atleast 2 characters"],
       maxlength: [32, "Should not be more than 32 characters"],
     },
+    commission: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     slug: {
       type: String,
       unique: true,

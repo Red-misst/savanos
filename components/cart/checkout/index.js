@@ -1,3 +1,4 @@
+import { Link } from "@material-ui/core";
 import styles from "./styles.module.scss";
 
 export default function Checkout({
@@ -25,6 +26,7 @@ export default function Checkout({
         <span>KSh {total}</span>
       </div>
       <div className={styles.submit}>
+      <Link className="text-decoration-none">
         <button
           disabled={selected.length == 0}
           style={{
@@ -38,6 +40,7 @@ export default function Checkout({
         >
           Continue
         </button>
+        </Link>
       </div>
     </div>
   );

@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import { Pagination } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import DotLoaderSpinner from "@/components/loaders/dotLoader";
 export default function Browse({
   categories,
   subCategories,
@@ -33,6 +34,7 @@ export default function Browse({
   materials,
   paginationCount,
 }) {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const filter = ({
     search,
@@ -198,105 +200,112 @@ export default function Browse({
   };
   //---------------------------------
   return (
-    <div className={styles.browse}>
-      <div ref={headerRef}>
-        <Header searchHandler={searchHandler} />
-      </div>
-      <div className={styles.browse__container}>
-        <div ref={el}>
-          <div className={styles.browse__path}>Home / Browse</div>
+    <>
+      {loading && <DotLoaderSpinner loading={loading} />}
+      <div className={styles.browse}>
+        <div ref={headerRef}>
+          <Header searchHandler={searchHandler} setLoading={setLoading}/>
         </div>
-        <div
-          className={`${styles.browse__store} ${
-            scrollY >= height ? styles.fixed : ""
-          } `}
-        >
+        <div className={styles.browse__container}>
+          <div ref={el}>
+            <div className={styles.browse__path}>Home / Browse</div>
+          </div>
           <div
-            className={`${styles.browse__store_filters} ${styles.scrollbar} ${
-              filterVisible ? "" : styles.filters__hidden
-            }`}
+            className={`${styles.browse__store} ${
+              scrollY >= height ? styles.fixed : ""
+            } `}
           >
-            <button
-              className={styles.browse__clearBtn}
-              onClick={() => router.push("/browse")}
+            <div
+              className={`${styles.browse__store_filters} ${styles.scrollbar} ${
+                filterVisible ? "" : styles.filters__hidden
+              }`}
             >
-              Clear All ({Object.keys(router.query).length})
-            </button>
-            <CategoryFilter
-              categories={categories}
-              subCategories={subCategories}
-              categoryHandler={categoryHandler}
-              replaceQuery={replaceQuery}
-            />
-            <SizesFilter sizes={sizes} sizeHandler={sizeHandler} />
-            <ColorsFilter
-              colors={colors}
-              colorHandler={colorHandler}
-              replaceQuery={replaceQuery}
-            />
-            <BrandsFilter
-              brands={brands}
-              brandHandler={brandHandler}
-              replaceQuery={replaceQuery}
-            />
-            <StylesFilter
-              data={stylesData}
-              styleHandler={styleHandler}
-              replaceQuery={replaceQuery}
-            />
-            <PatternsFilter
-              patterns={patterns}
-              patternHandler={patternHandler}
-              replaceQuery={replaceQuery}
-            />
-            <MaterialsFilter
-              materials={materials}
-              materialHandler={materialHandler}
-              replaceQuery={replaceQuery}
-            />
-            <GenderFilter
-              genderHandler={genderHandler}
-              replaceQuery={replaceQuery}
-            />
-          </div>
-          <div className={styles.browse__store_products_wrap}>
-            <div className={styles.browse__store_products_topFilter}>
-              <HeadingFilters
-                priceHandler={priceHandler}
-                multiPriceHandler={multiPriceHandler}
-                ratingHandler={ratingHandler}
+              <button
+                className={styles.browse__clearBtn}
+                onClick={() => router.push("/browse")}
+              >
+                Clear All ({Object.keys(router.query).length})
+              </button>
+              <CategoryFilter
+                categories={categories}
+                subCategories={subCategories}
+                categoryHandler={categoryHandler}
                 replaceQuery={replaceQuery}
-                sortHandler={sortHandler}
+              />
+              <SizesFilter sizes={sizes} sizeHandler={sizeHandler} />
+              <ColorsFilter
+                colors={colors}
+                colorHandler={colorHandler}
+                replaceQuery={replaceQuery}
+              />
+              <BrandsFilter
+                brands={brands}
+                brandHandler={brandHandler}
+                replaceQuery={replaceQuery}
+              />
+              <StylesFilter
+                data={stylesData}
+                styleHandler={styleHandler}
+                replaceQuery={replaceQuery}
+              />
+              <PatternsFilter
+                patterns={patterns}
+                patternHandler={patternHandler}
+                replaceQuery={replaceQuery}
+              />
+              <MaterialsFilter
+                materials={materials}
+                materialHandler={materialHandler}
+                replaceQuery={replaceQuery}
+              />
+              <GenderFilter
+                genderHandler={genderHandler}
+                replaceQuery={replaceQuery}
               />
             </div>
-            <div className={styles.browse__store_products}>
-              {products.map((product) => (
-                <ProductCard product={product} key={product._id} />
-              ))}
+            <div className={styles.browse__store_products_wrap}>
+              <div className={styles.browse__store_products_topFilter}>
+                <HeadingFilters
+                  priceHandler={priceHandler}
+                  multiPriceHandler={multiPriceHandler}
+                  ratingHandler={ratingHandler}
+                  replaceQuery={replaceQuery}
+                  sortHandler={sortHandler}
+                />
+              </div>
+              <div className={styles.browse__store_products}>
+                {products.map((product) => (
+                  <ProductCard product={product} key={product._id} />
+                ))}
+              </div>
+              <div className={styles.pagination}>
+                <Pagination
+                  count={paginationCount}
+                  defaultPage={Number(router.query.page) || 1}
+                  onChange={pageHandler}
+                  variant="outlined"
+                  color="primary"
+                />
+              </div>
             </div>
-            <div className={styles.pagination}>
-              <Pagination
-                count={paginationCount}
-                defaultPage={Number(router.query.page) || 1}
-                onChange={pageHandler}
-                variant="outlined"
-                color="primary"
-              />
+            <div
+              className={styles.filters__btn}
+              onClick={() => filterHandler()}
+            >
+              <span>
+                Filters <IoFilter className="fs-2 " />
+              </span>
             </div>
-          </div>
-          <div className={styles.filters__btn} onClick={() => filterHandler()}>
-            <span>
-              Filters <IoFilter className="fs-2 " />
-            </span>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export async function getServerSideProps(ctx) {
   const { query } = ctx;
+
   //-------------------------------------------------->
   const searchQuery = query.search || "";
   const categoryQuery = query.category || "";

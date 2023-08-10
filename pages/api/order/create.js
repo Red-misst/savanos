@@ -17,6 +17,7 @@ handler.post(async (req, res) => {
       couponApplied,
       delivery,
     } = req.body;
+    console.log(products)
     const orderTotal = total + delivery;
     const user = await User.findById(req.user);
     const newOrder = await new Order({
@@ -29,7 +30,7 @@ handler.post(async (req, res) => {
       totalBeforeDiscount,
       couponApplied,
     }).save();
-
+    
     res.json({ orderId: newOrder._id });
     db.disconnectDb();
   } catch (error) {

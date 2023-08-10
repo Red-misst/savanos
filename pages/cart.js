@@ -5,7 +5,6 @@ import Header from "@/components/cart/header";
 import Footer from "@/components/footer";
 import Product from "@/components/cart/product";
 import styles from "@/styles/cart.module.scss";
-
 import CartHeader from "@/components/cart/cartHeader";
 import Checkout from "@/components/cart/checkout";
 import PaymentMethods from "@/components/cart/paymentMethods";
