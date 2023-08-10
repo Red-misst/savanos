@@ -8,7 +8,7 @@ export async function middleware(req) {
     secret: process.env.JWT_SECRET,
      secureCookie: process.env.NODE_ENV === "production",
    });
-  if (pathname == "/checkout") { 
+  if (pathname.startsWith("/checkout")) { 
     if (!session) return NextResponse.redirect(`${origin}`);
   }
   if (pathname.startsWith("/order")) {
