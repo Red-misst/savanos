@@ -340,6 +340,7 @@ export default function signin({ callbackUrl, csrfToken }) {
 // get auth providers
 export async function getServerSideProps(context) {
   const { req, query } = context;
+ 
 
   const session = await getSession({ req });
   const { callbackUrl } = query;
@@ -352,7 +353,7 @@ export async function getServerSideProps(context) {
     };
   }
   const csrfToken = await getCsrfToken(context);
-  console.log(csrfToken);
+
 
   return {
     props: {

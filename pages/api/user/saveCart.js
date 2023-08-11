@@ -10,7 +10,7 @@ handler.post(async (req, res) => {
   try {
     db.connectDb();
     const { cart } = req.body;
-    console.log(cart)
+    (cart)
     let products = [];
     let user = await User.findById(req.user);
 
@@ -69,7 +69,7 @@ handler.post(async (req, res) => {
       return res.json({ message: "Cart saved successfully" });
     }
 
-    console.log(success);
+    (success);
     db.disconnectDb();
   } catch (error) {
     return res.status(500).json({ message: error.message });

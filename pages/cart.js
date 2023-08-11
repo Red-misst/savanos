@@ -36,7 +36,7 @@ export default function cart() {
       setLoading(true);
       const res = saveCart(selected);
 
-      Router.push("/checkout", undefined, { passHref: true });
+      Router.push("/checkout");
       setLoading(false);
       return;
     } else {

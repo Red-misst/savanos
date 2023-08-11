@@ -61,7 +61,7 @@ export default function order({ orderData }) {
     });
   }
   function onErroHandler(error) {
-    console.log(error);
+    (error);
   }
   return (
     <>

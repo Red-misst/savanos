@@ -28,6 +28,7 @@
     "body-parser": "^1.20.2",
     "bootstrap": "^5.2.3",
     "cloudinary": "^1.37.0",
+    "csurf": "^1.11.0",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
     "express-fileupload": "^1.4.0",

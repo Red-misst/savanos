@@ -14,7 +14,7 @@ import { getSession, signIn } from "next-auth/react";
 import jwt from "jsonwebtoken";
 import { Router } from "next/router";
 export default function reset({ user_id }) {
-  console.log("user_id", user_id);
+  ("user_id", user_id);
   const [password, setPassword] = useState("");
   const [conf_password, setConf_password] = useState("");
   const [error, setError] = useState("");
@@ -118,9 +118,9 @@ export async function getServerSideProps(context) {
   const token = query.token;
   const user_id = jwt.verify(token, process.env.RESET_TOKEN_SECRET);
   if (user_id == null) {
-    console.log("adoajdàihjadiohiodhjioadha");
+    ("adoajdàihjadiohiodhjioadha");
   }
-  console.log(user_id);
+  (user_id);
   return {
     props: {
       user_id: user_id.id,

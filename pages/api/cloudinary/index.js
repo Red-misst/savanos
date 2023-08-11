@@ -34,7 +34,7 @@ handler.post(async (req, res) => {
     }
     res.json(images);
   } catch (error) {
-    console.log(error);
+    (error);
     return res.status(500).json({ message: error.message });
   }
 });
@@ -60,7 +60,7 @@ const uploadToCloudinaryHandler = async (file, path) => {
       (err, res) => {
         if (err) {
           removeTmp(file.tempFilePath);
-          console.log(err);
+          (err);
           return res.status(400).json({ message: "Upload image failed." });
         }
         resolve({

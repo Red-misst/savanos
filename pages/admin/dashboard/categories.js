@@ -6,7 +6,7 @@ import Create from "@/components/admin/categories/Create";
 import List from "@/components/admin/categories/List";
 export default function categories({ categories }) {
   const [data, setData] = useState(categories);
-  console.log(data);
+  (data);
   return (
     <Layout>
       <div>

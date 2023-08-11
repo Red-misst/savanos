@@ -19,7 +19,7 @@ import DotLoaderSpinner from "@/components/loaders/dotLoader";
 export default function product({ product, related, simProducts, store }) {
   const [loading, setLoading] = useState(false);
   const [activeImg, setActiveImg] = useState("");
-  console.log(product);
+  (product);
 
   return (
     <>
@@ -63,7 +63,7 @@ export async function getServerSideProps(context) {
   const { query } = context;
 
   const slug = query.slug;
-  const style = query.style || 0;
+  const style = query.style ;
   const size = query.size || 0;
   db.connectDb();
   //------------

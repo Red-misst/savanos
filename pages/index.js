@@ -178,7 +178,7 @@ export async function getServerSideProps() {
     const prices = subProduct.sizes.map((size) => size.price);
     const date = deals[index].date;
     const qty = subProduct.sizes.map((size)=> size.qty)
-    console.log (qty)
+   
     const price =
       prices.length > 1
         ? `KSh ${Math.min(...prices)} - KSh ${Math.max(...prices)}`

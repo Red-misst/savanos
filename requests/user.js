@@ -16,7 +16,7 @@ export const saveAddress = async (shipping) => {
     const { data } = await axios.post("/api/user/saveAddress", {
       shipping,
     });
-    console.log(data);
+    (data);
     return data;
   } catch (error) {
     return error.response.data.message;
@@ -52,7 +52,7 @@ export const applyCoupon = async (coupon) => {
 export const deliveryFee = async () => {
 try{
 const { data } = await axios.get("/api/user/deliveryFee")
-console.log(data)
+(data)
   return data;
 } catch (error) {
   return error.response.data.message;

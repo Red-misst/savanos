@@ -32,7 +32,7 @@ export default function Mpesa({ orderData }) {
       };
 
       const response = await axios.post(apiUrl, payload);
-      console.log(response.data); // Handle the response as needed
+       // Handle the response as needed
     } catch (error) {
       console.error("Error:", error);
     }

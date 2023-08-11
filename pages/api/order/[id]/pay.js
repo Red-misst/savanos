@@ -6,7 +6,7 @@ import db from "../../../../utils/db";
 const handler = nc().use(auth);
 
 handler.put(async (req, res) => {
-  console.log("hello from api");
+  ("hello from api");
   await db.connectDb();
   const order = await Order.findById(req.qurey.id);
   if (order) {

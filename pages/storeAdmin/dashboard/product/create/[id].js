@@ -74,9 +74,9 @@ export default function create({ parents, categories }) {
   useEffect(() => {
     const getParentData = async () => {
       if (product.parent) {
-        console.log(product.parent);
+        (product.parent);
         const { data } = await axios.get(`/api/product/${product.parent}`);
-        console.log(data);
+        (data);
         if (data) {
           setProduct({
             ...product,
@@ -101,7 +101,7 @@ export default function create({ parents, categories }) {
           category: product.category,
         },
       });
-      console.log(data);
+      (data);
       setSubs(data);
     }
     getSubs();
@@ -129,7 +129,7 @@ export default function create({ parents, categories }) {
   });
   const createProduct = async () => {
     let test = validateCreateProduct(product, images);
-    console.log(test);
+    (test);
     if (test == "valid") {
       createProductHandler();
     } else {

@@ -29,7 +29,7 @@ export default function checkout({ cart, user, areas }) {
     } else {
       setSelectedAddress("");
     }
-    console.log(addresses);
+    (addresses);
   }, [addresses]);
 
   const getShipping = async (activeAddress) => {

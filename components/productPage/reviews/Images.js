@@ -8,7 +8,7 @@ export default function Images({ images, setImages }) {
   const inputRef = useRef(null);
   const handleImages = (e) => {
     let files = Array.from(e.target.files);
-    console.log(files);
+  
     files.forEach((img, i) => {
       if (images.length == 3 || i == 2) {
         setError("Maximum 3 images are allowed.");

@@ -34,9 +34,9 @@ handler.post(async (req, res) => {
       }
     } else {
       const userId = req.user;
-      console.log(userId);
+      (userId);
       const store = await Store.findOne({ seller: userId });
-      console.log(store);
+      (store);
       req.body.slug = slugify(req.body.name);
       const newProduct = new Product({
         name: req.body.name,
@@ -63,7 +63,7 @@ handler.post(async (req, res) => {
     }
     db.disconnectDb();
   } catch (error) {
-    console.log(error);
+    (error);
     res.status(500).json({ message: error.message });
   }
 });

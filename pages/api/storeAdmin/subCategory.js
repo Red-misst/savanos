@@ -10,13 +10,13 @@ const handler = nc().use(auth).use(seller);
 handler.get(async (req, res) => {
   try {
     const { category } = req.query;
-    console.log(category);
+    (category);
     if (!category) {
       return res.json([]);
     }
     db.connectDb();
     const results = await SubCategory.find({ parent: category }).select("name");
-    console.log(results);
+    (results);
     db.disconnectDb();
     return res.json(results);
   } catch (error) {

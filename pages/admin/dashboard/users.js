@@ -4,7 +4,7 @@ import User from "../../../models/User";
 import EnhancedTable from "../../../components/admin/users/table";
 
 export default function users({ users }) {
-  console.log(users);
+  (users);
   return (
     <Layout>
       <EnhancedTable rows={users} />

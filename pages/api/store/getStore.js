@@ -12,7 +12,7 @@ handler.get(async (req, res) => {
     await db.disconnectDb()
     res.json(store)
     } catch (error){
-        console.log(error)
+        (error)
         res.status(500).send({message: 'Error in Fetching Store'})
     }
 })

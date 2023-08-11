@@ -13,7 +13,7 @@ handler.get(async (req, res) => {
     const activeAddress = user.address.find(
       (address) => address.active === true
     );
-    // console.log(activeAddress)
+    // (activeAddress)
     let value = activeAddress.area;
 
     let data =

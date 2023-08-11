@@ -9,7 +9,7 @@ const consumer = process.env.MPESA_CLIENT_KEY;
 const authMpesa = Buffer.from(`${consumer}:${secret}`).toString("base64");
 
 const handler = async (req, res, next) => {
-    console.log(authMpesa)
+    (authMpesa)
   try {
     const response = await axios.get(
       "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
@@ -21,11 +21,11 @@ const handler = async (req, res, next) => {
       }
     );
 
-    console.log(response.data);
+    (response.data);
     return res.status(200).json(response.data);
 
   } catch (error) {
-    console.log(error);
+    (error);
     return res.status(500).json({ error: "Failed to retrieve access token" });
   }
 };

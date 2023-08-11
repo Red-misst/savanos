@@ -67,11 +67,11 @@ export default function create({ parents, categories }) {
   const [description_images, setDescription_images] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  // console.log(product);
+  // (product);
   useEffect(() => {
     const getParentData = async () => {
       const { data } = await axios.get(`/api/product/${product.parent}`);
-      // console.log(data);
+      // (data);
       if (data) {
         setProduct({
           ...product,
@@ -95,7 +95,7 @@ export default function create({ parents, categories }) {
           category: product.category,
         },
       });
-      // console.log(data);
+      // (data);
       setSubs(data);
     }
     getSubs();
