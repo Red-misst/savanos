@@ -7,7 +7,7 @@ export default function Size({ size }) {
 
   return (
     <label htmlFor={size} className={styles.filter__sizes_size}>
-      <input autocomplete="off" type="checkbox" name="size" id={size} />
+      <input autoComplete="off" type="checkbox" name="size" id={size} />
       <label htmlFor={size}>{size}</label>
     </label>
   );

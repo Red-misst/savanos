@@ -3,12 +3,12 @@ const connection = {};
 
  async function connectDb() {
   if (connection.isConnected) {
-    ("Using existing connection");
+    console.log("Using existing connection");
   }
   if(mongoose.connections.length){
     connection.isConnected = mongoose.connections[0].readyState;
     if(connection.isConnected === 1){
-      ("Using existing connection");
+      console.log("Using existing connection");
       return;
     }
     await mongoose.disconnect();
@@ -17,7 +17,7 @@ const connection = {};
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-    ("DB Connected");
+    console.log("DB Connected");
     connection.isConnected = db.connections[0].readyState;
 }
 
@@ -27,7 +27,7 @@ const connection = {};
       await mongoose.disconnect();
       connection.isConnected = false;
     } else {
-      ("Not disconnecting");
+      console.log("Not disconnecting");
     }
   }
 }

@@ -22,7 +22,7 @@ export default function Search({ setLoading }) {
     >
       <input
         className={`w-100 ${styles.input}`}
-        autocomplete="off"
+        autoComplete="off"
         type="text"
         placeholder="Search for products"
         onChange={(e) => setQuery(e.target.value)}

@@ -77,6 +77,7 @@ export async function getServerSideProps(context) {
   let store = await Store.findById(product.store).lean();
 
   let subProduct = product.subProducts[style];
+  console.log(subProduct);
   let prices = subProduct.sizes
     .map((s) => {
       return s.price;
