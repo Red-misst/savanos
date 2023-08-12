@@ -25,7 +25,7 @@ export default function Infos({ product, setActiveImg, store }) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { cart } = useSelector((state) => ({ ...state }));
-  // (cart)
+
 
   useEffect(() => {
     dispatch(hideDialog());
@@ -50,10 +50,9 @@ export default function Infos({ product, setActiveImg, store }) {
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${product.style}&size=${router.query.size}`
     );
-    console.log(data);
     if (qty > data.quantity) {
       setError(
-        "The Quantity you have choosed is more than in stock. Try and lower the Qty"
+        "The Quantity you have choosed is more than in stock. Try a lower tyu7777q  Qty"
       );
       setTimeout(() => {
         setError(null);
@@ -170,14 +169,12 @@ export default function Infos({ product, setActiveImg, store }) {
             {product.sizes.map((size, i) => (
               <Link
                 href={`/product/${product.slug}?style=${router.query.style}&size=${i}`}
-                key={size.size} // Added key prop for each mapped element
               >
                 <div
                   className={`${styles.infos__sizes_size} ${
-                    i === Number(router.query.size) && styles.active_size
+                    i == router.query.size && styles.active_size
                   }`}
                   onClick={() => setSize(size.size)}
-                  key={size.size} // Added key prop for each mapped element
                 >
                   {size.size}
                 </div>
